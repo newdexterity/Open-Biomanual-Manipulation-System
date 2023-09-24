@@ -134,6 +134,12 @@ Once the markers are found, you should see the markers published under `\tf` in 
 ## Connecting to Physical Robot
 On the RPi4, once multi-machine ROS is setup, run the following command to start passing the commands from the topics `\leftarm\position_controller\command` and `\rightarm\position_controller\command` over onto the CANbus network where the ODrive boards will try to move to the target positions.
 
-```rosrun```
+```
+rosrun
+```
+
 For faster communications, remember to change the `txqlen` to 1 for the can interface
-```sudo ip ..... ```
+
+```
+sudo ip .....
+```
