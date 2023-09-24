@@ -1,7 +1,7 @@
 # The New Dexterity Open-Source Bimanual Manipulation System
 Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New Dexterity
 
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_arm_main.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_arm_main.jpg" width="800">
 
 # About the Modular Open-Architecture Hybrid-drive (MOAH) Bimanual Arm Hand System
 ## The Mission
@@ -18,12 +18,19 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 * Box style structure for easy access and maintainence
 * Open-Source ODrive Controllers for BLDC motors
 
+## Repository Contents - WIP
+This repository contains the following material:
+
+* Assembly guide and bill of materials - WIP
+* CAD files of the bimanual platform - WIP
+* ROS interface for joint control - WIP
+
 ### Foldable Shoulder
 The foldable shoulder enables re-orientation of the manipulator bases allowing for a larger intersecting bimanual workspace. This also demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientation. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
 
 ### Joint Locking
 A specialized joint locking mechanism is used in both the shoulder and elbow flexion joints, mitigating motor stress during high-load manipulation tasks such as holding extended poses for long periods of time. The ratchet lock systems employed enable the joints to maintain their position with minimal energy expenditure, thereby reducing the overall torque exerted on the motors. 
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_elbow_image.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_elbow_image.jpg" width="800">
 
 ### Low-inertial Manipulators and Experimental Transmissions
 The system incorporates two types of reducer transmission mechanisms that were used to demonstrate the versatility and capability of the platform. One is a directly coupled tendon drive onto the harmonic drive output with a total reduction of approximately 61.17. The other is a simple pulley system routed around central idler wheels for the compactness of a single-joint drive. The pulley system consists of an antagonistic 1:6 reduction pulley set with an output tendon driver reduction of 2.6. The total reduction is approximately 15.6. Both transmission systems use Bowden cables to route the tendons to the elbow joint and are fitted with in-line cable tensioners. The design enables easy exchange or modification of the elbow module without disassembling the shoulder modules and also allows for the replacement of Bowden cable sets through slotted in-line cable tensioners without requiring disassembly of the robot. 
@@ -33,25 +40,25 @@ The system incorporates two types of reducer transmission mechanisms that were u
 The torso and bi-manual upper arm unit were constructed using 3D printed polylactic acid (PLA) high-strength filament parts, which were reinforced with carbon fibre composite plates in regions subjected to high loads. This choice of materials enables rapid prototyping and facilitates easy design modifications via Fused Deposition Modeling (FDM) 3D printing and waterjet cutting. The rigidity of the carbon fibre plates prevents structural deformation of the PLA parts, and the conductive nature provides grounding planes in the chassis. Additionally, certain modules were structurally reinforced using aluminium standoffs, and a machined keyed shaft adapter drove each motor-harmonic drive module.
 
 Here is an overview of the structural parts required for assembling the torso and one of the upper arm unit:
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_parts_full.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_parts_full.jpg" width="800">
 
 ### Torso Base Unit
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_base_cad.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_base_cad.jpg" width="800">
 
 ### Torso Clavicle Unit
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_shoulder_exp.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_shoulder_exp.jpg" width="800">
 
 ### Shoulder Unit
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_cad_shoulder_abd.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_cad_shoulder_abd.jpg" width="800">
 
 ### Shoulder Rotation Unit
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_cad_shoulder_rot.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_cad_shoulder_rot.jpg" width="800">
 
 ### Elbow Unit
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_elbow_cad_explode.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_elbow_cad_explode.jpg" width="800">
 
 ### Forearm Modules
-<img src="https://raw.githubusercontent.com/ccha425/New_Dexterity_Open_Bimanual_System/master/images/readme/moah_forearm_rot_modules.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_forearm_rot_modules.jpg" width="800">
 
 ### Wrist/Hand Modules
 WIP
