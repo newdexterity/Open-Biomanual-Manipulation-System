@@ -1,4 +1,4 @@
-# The New Dexterity Open-Source Bimanual Manipulation System
+# The New Dexterity Open-Source Bimanual Manipulation System for Education and Research
 Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New Dexterity
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_arm_main.jpg" width="800">
