@@ -23,33 +23,32 @@ Please make sure to go through [getting started](https://docs.odriverobotics.com
 ## System Networking
 ### Main Computer (with moah_ws)
 
-`ROS_MASTER = `
-`ROS_IP = `
+```ROS_MASTER =```
+```ROS_IP = ```
 ### RPi4 ROS to CANbus passover
 
-`ROS_MASTER = `
-`ROS_IP = `
+```ROS_MASTER = ```
+```ROS_IP = ```
 
 ## Virtual Interface Usage
 ### On the Main Computer (with moah_ws)
 * ToDo - add a screenshot of the terminator split screen
 First start roscore
-
-`roscore`
+```roscore```
 
 Then run the following command to bring up the visualizer.
-`roslaunch`
+```roslaunch```
 
 If you wish to test the robot model, edit the `view_arm.launch` files and uncomment the GUI controls for slider control of the robot arms
 
 
 To bringup the controllers, run the following
 
-`roslaunch`
+```roslaunch```
 
 To start the motion remapping via functional anthropomorphism, run the following commands to start the controller for each of the arms.
-`roslaunch`
-`roslaunch`
+```roslaunch```
+```roslaunch```
 
 ### Connection to Input Interfaces
 The robot system is designed for the hybrid glove setup with individual controls for the hand and arm. 
@@ -58,28 +57,28 @@ The Captoglove bluetooth interface is setup within a Dockerfile.
 If the Captoglove is not showing blue, (most likely orange or magneta) press and hold the button until an orange light flashes after the light turns off (approx, 9 secs). This should set the captoglove into a white light indicator for it to be in pairing mode.
 
 change your directory to the installed docker folder
-`cd CaptoGloveDocker`
+```cd CaptoGloveDocker```
 start docker
-`./start melodic_11`
+```./start melodic_11```
 make sure dbus connection is successful
 
 #### Connecting Captoglove
-`bluetoothctl`
-`scan on`
+```bluetoothctl```
+```scan on```
 Once the MAC address and captoglove appears, stop the scan and connect to the glove
-`scan off`
-`connect XX:XX:XX:XX:XX`
+```scan off```
+```connect XX:XX:XX:XX:XX```
 Remember to pair the device before exiting bluetoothctl
-`pair`
-`exit`
+```pair```
+```exit```
 
 Now run the captoglove wrapper. The finger flexion positions are published to `\leftservo_recorded` topic
-`roslaunch `
+```roslaunch ```
 
 To start the Polhemus, please use the provided package and run the following command.
 NOTE : For calibration purposes, only turn on the Polhemus machine once the user wearing the sensor is in the initial position. Once the liberty system indication light turns green, run the following command to start the Polhemus system.
 
-`roslaunch`
+```roslaunch```
 
 Once the markers are found, you should see the markers published under `\tf` in RViz
 
@@ -87,6 +86,6 @@ Once the markers are found, you should see the markers published under `\tf` in 
 ## Connecting to Physical Robot
 On the RPi4, once multi-machine ROS is setup, run the following command to start passing the commands from the topics `\leftarm\position_controller\command` and `\rightarm\position_controller\command` over onto the CANbus network where the ODrive boards will try to move to the target positions.
 
-`rosrun`
+```rosrun```
 For faster communications, remember to change the `txqlen` to 1 for the can interface
-`sudo ip ..... `
+```sudo ip ..... ```
