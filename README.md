@@ -85,9 +85,10 @@ The 56V ODrive controllers can operate motors with voltages up to 56V and peak c
 Heatsink only in still air: 40A
 Heatsink with basic fan cooling: 75A
 Heatsink with overkill fan cooling: 90A
-[Details]: https://discourse.odriverobotics.com/t/odrive-mosfet-temperature-rise-measurements-using-the-onboard-thermistor/972
+[Details](https://discourse.odriverobotics.com/t/odrive-mosfet-temperature-rise-measurements-using-the-onboard-thermistor/972)
 
 The base system limits current supply at 10A and voltage at 24V for safety in testing and operation. A higher current and voltage bypass is possible via the optional 48V battery pack. 
-[Details for custom powersources]: https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html
+[Details for custom powersources](https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html)
 
-<p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0)[https://creativecommons.org/licenses/by-nc/2.0/](https://creativecommons.org/licenses/by-nc/2.0/) </p>
+<p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) </p>
+[https://creativecommons.org/licenses/by-nc/2.0/](https://creativecommons.org/licenses/by-nc/2.0/)
