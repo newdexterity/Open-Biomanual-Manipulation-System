@@ -91,4 +91,4 @@ The base system limits current supply at 10A and voltage at 24V for safety in te
 [Details for custom powersources](https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html)
 
 <p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) </p>
-[https://creativecommons.org/licenses/by-nc/2.0/](https://creativecommons.org/licenses/by-nc/2.0/)
+[CC BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/)
