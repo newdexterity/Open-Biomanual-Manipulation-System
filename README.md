@@ -6,27 +6,27 @@ Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New 
 # About the Modular Open-Architecture Hybrid-drive (MOAH) Bimanual Arm Hand System
 ## The Mission
 
-The modular, dexterous, anthropomorphic bimanual manipulation system is a collaborative open source robot manipulator project initiated by the New Dexterity group aimed to provide a low cost research platform for studying bimanual manipulator systems and experimental actuating systems or kinematic configurations. It follows the footsteps of ARoA, a humanoid Autonomous Robotic Assistant.
+The modular, dexterous, anthropomorphic bimanual manipulation system is a collaborative open-source robot manipulator project initiated by the New Dexterity group aimed to provide a low-cost research platform for studying bimanual manipulator systems and experimental actuating systems or kinematic configurations. It follows the footsteps of ARoA, a humanoid Autonomous Robotic Assistant.
 
 ## System Overview
-The system utilizes rapid prototyping technologies such as FDM printing and waterjet cutting to manufacture robust custom parts through carbon fiber plate reinforced 
+The system utilizes rapid prototyping technologies such as FDM printing and waterjet cutting to manufacture robust custom parts through carbon fiber plate-reinforced 
 
-The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-drive manipulators with four axially driven joints and one tendon-driven joint in each arm. A 1:100 reduction harmonic drive from HanZhen Technology was used in each direct axial drive joint, enabling standard connectors between the various modules. The Bowden cable tendon-driven elbows allow the actuating mechanism to be placed away from the joint, reducing the arm's inertial moments. Each upper arm shoulder unit joint is driven by a dual shaft brushless DC (BLDC) motor, the D6374-150KV, from ODrive robotics. The position feedback employs absolute encoders, AMT232B-V from CUI Devices, to provide compact, accurate, and fast position controls. The torso structure was designed to be mounted on a pair of opposing linear rails to access a larger reachable workspace similarly to the variable torso of the New Dexterity ARoA humanoid. 
+The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-drive manipulators with four axially driven joints and one tendon-driven joint in each arm. A 1:100 reduction harmonic drive from HanZhen Technology was used in each direct axial drive joint, enabling standard connectors between the various modules. The Bowden cable tendon-driven elbows allow the actuating mechanism to be placed away from the joint, reducing the arm's inertial moments. Each upper arm shoulder unit joint is driven by a dual shaft brushless DC (BLDC) motor, the D6374-150KV, from ODrive robotics. The position feedback employs absolute encoders, AMT232B-V from CUI Devices, to provide compact, accurate, and fast position controls. The torso structure was designed to be mounted on a pair of opposing linear rails to access a larger reachable workspace similar to the variable torso of the New Dexterity ARoA humanoid. 
 
 * Lightweight and reconfigurable structure
 * Bowden drive joints
-* Box style structure for easy access and maintainence
-* Open-Source ODrive Controllers for BLDC motors
+* Box-style structure for easy access and maintenance
+* Open-source ODrive Controllers for BLDC motors
 
 ## Repository Contents - WIP
 This repository contains the following material:
 
-* Assembly guide and bill of materials - WIP
-* CAD files of the bimanual platform - WIP
-* ROS interface for joint control - WIP
+* Assembly guide and bill of materials - WIP (currently compiling the information needed)
+* CAD files of the bimanual platform - WIP (currently organising filenames and parts into each section)
+* ROS interface for joint control - WIP (on hold, sorting through code)
 
 ### Foldable Shoulder
-The foldable shoulder enables re-orientation of the manipulator bases allowing for a larger intersecting bimanual workspace. This also demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientation. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
+The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This also demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientation. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
 
 ### Joint Locking
 A specialized joint locking mechanism is used in both the shoulder and elbow flexion joints, mitigating motor stress during high-load manipulation tasks such as holding extended poses for long periods of time. The ratchet lock systems employed enable the joints to maintain their position with minimal energy expenditure, thereby reducing the overall torque exerted on the motors. 
@@ -39,7 +39,7 @@ The system incorporates two types of reducer transmission mechanisms that were u
 
 The torso and bi-manual upper arm unit were constructed using 3D printed polylactic acid (PLA) high-strength filament parts, which were reinforced with carbon fibre composite plates in regions subjected to high loads. This choice of materials enables rapid prototyping and facilitates easy design modifications via Fused Deposition Modeling (FDM) 3D printing and waterjet cutting. The rigidity of the carbon fibre plates prevents structural deformation of the PLA parts, and the conductive nature provides grounding planes in the chassis. Additionally, certain modules were structurally reinforced using aluminium standoffs, and a machined keyed shaft adapter drove each motor-harmonic drive module.
 
-Here is an overview of the structural parts required for assembling the torso and one of the upper arm unit:
+Here is an overview of the structural parts required for assembling the torso and one of the upper arm units:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_parts_full.jpg" width="800">
 
 ### Torso Base Unit
