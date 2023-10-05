@@ -1,11 +1,19 @@
-# 3D Models
+# Base Stand
 
-The provided file format for the parts in STEP and STL.
-Additional pre-arranged plate pdf files are also available for carbon fibre parts.
-Some of the commercially available, off-the-shelf parts have simplified geometries for rendering.
+The base stand is a simple structure for mounting the bimanual system on a mobile frame. 
+The stand is mainly constructed from 40 X 40 mm Aluminium Extrusions, and a more sturdy version can be applied using 40 X 80 Aluminium Extrusions.
 
-# File Structure
+## Connectors
 
-The assembled step file can be found in open_bmp_asm.7z.
-Each of the submodules has their own folder.
-The pre-arranged PDF for waterjet cutting of the carbon fibre and stl parts can be found in the ready-to-print folder
+The connectors can be custom-made using 4mm aluminium plates or manufactured from L-shaped brackets. Ideally, a fastening system for the 40 X 40 extrusion would be used.
+Alternatively, the rig can be made of 44 by 44 mm or 45 by 45 aluminium extrusions by modifying the lengths. Just be sure to use the correct brackets for each system.
+The original stand was built using a mix of 40x40 and 44x44 extrusions.
+
+## Castor Wheels
+
+The castor wheels should be low profile. The original stand had a wheel height or base clearance with the floor of 63 mm with wheels from an old trolley. 
+Stem, bracket, and plate mounts can be easily attached to the aluminium extrusion base. Having foot pedal for braking is a plus.
+An alternative is to checkout RS or McMaster Carr for castor wheels with similar heights and a weight rating of at least 50 kg (for a total of 200 kg capacity).
+https://nz.rs-online.com/web/p/castor-wheels/1253752
+https://www.mcmaster.com/2834T23/
+https://www.mcmaster.com/78155T62/
