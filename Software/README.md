@@ -3,14 +3,14 @@ a pre-configured ISO for the RPi4. Steps for custom configurations such as boot-
 
 # moah_ws
 
-Example ROS interface to control the bimanual manupulator system.
+Example ROS interface to control the bimanual manipulator system. Modular, Open-source Arm Hand (MOAH) system was the old project name.
 
 ## Dependencies
 
 
 # CaptoGloveDocker
 
-The bluetooth communication is setup within a docker and can be installed follwing the steps listed below :
+The Bluetooth communication is set within a docker and can be installed following the steps listed below :
 
 * WIP
 
@@ -30,7 +30,7 @@ ROS_MASTER =
 ```
 ROS_IP =
  ```
-### RPi4 ROS to CANbus passover
+### RPi4 ROS to CANbus Passover
 
 ```ROS_MASTER = ```
 ```ROS_IP = ```
@@ -38,13 +38,13 @@ ROS_IP =
 ## Virtual Interface Usage
 ### On the Main Computer (with moah_ws)
 * ToDo - add a screenshot of the terminator split screen
-First start roscore
+First start rescore
 
 ```
 roscore
 ```
 
-Then run the following command to bring up the visualizer.
+Then, run the following command to bring up the visualizer.
 
 ```
 roslaunch
