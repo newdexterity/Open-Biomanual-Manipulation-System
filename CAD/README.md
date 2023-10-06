@@ -1,6 +1,6 @@
 # 3D Models
 
-The provided file format for the parts in STEP and STL.
+The provided file format for the parts in STEP.
 Some of the commercially available, off-the-shelf parts have simplified geometries for rendering.
 
 # File Structure
