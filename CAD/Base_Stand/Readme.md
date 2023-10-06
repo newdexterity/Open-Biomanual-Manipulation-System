@@ -1,5 +1,7 @@
 # Base Stand
 
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/OBMP-BA-H-1000.jpg" width="800">
+
 The base stand is a simple structure for mounting the bimanual system on a mobile frame. 
 The stand is mainly constructed from 40 X 40 mm Aluminium Extrusions, and a more sturdy version can be applied using 40 X 80 Aluminium Extrusions.
 
