@@ -5,5 +5,5 @@ Some of the commercially available, off-the-shelf parts have simplified geometri
 
 # File Structure
 
-The assembled step file can be found in open_bmp_asm.7z. The current version is a place holder without proper part renaming. Each of the submodules has their own folder.
+The assembled step file can be found in open_bmp_asm.7z. The current version is a place holder with the old part naming system. Each of the submodules has their own folder.
 
