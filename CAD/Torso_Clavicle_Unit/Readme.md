@@ -1,4 +1,4 @@
-# Torso Base
+# Torso Clavicle Unit
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-tb-1000.jpg" width="800">
 
