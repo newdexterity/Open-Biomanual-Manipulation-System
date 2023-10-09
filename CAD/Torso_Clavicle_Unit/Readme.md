@@ -10,11 +10,13 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 
 * 1 X OBMP-TCU-1110
 * 2 X OBMP-TCU-1120
+* 1 X OBMP-TCU-1121
 * 1 X OBMP-TCU-1130
 * 1 X OBMP-TCU-1140
 * 1 X OBMP-TCU-1141
 * 1 X OBMP-TCU-1143
 * 1 X OBMP-TCU-1150
+* 1 X OBMP-TCU-1155 (Alternative sensor stand)
 * 1 X OBMP-TCU-1160
 * 1 X OBMP-TCU-1161
 * 1 X OBMP-TCU-1170
@@ -27,12 +29,13 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 ### 5 mm thick
 
 * 1 X OBMP-TCU-P5-1171
+* 2 X OBMP-TCU-P5-1185 (locking ring)
 
 ### 3 mm thick
 
 * 1 X OBMP-TCU-P3-1151
 * 1 X OBMP-TCU-P3-1184
-* 2 X OBMP-TCU-P3-1185 (locking ring)
+* 8 X OBMP-TCU-P3-1188
 * 2 X OBMP-TCU-P3-1163 (optional side panels
 
 ### 2 mm thick
@@ -42,17 +45,21 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 ## Mechanical parts
 
 * 2 X OBMP-TCU-1190 (Machined motor coupler)
-* 2 X XB3-B-60-100 Harmonic Drive
+* 2 X XB3-B-60-100 Harmonic drive
 * 2 X 6x6x20 mm Machine key
 * 2 X M5X51 mm Aluminium standoff
+* 1 X ASL140-085 Aluminium bearing
 * 1 X SKF 51110 thrust bearing
 * 3 X 6806ZZ bearing
-
-
+* 4 X M6X32 mm dowel pins (or longer)
 * 4 X M2X40 mm screw (or longer)
-* 16 X M8 Nuts
-* 16 X M8 Washers
-* 20 X M6 Nuts (go on the inside of the plates)
+* 7 X M6X20 mm Hex screws
+* 14 X M5X16 mm Hex screws
+* ??
+* ?? X M6 Nuts
+* ?? X M5 Nuts
+* ?? X M4 Nuts
+
 * 10 X M4 Bolts (support alignment bolts for holding the plates in place)
 * 10 X M4 Nuts
 
@@ -63,11 +70,23 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 
 
 # Parts Needed (Right arm)
+## 3D Printed
 
-
-
-
-
+* 1 X OBMP-TCU-1110
+* 2 X OBMP-TCU-1120
+* 1 X OBMP-TCU-1121 (mirrored)
+* 1 X OBMP-TCU-1130
+* 1 X OBMP-TCU-1140
+* 1 X OBMP-TCU-1141
+* 1 X OBMP-TCU-1143
+* 1 X OBMP-TCU-1150
+* 1 X OBMP-TCU-1160
+* 1 X OBMP-TCU-1161
+* 1 X OBMP-TCU-1170
+* 1 X OBMP-TCU-1180
+* 1 X OBMP-TCU-1183
+* 2 X OBMP-TCU-1185
+* 4 X OBMP-TCU-1189
 
 # Notes
 ## Motor Spacer (obmp-tcu-1143)
