@@ -30,3 +30,7 @@ The ratchets can be assembled using obmp-tcu-1189 and two pieces of obmp-tcu-p3-
 ## Absolute output sensing (obmp-tcu-1149)
 
 The part obmp-tcu-1149 is designed for direct joint angle sensing for the shoulder rotation axis. This is an optional part as the current system relies on the low backlash harmonic drives to perform correctly.
+
+## ToDo
+
+Update obmp-tcu-1160 to have 3mm carbon plates
