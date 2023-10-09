@@ -22,5 +22,9 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 10 X M4 Nuts
 
 # Notes
-## Ratchets
+## Ratchets (obmp-tcu-1181 & obmp-tcu-1182)
+
+obmp-tcu-1182 is the mirrored version of obmp-tcu-1181, when building, the mirrored parts can be made by changing the install orientation of the M2 screw.
+The ratchets can be assembled using obmp-tcu-1189 and two pieces of obmp-tcu-p3-1188. The lever arm is made of a M2x40 mm screw.
+
 
