@@ -22,6 +22,10 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 10 X M4 Nuts
 
 # Notes
+## Motor Spacer (obmp-tcu-1143)
+
+This part requires heat inserts for reliable connection of the plates. Alternatively, a slot could be cut for inserting a nut instead.
+
 ## Ratchets (obmp-tcu-1181 & obmp-tcu-1182)
 
 obmp-tcu-1182 is the mirrored version of obmp-tcu-1181, when building, the mirrored parts can be made by changing the install orientation of the M2 screw.
