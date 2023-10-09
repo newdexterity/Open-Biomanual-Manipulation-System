@@ -27,6 +27,11 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 obmp-tcu-1182 is the mirrored version of obmp-tcu-1181, when building, the mirrored parts can be made by changing the install orientation of the M2 screw.
 The ratchets can be assembled using obmp-tcu-1189 and two pieces of obmp-tcu-p3-1188. The lever arm is made of a M2x40 mm screw.
 
+## Machined part (obmp-tcu-1190)
+
+The motor-harmonic drive coupler using the 6x6 mm square key and the stock 3 mm key that comes with the D6374-150KV motor can be subjected to very high torsional forces.
+Hence, it is required to be one of the few parts that needs to be properly machined out of steel. The original parts were machined out of 316 stainless steel. A workshop-ready part drawing is provided.
+
 ## Absolute output sensing (obmp-tcu-1149)
 
 The part obmp-tcu-1149 is designed for direct joint angle sensing for the shoulder rotation axis. This is an optional part as the current system relies on the low backlash harmonic drives to perform correctly.
