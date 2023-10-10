@@ -22,7 +22,7 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 This repository contains the following material:
 
 * Assembly guide and bill of materials - WIP (currently compiling the information needed)
-* CAD files of the bimanual platform - WIP (currently organising filenames and parts into each section)
+* CAD files of the bimanual platform - WIP (organising elbow and forearm)
 * ROS interface for joint control - WIP (on hold, sorting through code)
 
 ### Foldable Shoulder
