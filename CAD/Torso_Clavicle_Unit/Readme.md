@@ -45,7 +45,7 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 
 ## Mechanical parts
 
-* 2 X OBMP-TCU-1190 (Machined motor coupler)
+* 2 X OBMP-MOTOR-COUPLER (Machined motor coupler)
 * 2 X XB3-B-60-100 Harmonic drive
 * 2 X 6x6x20 mm Machine key
 * 2 X M5X51 mm Aluminium standoff
