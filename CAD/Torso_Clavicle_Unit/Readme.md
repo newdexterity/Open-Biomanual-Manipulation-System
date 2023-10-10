@@ -23,6 +23,7 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 1 X OBMP-TCU-1180
 * 1 X OBMP-TCU-1183
 * 2 X OBMP-TCU-1185 (locking ring)
+* 1 X OBMP-TCU-1186 (flexion arm mounting)
 * 4 X OBMP-TCU-1189 (ratchet core)
 
 ## Carbon Fiber Sheets
