@@ -1,6 +1,5 @@
 # Torso Clavicle Unit
 
-<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-tcu-1100.jpg" width="800">
 
 The torso clavicle unit houses two motors responsible for shoulder bending and shoulder flexion. The clavicle arms can be reinforced with carbon fibre plates to prevent plastic buckling.
 The unit also comes with a detachable shoulder flexion mounting unit. The flexion mounting also has a tendon-driven locking ratchet mechanism which can be made from sandwiched parts.
