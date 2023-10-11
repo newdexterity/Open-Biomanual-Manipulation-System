@@ -1,6 +1,6 @@
 # Forearm Adaptors
 
-<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_forearm_rot_modules.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-fam.jpg" width="800">
 
 
 # Parts Needed (left arm)
