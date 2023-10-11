@@ -1,39 +1,19 @@
-# Torso Clavicle Unit
+# Elbow Structure
 
-<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-tcu-1100.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-elb-1300.jpg" width="800">
 
-The torso clavicle unit houses two motors responsible for shoulder bending and shoulder flexion. The clavicle arms can be reinforced with carbon fiber plates to prevent plastic buckling.
-The unit also comes with a detachable shoulder flexion mounting unit. The flexion mounting also has tendon-driven locking ratchet mechanism which can be made from sandwhiched parts.
+Thergebsbrbetts.
 
 # Parts Needed (left arm)
 ## 3D Printed
 
-* 1 X OBMP-TCU-1110
-* 2 X OBMP-TCU-1120
-* 1 X OBMP-TCU-1130
-* 1 X OBMP-TCU-1140
-* 1 X OBMP-TCU-1141
-* 1 X OBMP-TCU-1143
-* 1 X OBMP-TCU-1150
-* 1 X OBMP-TCU-1160
-* 1 X OBMP-TCU-1161
-* 1 X OBMP-TCU-1170
-* 1 X OBMP-TCU-1180
-* 1 X OBMP-TCU-1183
-* 2 X OBMP-TCU-1185 (locking ring)
-* 4 X OBMP-TCU-1189 (ratchet core)
+* 1 X OBMP-ELB-1310
 
 ## Carbon Fiber Sheets
-### 5 mm thick
-
-* 1 X OBMP-TCU-P5-1171
 
 ### 3 mm thick
 
 * 1 X OBMP-TCU-P3-1151
-* 1 X OBMP-TCU-P3-1184
-* 2 X OBMP-TCU-P3-1185 (locking ring)
-* 2 X OBMP-TCU-P3-1163 (optional side panels
 
 ### 2 mm thick
 
@@ -58,16 +38,9 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 
 ## Motors and Sensors
 
-* 2 X D6374-150KV
-* 2 X CUI AMT232V (can swap for other compatible AMT sensors)
-
+None.
 
 # Parts Needed (Right arm)
-
-
-
-
-
 
 # Notes
 
