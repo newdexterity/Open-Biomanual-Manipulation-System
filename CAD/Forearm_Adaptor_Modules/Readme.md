@@ -1,43 +1,10 @@
-# Torso Clavicle Unit
+# Forearm Adaptors
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-tcu-1100.jpg" width="800">
 
-The torso clavicle unit houses two motors responsible for shoulder bending and shoulder flexion. The clavicle arms can be reinforced with carbon fiber plates to prevent plastic buckling.
-The unit also comes with a detachable shoulder flexion mounting unit. The flexion mounting also has tendon-driven locking ratchet mechanism which can be made from sandwhiched parts.
 
 # Parts Needed (left arm)
 ## 3D Printed
-
-* 1 X OBMP-TCU-1110
-* 2 X OBMP-TCU-1120
-* 1 X OBMP-TCU-1130
-* 1 X OBMP-TCU-1140
-* 1 X OBMP-TCU-1141
-* 1 X OBMP-TCU-1143
-* 1 X OBMP-TCU-1150
-* 1 X OBMP-TCU-1160
-* 1 X OBMP-TCU-1161
-* 1 X OBMP-TCU-1170
-* 1 X OBMP-TCU-1180
-* 1 X OBMP-TCU-1183
-* 2 X OBMP-TCU-1185 (locking ring)
-* 4 X OBMP-TCU-1189 (ratchet core)
-
-## Carbon Fiber Sheets
-### 5 mm thick
-
-* 1 X OBMP-TCU-P5-1171
-
-### 3 mm thick
-
-* 1 X OBMP-TCU-P3-1151
-* 1 X OBMP-TCU-P3-1184
-* 2 X OBMP-TCU-P3-1185 (locking ring)
-* 2 X OBMP-TCU-P3-1163 (optional side panels
-
-### 2 mm thick
-
-* 1 X OBMP-TCU-P3-1162
 
 ## Mechanical parts
 
@@ -49,53 +16,5 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 3 X 6806ZZ bearing
 
 
-* 4 X M2X40 mm screw (or longer)
-* 16 X M8 Nuts
-* 16 X M8 Washers
-* 20 X M6 Nuts (go on the inside of the plates)
-* 10 X M4 Bolts (support alignment bolts for holding the plates in place)
-* 10 X M4 Nuts
-
-## Motors and Sensors
-
-* 2 X D6374-150KV
-* 2 X CUI AMT232V (can swap for other compatible AMT sensors)
-
-
-# Parts Needed (Right arm)
-
-
-
-
-
 
 # Notes
-## Motor Spacer (obmp-tcu-1143)
-
-This part requires heat inserts for reliable connection of the plates. Alternatively, a slot could be cut for inserting a nut instead.
-
-## Ratchets (obmp-tcu-1181 & obmp-tcu-1182)
-
-obmp-tcu-1182 is the mirrored version of obmp-tcu-1181. When building, the mirrored parts can be made by changing the install orientation of the M2 screw.
-The ratchets can be assembled using obmp-tcu-1189 and two pieces of obmp-tcu-p3-1188. The lever arm is made of a M2x40 mm screw.
-
-## Machined part (obmp-tcu-1190)
-
-The motor-harmonic drive coupler using the 6x6 mm square key and the stock 3 mm key that comes with the D6374-150KV motor can be subjected to very high torsional forces.
-Hence, it is required to be one of the few parts that needs to be properly machined out of steel. The original parts were machined out of 316 stainless steel. A workshop-ready part drawing is provided.
-
-## Alternative Sensor Mounting (obmp-tcu-1150)
-
-Instead of the two piece mount, a fully 3d printed version can be used instead (obmp-tcu-1155)
-
-## Absolute Output Sensing (obmp-tcu-1149)
-
-The part obmp-tcu-1149 is designed for direct joint angle sensing for the shoulder rotation axis. This is an optional part as the current system relies on the low backlash harmonic drives to perform correctly.
-
-## Odrive Mounting Plate (obmp-tcu-1121)
-
-Remember to mirror this part for the opposite arm
-
-## ToDo
-
-Update obmp-tcu-1160 to have 3mm carbon plates
