@@ -1,6 +1,6 @@
-# Elbow Transmission Unit (Top Back Mount)
+# Elbow Pulley Transmission Unit (Bottom Back Mount)
 
-<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-btu-1500.jpg" width="800">
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-btp-1600.jpg" width="800">
 
 # Parts Needed (left arm)
 ## 3D Printed
