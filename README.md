@@ -21,9 +21,9 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 ## Repository Contents - WIP
 This repository contains the following material:
 
-* Assembly guide and bill of materials - WIP (currently compiling the information needed)
-* CAD files of the bimanual platform - WIP (organising elbow and forearm)
-* ROS interface for joint control - WIP (on hold, sorting through code)
+* Assembly guide and bill of materials - WIP (no ETC)
+* CAD files of the bimanual platform - WIP (Cleaning up Readme files)
+* ROS interface for joint control - WIP (Sorting through code)
 
 ### Foldable Shoulder
 The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This also demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientation. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
