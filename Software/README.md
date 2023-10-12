@@ -1,9 +1,10 @@
-# ISO image for RPi4
-a pre-configured ISO for the RPi4. Steps for custom configurations such as boot-previlages, network settings, SPI settings, and setup of the RPI4 is currently a WIP.
+# RIS for RPi4
+Please follow the link to install ROS-noetic on RPi4. Steps for custom configurations such as boot-previlages, network settings, SPI settings, and setup of the RPI4 is currently a WIP.
 
 # moah_ws
 
 Example ROS interface to control the bimanual manipulator system. Modular, Open-source Arm Hand (MOAH) system was the old project name.
+This includes the simulation and operation of the robot in rViz.
 
 ## Dependencies
 
@@ -16,11 +17,16 @@ The Bluetooth communication is set within a docker and can be installed followin
 
 ## Setting Up ODrive Controllers
 Please make sure to go through [getting started](https://docs.odriverobotics.com/v/0.5.6/getting-started.html) page for setting up and tuning the ODrive motors
+A set of basic initial settings is avaliable for the ODrives
 
 ### Setting commands and motor numbering
 
 
 ## System Networking
+
+You will need some ethernet cables, a router, a computer (our case was the NUC7), and a RPi4. 
+
+
 ### Main Computer (with moah_ws)
 
 ```
