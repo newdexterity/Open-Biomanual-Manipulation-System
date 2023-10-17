@@ -1,0 +1,107 @@
+controller_list:
+  - name: moa_left/pos_joint_traj_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - left_shoulder_ref_frame_joint
+      - left_shoulder_1_flex_exte
+      - left_shoulder_2_abdu_addu
+      - left_shoulder_3_rotation
+      - left_elbow_4_flex_exte
+      - left_7_prona_supin
+      - left_wrist_6_flex_exte
+      - left_wrist_5_abdu_addu
+    gains:
+      left_shoulder_ref_frame_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_shoulder_1_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_shoulder_2_abdu_addu:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_shoulder_3_rotation:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_elbow_4_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_7_prona_supin:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_wrist_6_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_wrist_5_abdu_addu:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+  - name: moa_right/pos_joint_traj_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - right_shoulder_ref_frame_joint
+      - right_shoulder_1_flex_exte
+      - right_shoulder_2_abdu_addu
+      - right_shoulder_3_rotation
+      - right_elbow_4_flex_exte
+      - right_7_prona_supin
+      - right_wrist_6_flex_exte
+      - right_wrist_5_abdu_addu
+    gains:
+      right_shoulder_ref_frame_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_shoulder_1_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_shoulder_2_abdu_addu:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_shoulder_3_rotation:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_elbow_4_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_7_prona_supin:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_wrist_6_flex_exte:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_wrist_5_abdu_addu:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1

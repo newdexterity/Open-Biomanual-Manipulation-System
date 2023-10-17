@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+
+import numpy as np
+import rospy
+import cv2
+import cv2.aruco as aruco
+from cv_bridge import CvBridge, CvBridgeError
+from sensor_msgs.msg import Image
+from sensor_msgs.msg import CameraInfo
+import tf
+from tf.transformations import quaternion_about_axis
+
+
+class ArucoTracker(object):
+
+    def __init__(self):
+
+        # Variables
+        self.camera_matrix = None
+        self.distortion_coefficients = None
+
+        # Parameters
+        self.camera_frame = rospy.get_param("~camera_frame")
+        self.prefix = rospy.get_param("~marker_prefix")
+        self.marker_size = float(rospy.get_param("~marker_size"))
+        self.max_marker_id = int(rospy.get_param("~max_marker_id"))
+
+        # Define aruco parameters
+        self.aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
+        self.parameters = aruco.DetectorParameters_create()
+
+        # Define Image subscriber
+        self.bridge = CvBridge()
+        self.image_sub = rospy.Subscriber("image", Image, self.callback_image)
+
+        # Define detected image publisher
+        self.image_pub = rospy.Publisher("aruco_tracker", Image, queue_size=1)
+
+        # Define CameraInfo subscriber
+        rospy.Subscriber("camera_info", CameraInfo, self.callback_camerainfo)
+
+        # Initialise tf broadcaster
+        self.tf_broadcaster = tf.TransformBroadcaster()
+
+    def callback_camerainfo(self, msg):
+        # Reshape vector into matrix
+        self.camera_matrix = np.reshape(msg.K, (3, 3))
+        self.distortion_coefficients = np.array(msg.D)
+
+    def callback_image(self, data):
+        # Get image
+        try:
+            frame = self.bridge.imgmsg_to_cv2(data, "bgr8")
+        except CvBridgeError as e:
+            print(e)
+            return
+
+        # Convert frame to grayscale
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        # Detect markers
+        corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, self.aruco_dict, parameters=self.parameters)
+
+        # Estimate marker poses
+        rvecs, tvecs = aruco.estimatePoseSingleMarkers(corners, self.marker_size, self.camera_matrix, self.distortion_coefficients)
+
+        # Draw marker axes
+        if ids is not None:
+            for aruco_id, rvec, tvec in zip(ids, rvecs, tvecs):
+                if aruco_id[0] < self.max_marker_id:
+                    # Draw axes
+                    aruco.drawAxis(frame, self.camera_matrix, self.distortion_coefficients,
+                                   rvec, tvec, self.marker_size/2)
+
+                    # Convert from Rodrigues compact angle-axis representation to quaternion
+                    angle = np.linalg.norm(rvec[0])
+                    axis = rvec / angle
+                    # print(np.dot(axis, (0, 0, 1)))
+                    rot = quaternion_about_axis(angle, axis)
+
+                    # Send transform
+                    self.tf_broadcaster.sendTransform(tuple(tvec[0]), rot,
+                                                      rospy.Time.now(),
+                                                      self.prefix + str(aruco_id[0]),
+                                                      self.camera_frame)
+
+        try:
+            self.image_pub.publish(self.bridge.cv2_to_imgmsg(frame, "bgr8"))
+        except CvBridgeError as e:
+            print(e)
+
+    def run(self):
+        rospy.spin()
+
+
+def shutdown():
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    # Initialise node
+    rospy.init_node('aruco_tracker', anonymous=False)
+    # Start tracker
+    c = ArucoTracker()
+    rospy.on_shutdown(shutdown)
+    c.run()

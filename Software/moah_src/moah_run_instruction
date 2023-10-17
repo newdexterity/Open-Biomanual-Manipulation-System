@@ -1,0 +1,48 @@
+1. Load urdf and open RVIZ: roslaunch moa_description view_arm.launch
+2. load driver: roslaunch moa_bringup moa_bringup.launch
+3. Right arm tracking: roslaunch moa_servoing moa_right_track_pose.launch
+4. Left arm tracking: roslaunch moa_servoing moa_left_track_pose.launch
+5. Remap and compile topics to output topics: roslaunch polhemus_glove playback_start.launch
+6. Connect to the rosserial esp32: roslaunch polhemus_glove serial_node_both.launch
+
+
+For captoglove
+* make sure config_left.ini and config_right.ini have the correct MAC and settings
+* make sure dbus is connected in docker
+
+cd CaptoGloveDocker
+./start melodic_11
+
+non-network local connections being added to access control list
+Using 'aroa' as username, with UID=1000 and GUID=1000
+Mouting host folder '/home/aroa/CaptoGloveDocker/Melodic_11_Projects/' to '/home/aroa/' in the container
+Using 'docker' to run container
+ * Starting system message bus dbus         [ OK ] 
+ * Stopping bluetooth                       [ OK ] 
+ * Starting bluetooth                       [ OK ] 
+root@ARoA-NUC:/home/developer# 
+
+
+bluetoothctl
+scan on
+scan off
+connect MAC_ADDR
+pair
+exit
+
+roslaunch captoglove_ros_wrapper captoglove_ros_wrapper.launch
+
+
+
+comment out in view_arm.launch
+
+<node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui">
+    <param name="rate" type="int" value="50" />
+  </node> 
+
+for going into joint gui mode
+
+
+note:
+ros-noetic-nlopt libnlopt-cxx0 libnlopt-cxx-dev
+

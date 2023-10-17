@@ -1,0 +1,148 @@
+#!/usr/bin/env python
+
+import rospy
+import numpy as np
+from ndx_util.NdxArm import NdxArm
+from tf.transformations import euler_from_matrix, euler_matrix
+from ndx_util.tf_util import get_pose, tarray_to_tmsg
+from tf2_ros import Buffer, TransformBroadcaster, TransformListener
+
+# For testing
+import threading
+
+from sensor_msgs.msg import JointState
+
+
+# Tests linear movement
+def test_linear_movement():
+    tf_broad = TransformBroadcaster()
+    rate = rospy.Rate(50)
+    cur_pos = np.eye(4)
+    move_vectors = [
+        np.array([1, 0, 0]),
+        np.array([0, 1, 0]),
+        np.array([0, 0, 1]),
+    ]
+    spd = 0.001
+    curr_dir = 0
+    counter = 0
+    max_counter = 500
+    while not rospy.is_shutdown():
+        cur_pos[:3, 3] += spd * move_vectors[curr_dir]
+        if counter > max_counter:
+            if spd < 0:
+                # Target moving back, so we change dir
+                curr_dir += 1
+                if curr_dir >= len(move_vectors):
+                    curr_dir = 0
+            spd *= -1
+            counter = 0
+        else:
+            counter += 1
+        tf_broad.sendTransform(tarray_to_tmsg(cur_pos, "world", "test_pose"))
+        rate.sleep()
+
+
+# Tests angular movement
+def test_angular_movement():
+    tf_broad = TransformBroadcaster()
+    rate = rospy.Rate(50)
+    cur_angles = [0, 0, 0]
+    cur_pos = np.eye(4)
+    spd = np.pi / 500
+    curr_axis = 0
+    counter = 0
+    max_counter = 500
+    while not rospy.is_shutdown():
+        cur_angles[curr_axis] += spd
+        if counter > max_counter:
+            if spd < 0:
+                # Target moving back, so we change dir
+                curr_axis += 1
+                if curr_axis >= len(cur_angles):
+                    curr_axis = 0
+            spd *= -1
+            counter = 0
+        else:
+            counter += 1
+        tf_broad.sendTransform(
+            tarray_to_tmsg(euler_matrix(*cur_angles), "world", "test_pose")
+        )
+        rate.sleep()
+
+
+if __name__ == "__main__":
+    # Initialise node
+    rospy.init_node("tf2js", anonymous=False)
+    tf_buffer = Buffer()
+    tf_listener = TransformListener(tf_buffer)
+
+    # Parameters
+    joint_translation = {
+        "x": "",
+        "y": "",
+        "z": "",
+        "yaw": "",
+        "pitch": "",
+        "roll": "",
+    }
+    joint_translation["x"] = rospy.get_param("~x")
+    joint_translation["y"] = rospy.get_param("~y")
+    joint_translation["z"] = rospy.get_param("~z")
+    joint_translation["yaw"] = rospy.get_param("~yaw")
+    joint_translation["pitch"] = rospy.get_param("~pitch")
+    joint_translation["roll"] = rospy.get_param("~roll")
+    js_topic = rospy.get_param("~joint_state_topic")
+    target_tf = rospy.get_param("~frame_to_analyze")
+    ref_frame = rospy.get_param("~reference_frame")
+
+    js_pub = rospy.Publisher(js_topic, JointState, queue_size=1)
+
+    # x = threading.Thread(target=test_linear_movement)
+    # x = threading.Thread(target=test_angular_movement)
+    # x.start()
+    rate = rospy.Rate(50)
+    js = JointState()
+    js.name.append(joint_translation["x"])
+    js.position.append(0)
+    js.name.append(joint_translation["y"])
+    js.position.append(0)
+    js.name.append(joint_translation["z"])
+    js.position.append(0)
+    js.name.append(joint_translation["yaw"])
+    js.position.append(0)
+    js.name.append(joint_translation["pitch"])
+    js.position.append(0)
+    js.name.append(joint_translation["roll"])
+    js.position.append(0)
+    try:
+        while not rospy.is_shutdown():
+            H, p, q, _ = get_pose(
+                tf_buffer,
+                ref_frame,
+                target_tf,
+                rospy.Time(0),
+                0,
+                supress_error_msg=True,
+            )
+            if p is not None:
+                euler = euler_from_matrix(H)
+                js.header.stamp = rospy.Time.now()
+                # X
+                js.position[0] = p[0]
+                # Y
+                js.position[1] = p[1]
+                # Z
+                js.position[2] = p[2]
+                # Yaw
+                js.position[3] = euler[2]
+                # Pitch
+                js.position[4] = euler[1]
+                # Roll
+                js.position[5] = euler[0]
+                js_pub.publish(js)
+            rate.sleep()
+    except KeyboardInterrupt:
+        rospy.loginfo("Shutting down trajectory_filter node")
+        rospy.signal_shutdown("User terminated program")
+    # x.join()

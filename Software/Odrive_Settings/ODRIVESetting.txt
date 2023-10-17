@@ -1,0 +1,258 @@
+sudo odrivetool dfu
+//switch on odrive board to dfu, back to run once flashed
+
+odrv0.axis0.motor.config.calibration_current = 20
+odrv0.axis0.motor.config.current_lim = 20
+odrv0.axis0.motor.config.pole_pairs = 7
+odrv0.axis0.motor.config.torque_constant = 0.055133333333333333
+odrv0.axis0.controller.config.vel_limit = 10
+#turn/s
+
+
+odrv0.axis1.motor.config.calibration_current = 20
+10
+odrv0.axis1.controller.config.vel_limit = 10
+2
+odrv0.axis1.motor.config.current_lim = 30
+10
+odrv0.axis1.motor.config.pole_pairs = 7
+odrv0.axis1.motor.config.torque_constant = 0.055133333333333333
+
+odrv0.config.enable_brake_resistor = True
+odrv0.config.brake_resistance = 2.0
+
+odrv0.axis0.encoder.config.mode = 256
+odrv0.axis0.encoder.config.cpr = 2**14
+odrv0.axis0.encoder.config.abs_spi_cs_gpio_pin = 1
+
+odrv0.axis1.encoder.config.mode = 256
+0
+odrv0.axis1.encoder.config.cpr = 2**14
+8192
+odrv0.axis1.encoder.config.abs_spi_cs_gpio_pin = 4
+1
+
+odrv0.save_configuration()
+odrv0.reboot()
+
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+
+odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+
+odrv0.axis0.controller.input_pos = 0
+odrv0.axis1.controller.input_pos = 0
+
+odrv0.axis0.controller.input_pos = 5
+odrv0.axis1.controller.input_pos = 5
+
+start_liveplotter(lambda: [odrv0.axis0.encoder.pos_abs])
+start_liveplotter(lambda: [odrv0.axis1.encoder.pos_abs])
+
+start_liveplotter(lambda: [odrv0.axis0.encoder.spi_error_rate,odrv0.axis0.encoder.pos_abs])
+
+start_liveplotter(lambda: [odrv0.axis0.motor.I_bus, odrv0.axis0.encoder.spi_error_rate])
+
+start_liveplotter(lambda: [odrv0.axis0.encoder.spi_error_rate])
+start_liveplotter(lambda: [odrv0.axis0.encoder.spi_error_rate,odrv0.axis1.encoder.spi_error_rate])
+
+dump_errors(odrv0)
+dump_errors(odrv0, True)
+odrv0.clear_errors()
+
+
+odrv0.axis0.controller.config.input_mode = 1
+
+
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis0.motor.config.pre_calibrated = True
+odrv0.axis1.motor.config.pre_calibrated = True
+
+odrv0.axis0.encoder.config.pre_calibrated = True
+odrv0.axis1.encoder.config.pre_calibrated = True
+
+odrv0.axis0.config.startup_encoder_offset_calibration = True
+odrv0.axis1.config.startup_encoder_offset_calibration = True
+odrv0.axis0.config.startup_closed_loop_control = True
+odrv0.axis1.config.startup_closed_loop_control = True
+odrv0.save_configuration()
+odrv0.reboot()
+
+odrv0.axis0.controller.config.enable_overspeed_error = False
+odrv0.axis1.controller.config.enable_overspeed_error = False
+
+************change can heartbeat message
+odrv0.axis0.requested_state = AXIS_STATE_IDLE
+odrv0.axis1.requested_state = AXIS_STATE_IDLE
+
+odrv0.axis0.config.can.encoder_rate_ms = 0
+odrv0.axis1.config.can.encoder_rate_ms = 0
+odrv0.axis0.config.can.heartbeat_rate_ms = 100
+odrv0.axis1.config.can.heartbeat_rate_ms = 100
+odrv0.save_configuration()
+
+odrv0.axis1.controller.config.input_filter_bandwidth = 100
+# [Hz]
+
+
+odrv0.axis0.controller.config.pos_gain 
+odrv0.axis0.controller.config.vel_gain
+odrv0.axis0.controller.config.vel_integrator_gain
+
+start_liveplotter(lambda:[odrv0.axis0.pos_vel_mapper.pos_rel, odrv0.axis0.controller.pos_setpoint])
+
+R2A0
+odrv0.config.dc_max_negative_current = -2
+odrv0.config.dc_max_positive_current
+odrv0.config.max_regen_current???
+
+odrv0.axis0.motor.config.current_control_bandwidth = 2000
+odrv0.axis0.encoder.config.bandwidth =2000
+
+https://discourse.odriverobotics.com/t/spinout-on-hoverboard-motors/7645/6
+(default 10, change to 50)
+odrv0.axis0.controller.config.spinout_electrical_power_threshold = 50
+odrv0.axis0.controller.config.spinout_mechanical_power_threshold = -50
+
+odrv0.can.config.baud_rate = 1000000
+odrv0.axis0.config.can.node_id = 1
+odrv0.axis1.config.can.node_id = 2
+
+Left arm
+torso : 7
+flex : 8
+abd : 9
+rot : 10 (0xA)
+elbow : 11 (0xB)
+empty : 12
+
+Right arm
+torso : 1
+flex : 2
+abd : 3
+rot : 4
+elbow : 5
+empty : 6
+
+**************************************pulley reducer slow it down*********************
+*******************odrv0.axis0.motor.config.current_control_bandwidth = 500
+odrv0.axis0.controller.config.input_filter_bandwidth = 2.0
+odrv0.axis0.controller.config.input_mode = INPUT_MODE_POS_FILTER
+
+odrv0.config.dc_max_negative_current = -0.001
+
+odrv0.axis0.controller.config.input_filter_bandwidth = 0.5
+odrv0.axis0.controller.config.vel_limit = 25
+odrv0.axis0.trap_traj.config.vel_limit = 20
+
+odrv0.axis0.trap_traj.config.accel_limit = 2
+
+odrv0.axis0.trap_traj.config.decel_limit = 2
+
+odrv0.axis0.controller.config.inertia = <Float>
+odrv0.axis0.motor.config.current_lim = 20
+odrv0.axis0.controller.config.vel_limit = 
+odrv0.axis0.controller.config.input_mode = INPUT_MODE_TRAP_TRAJ
+*********************************************************************************************
+https://discourse.odriverobotics.com/t/encoder-on-a-driven-shaft-not-the-motor/2565/13
+odrv0.axis0.encoder.config.mode = ENCODER_MODE_INCREMENTAL
+odrv0.axis0.encoder.config.cpr = 8192
+odrv0.axis0.encoder.config.calib_scan_distance = 62.8318530718
+odrv0.axis0.encoder.config.calib_scan_distance = 12.566370614
+odrv0.axis0.motor.config.pole_pairs = 700
+
+start_liveplotter(lambda: [odrv0.axis0.encoder.pos_abs])
+start_liveplotter(lambda: [odrv0.axis0.encoder.count_in_cpr])
+******************************************************************************************
+odrv0.axis0.encoder.config.mode = 256
+odrv0.axis0.encoder.config.cpr = 2**14
+odrv0.axis0.encoder.config.abs_spi_cs_gpio_pin = 1
+odrv0.axis0.motor.config.pole_pairs = 700
+
+odrv0.axis0.trap_traj.config.vel_limit = 8
+odrv0.axis0.trap_traj.config.accel_limit =  //0.5 is the maximum acceleration in turns / sec^2
+odrv0.axis0.trap_traj.config.decel_limit =  //0.5 is the maximum deceleration in turns / sec^2
+odrv0.axis0.controller.config.inertia = 
+odrv0.axis0.controller.config.vel_limit = 10
+odrv0.axis0.controller.config.input_mode = INPUT_MODE_TRAP_TRAJ
+
+	odrv0.axis0.controller.config.input_filter_bandwidth = 2.0
+******************************************************************************************
+
+
+
+
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+
+odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+
+odrv0.axis0.requested_state = AXIS_STATE_ENCODER_OFFSET_CALIBRATION
+odrv0.axis1.requested_state = AXIS_STATE_ENCODER_OFFSET_CALIBRATION
+
+odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+odrv0.axis0.controller.input_pos = 0
+
+odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+odrv0.axis1.controller.input_pos = 0
+
+
+odrv0.axis0.controller.input_pos = 0
+odrv0.axis1.controller.input_pos = 0
+
+    <axis>.controller.input_pos = <turn>
+    <axis>.controller.input_vel = <turn/s>
+    <axis>.controller.input_torque = <torque in Nm>
+
+
+odrv0.axis1.motor.config
+pre_calibrated = True (bool)
+pole_pairs = 7 (int)
+calibration_current = 10.0 (float)
+resistance_calib_max_voltage = 10.0 (float)
+phase_inductance = 2.85157e-05 (float)
+phase_resistance = 0.102618 (float)
+direction = -1 (int)
+motor_type = 0 (int)
+current_lim = 40.0 (float)
+current_lim_tolerrance = 1.25 (float)
+inverter_temp_limit_lower = 100.0 (float)
+inverter_temp_limit_upper = 120.0 (float)
+requested_current_range = 40.0 (float)
+current_control_bandwidth = 1000.0 (float)
+
+
+odrv0.axis0.motor.config.resistance_calib_max_voltage = 12.0
+odrv0.axis0.controller.config.vel_limit = 5
+
+
+odrv0.axis1.config.startup_closed_loop_control = True
+odrv0.axis1.config.startup_encoder_offset_calibration = True
+odrv0.axis1.config.startup_motor_calibration = True
+
+
+odrv0.axis1.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
+odrv0.axis1.controller.input_vel = 1
+
+odrv0.axis1.controller.config.control_mode = CONTROL_MODE_TORQUE_CONTROL
+odrv0.axis1.motor.config.torque_constant = 8.23 / 150
+odrv0.axis1.controller.input_torque = 0.1
+
+start_liveplotter(lambda: [odrv0.axis1.encoder.pos_abs])
+start_liveplotter(lambda: [odrv0.axis1.encoder.count_in_cpr])
+
+
+odrv0.save_configuration()
+odrv0.reboot()
+
+https://docs.odriverobotics.com/v/0.5.6/control.html#control-doc
+
+https://docs.odriverobotics.com/v/0.5.5/fibre_types/com_odriverobotics_ODrive.html#ODrive.Encoder.Mode
+https://discourse.odriverobotics.com/t/two-absolute-encoders-to-odrive/5303/2
+
+https://discourse.odriverobotics.com/t/issues-with-amt232b-v-encoder/5944
+
+
+dump_errors(odrv0)
+odrv0.clear_errors()

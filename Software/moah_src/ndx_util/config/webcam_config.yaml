@@ -1,0 +1,6 @@
+# Camera configuration
+camera_num: 2
+frame_width: 1920
+frame_height: 1080
+fps: 30
+cal_file_path: "~/calibration/webcam_cal.yaml"

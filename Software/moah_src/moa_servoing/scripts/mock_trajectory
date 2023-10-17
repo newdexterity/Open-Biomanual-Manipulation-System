@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+import rospy
+import tf2_ros
+import numpy as np
+from geometry_msgs.msg import TransformStamped, Twist, PoseStamped
+from ndx_util.tf_util import (
+    get_pose,
+    quaternion_from_matrix,
+    tmsg_to_posemsg,
+)
+
+
+def main():
+    rospy.init_node("mock_trajectory")
+
+    pub_rate = 1
+    tf_name = "mock_target"
+    tf_parent = "world"
+    robot_ee = "ur5e_A_fingertip"
+    ref_frame = "world"
+    spd_sign_change_time = 1
+    time_to_settle = 5
+    output_ps_topic = "/servo_server/target_pose"
+
+    t = TransformStamped()
+    rate = rospy.Rate(pub_rate)
+    settle_timer = rospy.Rate(1 / time_to_settle)
+
+    tf_buffer = tf2_ros.Buffer()
+    tf_listener = tf2_ros.TransformListener(tf_buffer)
+
+    pub = rospy.Publisher(output_ps_topic, PoseStamped, queue_size=10)
+
+    # rate = rospy.Rate(publish_rate)  # 5Hz
+    br = tf2_ros.TransformBroadcaster()
+
+    spd = np.array([0, 0, 0.05])
+
+    curr_pos, _, _, _ = get_pose(
+        tf_buffer,
+        ref_frame,
+        robot_ee,
+        time=rospy.Time(0),
+        max_wait_time=5,
+        supress_error_msg=False,
+    )
+
+    timer = 0
+    while not rospy.is_shutdown():
+        t.header.stamp = rospy.Time.now()
+        t.header.frame_id = tf_parent
+        t.child_frame_id = tf_name
+
+        q = quaternion_from_matrix(curr_pos)
+
+        curr_pos[0, 3] += spd[0] / pub_rate
+        curr_pos[1, 3] += spd[1] / pub_rate
+        curr_pos[2, 3] += spd[2] / pub_rate
+
+        t.transform.translation.x = curr_pos[0, 3]
+        t.transform.translation.y = curr_pos[1, 3]
+        t.transform.translation.z = curr_pos[2, 3]
+
+        t.transform.rotation.x = q[0]
+        t.transform.rotation.y = q[1]
+        t.transform.rotation.z = q[2]
+        t.transform.rotation.w = q[3]
+        br.sendTransform(t)
+        p_msg = tmsg_to_posemsg(t)
+        p_msg.header.frame_id = tf_parent
+        pub.publish(p_msg)
+
+        rate.sleep()
+        timer += 1 / pub_rate
+        if timer >= spd_sign_change_time:
+            spd *= -1
+            timer = 0
+            settle_timer.sleep()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

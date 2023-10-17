@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>polhemus_ros_driver</name>
+  <version>0.0.1</version>
+  <description>ROS driver for Polhemus Liberty devices broadcasting tf transforms.</description>
+
+  <maintainer email="chris.mower@ed.ac.uk">Chris Mower</maintainer>
+  <maintainer email="v.ivan@ed.ac.uk">Vladimir Ivan</maintainer>
+  <maintainer email="wolfgang.merkt@ed.ac.uk">Wolfgang Merkt</maintainer>
+
+  <license>GPLv3</license> <!-- Original code was GPLv3 -->
+
+  <url type="repository">https://github.com/ipab-slmc/polhemus_ros_driver</url>
+  <url type="bugtracker">https://github.com/ipab-slmc/polhemus_ros_driver/issues</url>
+
+  <author email="yiming.yang@ed.ac.uk">Yiming Yang</author>
+  <author email="chris.mower@ed.ac.uk">Chris Mower</author>
+  <author email="v.ivan@ed.ac.uk">Vladimir Ivan</author>
+  <author email="wolfgang.merkt@ed.ac.uk">Wolfgang Merkt</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>libusb-dev</depend>
+  <depend>fxload</depend>
+</package>

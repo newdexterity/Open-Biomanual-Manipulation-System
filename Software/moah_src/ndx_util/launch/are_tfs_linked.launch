@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="ndx_util" type="are_tfs_linked" name="are_tfs_linked" output="screen">
+    <param name="base_tf" value="right_interface/tracker_base"/>
+    <param name="ref_frame" value="world"/>
+    <param name="tfs_to_check" value="pen/tracker_base"/>
+  </node>
+
+</launch>
+

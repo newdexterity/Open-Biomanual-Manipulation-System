@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="polhemus_ros_driver" type="polhemus_tf_broadcaster" name="polhemus_tf_broadcaster" output="screen"/>
+
+  <!--Set output hemisphere parameters-->
+  <param name="x_hs" value="0" type="double"/>
+  <param name="y_hs" value="0" type="double"/>
+  <param name="z_hs" value="0" type="double"/>
+</launch>

@@ -1,0 +1,10 @@
+reference_frame: map
+refframe2cam_transforms:
+  polhemus_base:
+    rotation_w: -0.010049591293971009
+    rotation_x: 0.5013365329920606
+    rotation_y: 0.8651736252705681
+    rotation_z: 0.0059400789983747445
+    translation_x: 0.08434945707548283
+    translation_y: -0.8713903671815142
+    translation_z: -0.47955828188952143

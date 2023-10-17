@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- Arguments -->
+  <arg name="frame_id" doc="Name of the TF to record" />
+  <arg name="parent_frame_id" doc="Name of the parent TF" />
+  <arg name="rate_hz" default="30" doc="Sampling rate" />
+  <arg name="filename" default="tf_recording.csv" doc="Name of the recording CSV" />
+  <arg name="directory" default="~/data/tf_recordings/" doc="Directory to save the recording to" />
+
+  <!-- Start tf recorder -->
+  <node name="tf_recorder" pkg="ndx_util" type="tf_recorder">
+    <param name="frame_id"       value="$(arg frame_id)"/>
+    <param name="parent_frame_id"      value="$(arg parent_frame_id)" />
+    <param name="rate_hz"        value="$(arg rate_hz)"/>
+    <param name="filename"      value="$(arg filename)"/>
+    <param name="directory"      value="$(arg directory)"/>
+  </node>
+
+</launch>

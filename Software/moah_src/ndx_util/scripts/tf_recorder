@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+
+import time
+import os
+import pandas as pd
+import rospy
+import tf2_ros
+from ndx_util import tf_util
+
+
+class Node(object):
+
+    def __init__(self):
+
+        # Parameters
+        self.frame_id = rospy.get_param("~frame_id")
+        self.parent_frame_id = rospy.get_param("~parent_frame_id")
+        self.rate_hz = int(rospy.get_param("~rate_hz"))
+        self.directory = os.path.expanduser(rospy.get_param("~directory"))
+        self.filename = rospy.get_param("~filename")
+        self.path = os.path.join(self.directory, self.filename)
+
+        # Check if folder exists
+        if not os.path.exists(self.directory):
+            os.makedirs(self.directory)
+
+        # Check if file exists
+        if os.path.isfile(self.path):
+            msg = "File {} already exists.".format(self.path)
+            rospy.logerr(msg)
+            rospy.signal_shutdown(msg)
+
+        # Variables
+        self.csv_data = []
+
+        # Initialise tf listener
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+
+    def store_csv(self):
+        # Create fields
+        fields = ['ts', 'x', 'y', 'z', 'qx', 'qy', 'qz', 'qw']
+
+        # Create pd dataframe
+        df = pd.DataFrame(data=self.csv_data, columns=fields)
+
+        # Save df as csv
+        df.to_csv(self.path)
+        rospy.loginfo("\nWritten data to: ./{}".format(self.path))
+
+    def run(self):
+        # Set Rate
+        rate = rospy.Rate(self.rate_hz)
+
+        # Log tf
+        while not rospy.is_shutdown():
+            # Sleep
+            rate.sleep()
+
+            # Lookup transform
+            try:
+                tf_msg = self.tf_buffer.lookup_transform(self.parent_frame_id, self.frame_id, rospy.Time(0))
+            except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+                rospy.logwarn("Unable to lookup transform from target '{}' to source '{}'"
+                              .format(self.parent_frame_id, self.frame_id))
+                continue
+
+            # Append transform data
+            data_vec = [time.time()]
+            translation = tf_util.tmsg_to_translation(tf_msg)
+            quaternion = tf_util.tmsg_to_quaternion(tf_msg)
+            data_vec.extend(translation)
+            data_vec.extend(quaternion)
+            self.csv_data.append(data_vec)
+
+
+if __name__ == '__main__':
+    rospy.init_node('tf_recorder', anonymous=True)
+    n = Node()
+    rospy.on_shutdown(n.store_csv)
+    n.run()

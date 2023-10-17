@@ -1,0 +1,99 @@
+#! /usr/bin/env python
+import time
+
+import numpy as np
+import rospy
+import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
+from geometry_msgs.msg import TransformStamped
+import tf2_ros
+from ndx_util.tf_util import get_pose
+from ndx_util.tf_util import mean_quaternion
+
+windows = [[] for _ in range(3)]
+windows2 = []
+
+
+def moving_average(translation, orientation, window_size):
+    filter_data = [translation[0], translation[1], translation[2]]
+    filter_quaternion = np.array(
+        [orientation[0], orientation[1], orientation[2], orientation[3]]
+    )
+
+    for i in range(3):
+        window = windows[i]
+        window.append(filter_data[i])
+        if len(window) > window_size:
+            window.pop(0)
+        average = sum(window) / len(window)
+        filter_data[i] = average
+
+    for i in range(1):
+        windows2.append(filter_quaternion)
+        if len(windows2) > window_size:
+            windows2.pop(0)
+        q_average = mean_quaternion(windows2)
+
+    # for i in range(4):
+    #     filter_data.append(q_average[i])
+
+    # return filter_data
+    return filter_data, q_average
+
+
+def main():
+    """
+    Main function to initialize the node, listen to the transform, and publish the filtered data.
+    """
+    rospy.init_node("moving_avg_node")
+    buffer = tf2_ros.Buffer()
+    data_listener = tf2_ros.TransformListener(buffer)
+    pub = tf2_ros.TransformBroadcaster()
+
+    pooling_rate = rospy.get_param("~pooling_rate", 150)
+    source_frame = rospy.get_param("~source_frame")
+    reference_frame = rospy.get_param("~reference_frame")
+    output_frame = rospy.get_param("~output_frame")
+    window_size = rospy.get_param("~window_size", 20)
+
+    rate = rospy.Rate(pooling_rate)
+
+    try:
+        while not rospy.is_shutdown():
+            pose = get_pose(
+                buffer, reference_frame, source_frame, rospy.Time(0), 5.0
+            )
+            if pose[0] is None:
+                rate.sleep()
+                continue
+            translation = pose[1]
+            orientation = pose[2]
+
+            # Apply the moving average filter
+            filtered_translation, filtered_orientation = moving_average(
+                translation, orientation, window_size
+            )
+
+            # Publish the filtered transform
+            t = TransformStamped()
+            t.header.stamp = rospy.Time.now()
+            t.header.frame_id = reference_frame
+            t.child_frame_id = output_frame
+            t.transform.translation.x = filtered_translation[0]
+            t.transform.translation.y = filtered_translation[1]
+            t.transform.translation.z = filtered_translation[2]
+            t.transform.rotation.x = filtered_orientation[0]
+            t.transform.rotation.y = filtered_orientation[1]
+            t.transform.rotation.z = filtered_orientation[2]
+            t.transform.rotation.w = filtered_orientation[3]
+            pub.sendTransform(t)
+            rate.sleep()
+
+    except KeyboardInterrupt:
+        rospy.loginfo("Shutting down trajectory_filter node")
+        rospy.signal_shutdown("User terminated program")
+
+
+if __name__ == "__main__":
+    main()
+    rospy.spin()

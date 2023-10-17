@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<robot name="spherical_joint_macro" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:macro name="spherical_joint" params="parent_link:='' child_link:='output' ns:='' rpy:='0 0 0' xyz:='0 0 0'">
+
+        <link name="${ns}roll_link"/>
+        <link name="${ns}pitch_link"/>
+        <link name="${ns}yaw_link"/>
+        <link name="${ns}${child_link}"/>
+
+        <joint name="${ns}roll_joint" type="revolute">
+            <parent link="${parent_link}"/>
+            <child link="${ns}roll_link"/>
+            <origin rpy="${rpy}" xyz="${xyz}"/>
+            <axis xyz="1 0 0"/>
+            <limit lower="-3.1416" upper="3.1416" effort="10" velocity="10"/>
+        </joint>
+
+        <joint name="${ns}pitch_joint" type="revolute">
+            <parent link="${ns}roll_link"/>
+            <child link="${ns}pitch_link"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <axis xyz="0 1 0"/>
+            <limit lower="-3.1416" upper="3.1416" effort="10" velocity="10"/>
+        </joint>
+
+        <joint name="${ns}yaw_joint" type="revolute">
+            <parent link="${ns}pitch_link"/>
+            <child link="${ns}yaw_link"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <limit lower="-3.1416" upper="3.1416" effort="10" velocity="10"/>
+        </joint>
+
+        <joint name="${ns}output_joint" type="fixed">
+            <parent link="${ns}yaw_link"/>
+            <child link="${ns}${child_link}"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </joint>
+
+        <transmission name="${ns}roll_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${ns}roll_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${ns}roll_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${ns}pitch_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${ns}pitch_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${ns}pitch_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+        
+        <transmission name="${ns}yaw_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${ns}yaw_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${ns}yaw_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+    </xacro:macro>
+
+</robot>

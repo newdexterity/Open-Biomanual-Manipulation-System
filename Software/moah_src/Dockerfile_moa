@@ -1,0 +1,176 @@
+ARG base_ros_img
+
+FROM $base_ros_img
+
+ARG username
+ARG uid
+ARG gid
+ARG locale
+ARG videoid
+ARG audioid
+ARG dialoutid
+ARG realtimeid
+
+# Fix so the user can use the webcam and usb devices
+RUN groupmod -g $videoid video
+RUN groupmod -g $audioid audio
+RUN groupmod -g $dialoutid dialout
+
+RUN groupadd -g $realtimeid realtime
+# Creating user and group into the container and adding it to the sudoers
+RUN useradd -u $uid $username
+RUN groupmod -g $gid $username
+RUN echo $username:$username | chpasswd
+RUN echo $username 'ALL=(ALL) ALL' >> /etc/sudoers
+
+# Adding user to necessary groups
+RUN usermod -a -G video $username
+RUN usermod -a -G audio $username
+RUN usermod -a -G dialout $username
+RUN usermod -a -G realtime $username
+
+# Setting container starting directory
+WORKDIR /home/$username
+
+# Setting bash as the default shell and vim as the default editor
+ENV SHELL /bin/bash
+ENV EDITOR vim
+
+# Localization stuff
+ENV TZ=$locale
+# ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Base packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    terminator \
+    neovim \
+    git \
+    xclip \
+    tmux \
+    wget \
+    unzip \
+    iputils-ping \
+    python-is-python3 \
+    ros-${ROS_DISTRO}-moveit \
+    ros-${ROS_DISTRO}-ros-control* \
+    ros-${ROS_DISTRO}-control* \
+    python3-pip \
+    ros-noetic-ros-numpy \
+    ros-noetic-tf2-sensor-msgs \
+    python3-catkin-tools \    
+    python3-virtualenv \
+    && rm -rf /var/lib/apt/lists/*
+
+# PCL packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-pcl-msgs \
+    libpcl-msgs-dev \
+    libpcl-conversions-dev \
+    python3-pcl \
+    python3-pcl-msgs \
+    ros-${ROS_DISTRO}-rviz-imu-plugin \
+    && rm -rf /var/lib/apt/lists/*
+
+# Navigation
+# RUN apt-get update && apt-get install -y \    
+#     ros-${ROS_DISTRO}-openslam-gmapping \
+#     ros-${ROS_DISTRO}-navigation \
+#     ros-noetic-robot-pose-ekf \
+#     && rm -rf /var/lib/apt/lists/*
+
+# Installing aditional packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    python3-wxgtk4.0 \
+    python3-igraph \
+    python3-tk \
+    python-wxtools \
+    libspqr2 \
+    libcholmod3 \
+    ros-noetic-usb-cam* \
+    ros-noetic-cv-camera \
+    ros-noetic-aruco-detect \
+    poppler-utils \
+    cairosvg \
+    python3-cairosvg \
+    ros-noetic-video-stream-opencv \
+    ros-noetic-fiducials \
+    && rm -rf /var/lib/apt/lists/*
+
+# Camera related packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#    ros-noetic-vision-visp \
+    ros-noetic-realsense2-camera \
+    && rm -rf /var/lib/apt/lists/*
+
+# Misc
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-trac-ik-kinematics-plugin \
+    gdb \
+    ros-noetic-rosserial \
+    ros-noetic-rosserial-arduino \
+    ros-noetic-sensor-filters \
+    libmuparser-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# UR packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-industrial-robot-status-interface \
+    ros-noetic-scaled-joint-trajectory-controller \
+    ros-noetic-speed-scaling-state-controller \
+    ros-noetic-ur-msgs \
+    ros-noetic-pass-through-controllers \
+    ros-noetic-ur-client-library \
+    && rm -rf /var/lib/apt/lists/*
+
+# Optitrack stuff
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-mocap-optitrack \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ros controll
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-four-wheel-steering-msgs \
+    ros-noetic-urdf-geometry-parser \
+    ros-noetic-dynamixel-sdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Smach
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-smach-viewer \
+    && rm -rf /var/lib/apt/lists/*
+
+# Qt
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    libgl1-mesa-dev \
+    ninja-build \
+    libyaml-cpp-dev \
+    libqtermwidget5-0-dev \
+    libutf8proc-dev \
+    libxcb-cursor-dev \
+    libxcb-cursor0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Optimizers
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-nlopt \
+    libnlopt-cxx0 \
+    libnlopt-cxx-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# MISC
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ros-noetic-moveit-servo \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# nvidia-docker hooks
+LABEL com.nvidia.volumes.needed="nvidia_driver"
+ENV PATH /usr/local/nvidia/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}compute,utility,graphics

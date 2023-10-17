@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+import rospy
+import tf2_ros
+import numpy as np
+from geometry_msgs.msg import TransformStamped, Twist, PoseStamped
+from ndx_util.tf_util import (
+    get_pose,
+    quaternion_from_matrix,
+    tarray_to_posemsg,
+)
+
+
+class KeyboardTeleop:
+    def __init__(self) -> None:
+        keyboard_cmd_topic = "/cmd_vel"
+        output_pose_stamped_topic = "/servo_server/target_pose"
+        self.output_tf_name = "teleop_target_pose"
+        self.robot_ee = "ur5e_A_fingertip"
+        self.ref_frame = "world"
+        self.control_rate = 50
+        self.vel_multiplier = 0.01
+
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+
+        # rate = rospy.Rate(publish_rate)  # 5Hz
+        self.br = tf2_ros.TransformBroadcaster()
+
+        rospy.Subscriber(keyboard_cmd_topic, Twist, self.kb_callback)
+        self.pub = rospy.Publisher(
+            output_pose_stamped_topic, PoseStamped, queue_size=10
+        )
+        self.curr_pos, _, _, _ = get_pose(
+            self.tf_buffer,
+            self.ref_frame,
+            self.robot_ee,
+            time=rospy.Time(0),
+            max_wait_time=5,
+            supress_error_msg=False,
+        )
+
+        self.spd_data = None
+        self.publish_tf_data()
+
+    def kb_callback(self, data: Twist):
+        self.spd_data = data
+
+    def publish_tf_data(self):
+        t = TransformStamped()
+        rate = rospy.Rate(self.control_rate)
+        while not rospy.is_shutdown():
+            t.header.stamp = rospy.Time.now()
+            t.header.frame_id = self.ref_frame
+            t.child_frame_id = self.output_tf_name
+
+            if self.spd_data is not None:
+                self.curr_pos[0, 3] += (
+                    self.spd_data.linear.x * self.vel_multiplier
+                ) / self.control_rate
+                self.curr_pos[1, 3] += (
+                    self.spd_data.linear.y * self.vel_multiplier
+                ) / self.control_rate
+                self.curr_pos[2, 3] += (
+                    self.spd_data.linear.z * self.vel_multiplier
+                ) / self.control_rate
+
+            q = quaternion_from_matrix(self.curr_pos)
+
+            t.transform.translation.x = self.curr_pos[0, 3]
+            t.transform.translation.y = self.curr_pos[1, 3]
+            t.transform.translation.z = self.curr_pos[2, 3]
+
+            t.transform.rotation.x = q[0]
+            t.transform.rotation.y = q[1]
+            t.transform.rotation.z = q[2]
+            t.transform.rotation.w = q[3]
+            self.br.sendTransform(t)
+
+            self.pub.publish(tarray_to_posemsg(self.curr_pos, self.ref_frame))
+            print(self.spd_data)
+            rate.sleep()
+
+
+def main():
+    rospy.init_node("keyboard_teleop")
+    kbt = KeyboardTeleop()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

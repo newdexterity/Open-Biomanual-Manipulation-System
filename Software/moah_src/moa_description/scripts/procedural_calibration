@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+import rospy
+import yaml
+import quaternion
+import numpy as np
+from tf.transformations import euler_from_quaternion
+
+from std_srvs.srv import Trigger
+from tf2_ros import StaticTransformBroadcaster
+from geometry_msgs.msg import TransformStamped
+
+
+if __name__ == "__main__":
+    # Initialise node
+    rospy.init_node("procedural_calibration", anonymous=False)
+
+    add_waypoints = rospy.ServiceProxy(
+        "/extrinsics_calib/collect_waypoints", Trigger
+    )
+    perform_calibration = rospy.ServiceProxy(
+        "/extrinsics_calib/perform_calibration", Trigger
+    )
+    publish_calibration = rospy.ServiceProxy(
+        "/extrinsics_calib/publish_calibration", Trigger
+    )
+    save_calibration = rospy.ServiceProxy(
+        "/extrinsics_calib/save_calibration", Trigger
+    )
+    br = StaticTransformBroadcaster()
+
+    ts = TransformStamped()
+
+    z = -0.353
+    # 0.130, -0.614, -0.353]
+    x_list = [0.130, 0.130 - 0.270]
+    y_list = [-0.614, -0.614 + 0.270]
+    point_labels = [
+        "top left",
+        "top right",
+        "bot left",
+        "bot right",
+    ]
+    point_no = 0
+    ts.header.frame_id = "map"
+    ts.transform.rotation.w = 1
+    ts.child_frame_id = "target"
+    for y in y_list:
+        for x in x_list:
+            ts.transform.translation.x = x
+            ts.transform.translation.y = y
+            ts.transform.translation.z = z
+
+            ts.header.stamp = rospy.Time.now()
+
+            br.sendTransform(ts)
+            input(f"Move arm to {point_labels[point_no]} and press enter")
+            add_waypoints()
+            # input("Press enter to move to next point")
+            point_no += 1
+    perform_calibration()
+    publish_calibration()
+    save_calibration()
+    rospy.spin()

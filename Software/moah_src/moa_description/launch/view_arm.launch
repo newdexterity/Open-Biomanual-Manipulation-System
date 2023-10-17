@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<launch>  
+  <!-- <arg name="model" default="$(find skill_t_description)/urdf/dual_arm_setup.xacro"/> -->
+  <arg name="model" default="$(find moa_description)/urdf/dual_arm.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find moa_description)/config/arm.rviz" />
+  
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui">
+    <param name="rate" type="int" value="50" />
+  </node>  -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+     <param name="publish_frequency" type="double" value="50" />
+  </node> 
+  <!-- <rosparam command="load">
+    zeros:
+      left_elbow_4_flex_exte: 0.0
+  </rosparam> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

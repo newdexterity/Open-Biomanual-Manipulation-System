@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<robot name="dual_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- <xacro:include filename="$(find moa_description)/urdf/left_arm.xacro"/> -->
+    <!-- <xacro:include filename="$(find moa_description)/urdf/left_arm_moa.xacro"/> -->
+    <xacro:include filename="$(find moa_description)/urdf/left_arm_moa_transmission.xacro"/>
+    <!-- <xacro:include filename="$(find moa_description)/urdf/right_arm.xacro"/> -->
+    <!-- <xacro:include filename="$(find moa_description)/urdf/right_arm_moa.xacro"/> -->
+    <xacro:include filename="$(find moa_description)/urdf/right_arm_moa_transmission.xacro"/>
+    <!-- <xacro:include filename="$(find moa_description)/urdf/right_hand.xacro"/>
+    <xacro:include filename="$(find moa_description)/urdf/left_hand.xacro"/> -->
+
+    <link name="map"/>
+
+    <xacro:left_arm/>
+    <xacro:right_arm/>
+
+    <link name="linear_rail_base">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual/moa_torso_rails.dae" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 -1.109"/>
+      </visual>
+    </link>
+
+    <link name="linear_rail_torso_base">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual/moa_torso_base.dae"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+    </link>
+
+    <joint name="root_map_link" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="map"/>
+      <child link="linear_rail_base"/>
+    </joint>
+
+    <joint name="rail_torso_link" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="linear_rail_base"/>
+      <child link="linear_rail_torso_base"/>
+    </joint>
+
+    <joint name="left_to_map_link" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="linear_rail_torso_base"/>
+      <child link="human/left_arm_mount"/>
+    </joint>
+
+    <!-- <joint name="left_to_map_link" type="fixed">
+      <origin rpy="0 0 0" xyz="0.25 0 0"/>
+      <parent link="map"/>
+      <child link="human/left_arm_mount"/>
+    </joint> -->
+    
+    <!-- <joint name="right_to_map_link" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.25 0 0"/>
+      <parent link="map"/>
+      <child link="human/right_arm_mount"/>
+    </joint> -->
+
+    <joint name="right_to_map_link" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="map"/>
+      <child link="human/right_arm_mount"/>
+    </joint>
+
+    <!-- Uncomment after adding hand -->
+    <!-- <joint name="left_hand_wirst_to_arm" type="fixed">
+      <origin rpy="0 0 ${pi}" xyz="0 0 0"/>
+      <parent link="human/left_arm_frame7"/>
+      <child link="human/left_hand_mount"/>
+    </joint>
+
+    <joint name="right_hand_wirst_to_arm" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="human/right_arm_frame7"/>
+      <child link="human/right_hand_mount"/>
+    </joint>  -->
+
+    <link name="moa_left_servoing" />
+    <joint name="moa_left_servoing_joint" type="fixed">
+      <parent link="human/left_arm_ref_frame" />
+      <child link = "moa_left_servoing" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 ${pi/2} 0" />
+      <dynamics damping="1.0"/>
+    </joint>
+
+    <link name="moa_right_servoing" />
+    <joint name="moa_right_servoing_joint" type="fixed">
+      <parent link="human/right_arm_ref_frame" />
+      <child link = "moa_right_servoing" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 ${3*pi/2} 0" />
+      <dynamics damping="1.0"/>
+    </joint>
+
+  <link name="polhemus_base" />
+  <joint name="map_2_polhemus" type="fixed">
+    <parent link="map" />
+    <child link = "polhemus_base" />
+    <!-- <origin xyz="0.0 -0.8713903671815142 -0.57955828188952143" rpy="3.1413906536877003 -0.023347360933134446 1.6412305218964726" />-->
+    <!-- <origin xyz="0.0 -0.8713903671815142 -0.57955828188952143" rpy="3.1413906536877003 -0.023347360933134446 1.5912305218964726" /> -->
+    <origin xyz="0.0 -0.1 0.1" rpy="0.0 0.0 0.0" />
+    <dynamics damping="1.0"/>
+  </joint>
+
+</robot>

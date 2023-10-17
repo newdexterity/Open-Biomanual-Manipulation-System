@@ -1,0 +1,376 @@
+#!/usr/bin/env python
+import rospy
+from tf2_ros import (
+    Buffer,
+    TransformListener,
+    TransformBroadcaster,
+)
+import numpy as np
+import tf2_ros
+import rospkg
+
+from geometry_msgs.msg import TransformStamped
+from tf.transformations import quaternion_from_matrix
+import yaml
+from ndx_util.tf_util import (
+    get_pose,
+)
+
+from numpy.random import default_rng
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics.pairwise import paired_distances
+from std_srvs.srv import Empty, Trigger, TriggerResponse
+
+
+def kabsch(source: np.ndarray, target: np.ndarray) -> np.ndarray:
+    """Implements Kabsch algorithm, that finds the rotation that best aligns two sets of points. This implmementation
+    also calculates the translation. This is a modified version from the code available at
+    https://gist.github.com/oshea00/dfb7d657feca009bf4d095d4cb8ea4be
+
+    Args:
+        B (np.ndarray): Source set (n x 3), where n is the set size
+        A (np.ndarray): Target set (n x 3), where n is the set size
+
+    Returns:
+        np.ndarray: The homogeneous transformation that maps B to A
+    """
+    assert len(target) == len(source)
+
+    N = target.shape[0]  # total points
+
+    centroid_A = np.mean(target, axis=0)
+    centroid_B = np.mean(source, axis=0)
+
+    # center the points
+    AA = target - np.tile(centroid_A, (N, 1))
+    BB = source - np.tile(centroid_B, (N, 1))
+
+    # dot is matrix multiplication for array
+    H = np.dot(np.transpose(BB), AA)
+
+    U, S, Vt = np.linalg.svd(H)
+
+    R = np.dot(Vt.T, U.T)
+
+    # special reflection case
+    if np.linalg.det(R) < 0:
+        Vt[2, :] *= -1
+        R = np.dot(Vt.T, U.T)
+
+    t = np.dot(-R, centroid_B.T) + centroid_A.T
+    H = np.eye(4)
+    H[:3, :3] = R
+    H[:3, 3] = t
+    return H
+
+
+def registration_RANSAC(
+    source: np.ndarray,
+    target: np.ndarray,
+    ransac_n: int = 3,
+    max_iteration: int = 100000,
+):
+    """Performs point registration using the Kabsch algorithm and RANSAC.
+
+    Args:
+        source (np.ndarray): The source set (n x 3), where n is the set size
+        target (np.ndarray): The target set (n x 3), where n is the set size
+        ransac_n (int, optional): The number of samples to use in the RANSAC algorithm. Defaults to 3.
+        max_iteration (int, optional): The maximum number of iterations for the RANSAC algorithm. Defaults to 100000.
+
+    Returns:
+        np.ndarray: The transform H that maps source to target (H * source = target)
+        float: The mean squared error from the calculated transform
+    """
+    rng = default_rng(42)
+    opt_error = 1e10
+    opt_H = None
+    source = np.c_[source, source.shape[0] * [1]]
+    target = np.c_[target, target.shape[0] * [1]]
+    for i in range(max_iteration):
+        # take ransac_n points randomly
+        idx = rng.permutation(source.shape[0])[:ransac_n]
+
+        # use Kabsch Algorithm
+        H_candidate = kabsch(source[idx, :3], target[idx, :3])
+
+        # calculate mse
+        target_pred = np.matmul(H_candidate, source.T)
+        error = np.mean(paired_distances(target, target_pred.T))
+        # compare mse and optimal mse and then store the smaller one as optimal values
+        if i == 0 or error < opt_error:
+            opt_error = error
+            opt_H = H_candidate
+        # if i % 1000 == 0:
+        #     print(i)
+    return opt_H
+
+
+class TfCalibration:
+    def __init__(self, use_ransac, ransac_n=7, ransac_iter=10000) -> None:
+        self.H = np.eye(4)
+        self.ref_samples = []
+        self.samples = []
+        self.use_ransac = use_ransac
+        self.ransac_n = ransac_n
+        self.ransac_iter = ransac_iter
+        self.p = None
+        self.q = None
+
+    def calibrate(self):
+        H = self.calculate_H()
+        self.q = quaternion_from_matrix(H)
+        self.p = H[:3, 3]
+
+        no_of_samples = self.samples.shape[0]
+
+        pred = np.matmul(H, np.c_[self.samples, no_of_samples * [1]].T)[:3]
+
+        eucli = np.mean(paired_distances(self.ref_samples, pred.T))
+        mae = mean_absolute_error(self.ref_samples, pred.T)
+
+        return self.p, self.q, eucli, mae
+
+    def calculate_H(self):
+        self.ref_samples = np.array(self.ref_samples)
+        self.samples = np.array(self.samples)
+        if self.use_ransac:
+            return registration_RANSAC(
+                self.samples,
+                self.ref_samples,
+                ransac_n=self.ransac_n,
+                max_iteration=self.ransac_iter,
+            )
+        else:
+            return kabsch(self.samples, self.ref_samples)
+
+
+def stamp_to_float_secs(stamp: rospy.Time):
+    return stamp.secs + (stamp.nsecs * 1e-9)
+
+
+class CalibrationService:
+    def __init__(self) -> None:
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer)
+        self.br = TransformBroadcaster()
+
+        self.output_file = rospy.get_param("~output_file")
+        self.tfs2match = rospy.get_param("~tfs2match")
+        self.parenttfs = rospy.get_param("~parenttfs")
+        self.ref_parent = rospy.get_param("~ref_parent")
+        self.ref_tf = self.tfs2match[self.parenttfs.index(self.ref_parent)]
+        ransac_n = rospy.get_param("~ransac_n", 7)
+        ransac_iter = rospy.get_param("~ransac_iter", 10000)
+        use_ransac = rospy.get_param("~use_ransac", False)
+
+        self.no_of_samples_per_position = rospy.get_param(
+            "~no_of_samples_per_position", 10
+        )
+        self.max_time_diff = rospy.get_param("~max_time_diff", 0.005)
+
+        self.tfs2match = [
+            name for name in self.tfs2match if name != self.ref_tf
+        ]
+        self.parenttfs = [
+            name for name in self.parenttfs if name != self.ref_parent
+        ]
+
+        self.cal_tfs_objs = {}
+        for name in self.parenttfs:
+            self.cal_tfs_objs[name] = TfCalibration(
+                use_ransac, ransac_n=ransac_n, ransac_iter=ransac_iter
+            )
+
+        self.publish_calibration_transforms = False
+
+        rospy.Service("~collect_waypoints", Trigger, self.collect_waypoints)
+        rospy.Service(
+            "~perform_calibration", Trigger, self.perform_calibration
+        )
+        rospy.Service("~save_calibration", Trigger, self.save_calibration)
+        rospy.Service("~abort_calibration", Trigger, self.abort_calibration)
+        rospy.Service(
+            "~publish_calibration", Trigger, self.publish_calibration
+        )
+
+    def perform_calibration(self, data: Trigger):
+        rospy.loginfo("Starting calibration")
+        self.tf_transforms = {}
+        for name in self.parenttfs:
+            p, q, eucli, mae = self.cal_tfs_objs[name].calibrate()
+            rospy.loginfo(f"=== TF: {name} ===")
+            rospy.loginfo(f"\t Mean euclidean dist: {eucli}")
+            rospy.loginfo(f"\t MAE: {mae}")
+
+            self.tf_transforms[name] = {
+                "rotation_x": float(q[0]),
+                "rotation_y": float(q[1]),
+                "rotation_z": float(q[2]),
+                "rotation_w": float(q[3]),
+                "translation_x": float(p[0]),
+                "translation_y": float(p[1]),
+                "translation_z": float(p[2]),
+            }
+        rospy.loginfo("Calibration completed")
+        return TriggerResponse(success=True, message="Calibration completed")
+
+    def collect_waypoints(self, data: Trigger):
+        rospy.loginfo("Collecting waypoints")
+        last_warning = 0
+        self.abort_current_calibration = False
+
+        for sample_no in range(self.no_of_samples_per_position):
+            if self.abort_current_calibration:
+                return TriggerResponse(
+                    success=False,
+                    message="Calibration not successful. Aborted.",
+                )
+            if rospy.is_shutdown():
+                return TriggerResponse(
+                    success=False,
+                    message=(
+                        "Calibration not successful. Roscore was shutdown."
+                    ),
+                )
+            rospy.loginfo(f"Sampling pose no {sample_no+1}")
+            for tf_name, tf_parent in zip(self.tfs2match, self.parenttfs):
+                valid_poses = False
+                while not valid_poses and not rospy.is_shutdown():
+                    _, sample_ref, _, ref_msg = get_pose(
+                        self.tf_buffer,
+                        self.ref_parent,
+                        self.ref_tf,
+                        rospy.Time(0),
+                        0.0,
+                    )
+
+                    _, sample_tf, _, tf_msg = get_pose(
+                        self.tf_buffer,
+                        tf_parent,
+                        tf_name,
+                        rospy.Time(0),
+                        0.0,
+                    )
+                    not_nones = (
+                        sample_ref is not None and sample_tf is not None
+                    )
+                    if not not_nones:
+                        rospy.sleep(0.001)
+                        continue
+                    ref_secs = stamp_to_float_secs(ref_msg.header.stamp)
+                    tf_secs = stamp_to_float_secs(tf_msg.header.stamp)
+                    valid_interval = self.max_time_diff == 0 or (
+                        abs(ref_secs - tf_secs) <= self.max_time_diff
+                    )
+                    valid_poses = not_nones and valid_interval
+                    if last_warning < 0:
+                        # Print every 0.5s
+                        last_warning = 0.5
+                        if not not_nones:
+                            if sample_ref is None:
+                                rospy.logwarn(
+                                    "Could not sample transform"
+                                    f' "{self.ref_parent}", trying'
+                                    " again..."
+                                )
+                            if sample_tf is None:
+                                rospy.logwarn(
+                                    "Could not sample transform"
+                                    f' "{tf_parent}", trying again...'
+                                )
+                        if not valid_interval:
+                            rospy.logwarn(
+                                "Sample interval between transforms"
+                                f' "{self.ref_parent}" and "{tf_parent}"'
+                                f" too long ({abs(ref_secs - tf_secs)},"
+                                f" max: {self.max_time_diff})"
+                            )
+                    else:
+                        last_warning -= 0.001
+
+                    rospy.sleep(0.001)
+
+                self.cal_tfs_objs[tf_parent].ref_samples.append(sample_ref)
+                self.cal_tfs_objs[tf_parent].samples.append(sample_tf)
+        rospy.loginfo("Points added successfully")
+        return TriggerResponse(
+            success=True, message="Points added successfully"
+        )
+
+    def save_calibration(self, data: Trigger):
+        rospy.loginfo(f"Saving calibration to '{self.output_file}'")
+        output_dict = {}
+        output_dict["reference_frame"] = self.ref_parent
+        output_dict["refframe2cam_transforms"] = self.tf_transforms
+        try:
+            with open(self.output_file, "w") as outfile:
+                yaml.dump(output_dict, outfile, default_flow_style=False)
+            rospy.loginfo("Done!")
+        except Exception as e:
+            rospy.logerr(f"Error saving file: {e}")
+            return TriggerResponse(
+                success=False, message=f"Error saving file: {e}"
+            )
+        return TriggerResponse(
+            success=True, message=f"File saved successfully"
+        )
+
+    def abort_calibration(self, data: Trigger):
+        rospy.loginfo("abort_calibration")
+        self.abort_current_calibration = True
+        return TriggerResponse(success=True, message=f"Calibration aborted")
+
+    def publish_calibration(self, data: Trigger):
+        self.publish_calibration_transforms = (
+            not self.publish_calibration_transforms
+        )
+        if self.publish_calibration_transforms:
+            msg = "Calibration transforms will be published"
+        else:
+            msg = "Calibration transforms won't be published"
+        rospy.loginfo(msg)
+        return TriggerResponse(
+            success=self.publish_calibration_transforms, message=msg
+        )
+
+    def run(self):
+        t = TransformStamped()
+        rate = rospy.Rate(100)
+        while not rospy.is_shutdown():
+            if self.publish_calibration_transforms:
+                for name in self.parenttfs:
+                    if (
+                        self.cal_tfs_objs[name].q is None
+                        or self.cal_tfs_objs[name].p is None
+                    ):
+                        rospy.logerr(
+                            f"Parent tf '{name}' not yet calibrated."
+                            " Skipping..."
+                        )
+                        continue
+                    t.header.stamp = rospy.Time.now()
+                    t.header.frame_id = self.ref_parent
+                    t.transform.rotation.x = self.cal_tfs_objs[name].q[0]
+                    t.transform.rotation.y = self.cal_tfs_objs[name].q[1]
+                    t.transform.rotation.z = self.cal_tfs_objs[name].q[2]
+                    t.transform.rotation.w = self.cal_tfs_objs[name].q[3]
+                    t.transform.translation.x = self.cal_tfs_objs[name].p[0]
+                    t.transform.translation.y = self.cal_tfs_objs[name].p[1]
+                    t.transform.translation.z = self.cal_tfs_objs[name].p[2]
+                    t.child_frame_id = name
+                    self.br.sendTransform(transform=t)
+            rate.sleep()
+
+
+def main():
+    rospy.init_node("tf_calibration")
+    calib_srv = CalibrationService()
+    calib_srv.run()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

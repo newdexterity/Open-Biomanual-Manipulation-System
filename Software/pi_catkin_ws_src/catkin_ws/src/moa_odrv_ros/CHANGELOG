@@ -1,0 +1,70 @@
+## 0.8.1 2019-09-25
+
+Add i2t calculation to diagnostics.
+
+## 0.8.0 2019-09-24
+
+Publish diagnostics, including status from 0.7.0 and motor state.
+
+## 0.7.0 2019-09-06
+
+Backed out automatic preroll, it's now done manually under user control.
+Status publishing on /odrive/status topic, so you can check connection/preroll/ready state externally.
+Temperature reading.
+
+## 0.6.0 2019-07-24
+
+Added more careful error checking, in particular looking for USB comms loss vs other errors
+Watchdog timer now used.
+
+## 0.5.0 2019-07-15
+
+Added facility to import odrive_interface into an odrivetool shell for testing.
+More error checking and recovery.
+Initial work towards providing a simulation mode for use in gazebo.
+
+## 0.4.0 2019-03-19
+
+Reworked all ODrive comms into a fast+slow thread. 
+Added error recovery on comms failure.
+Added auto preroll on first drive.
+
+## 0.3.1 2018-11-01
+
+Max speed and angular velocity parameter.
+
+## 0.3.0 2018-10-15
+
+Now uses the ODrive `preroll` branch to allow use of encoders with no index. 
+Set ROS param `use_preroll` to False for old behaviour.
+
+Added diff-drive odometry calculation and publishing to both ROS topic and tf
+Added current calculation
+
+Pulls encoder counts from driver
+
+## 0.2.1 2018-10-03
+
+Bug in startup sequence (calibrated twice)
+
+## 0.2.0 2018-09-25
+
+Various services for connecting, calibrating, engage/release, etc.
+Parameters to set whether connection and calibration happens on startup.
+
+## 0.1.2 2018-09-12
+
+Abstracted left/right motors up into the node, so axis0 and axis1 can be assigned to either.
+Fixed dumb bug in cleaning up node class.
+
+## 0.1.1 2018-09-10
+
+- Switched to modified BSD license from MIT, same as ROS proper.
+
+## 0.1.0 2018-09-07
+
+- Turned into a proper ROS package: just need to checkout repository into your workspace's src/ dir.
+
+## 2018-07-31
+
+- Initial commit

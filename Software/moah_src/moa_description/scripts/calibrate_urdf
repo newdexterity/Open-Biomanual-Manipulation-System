@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+
+import rospy
+import yaml
+import quaternion
+import numpy as np
+from tf.transformations import euler_from_quaternion
+
+if __name__ == "__main__":
+    # Initialise node
+    rospy.init_node("calibrate_urdf", anonymous=False)
+    input_urdf_path = rospy.get_param("~input_urdf_path")
+    output_urdf_path = rospy.get_param("~output_urdf_path")
+    line_breakpoint = rospy.get_param("~line_breakpoint")
+    calibration_files = rospy.get_param("~calibration_files")
+    # line_breakpoint = ['  <joint name="world_2_ur5e_A" type="fixed">']
+    # line_repleacements = ['    <origin xyz="-1 -1 -1" rpy="-2 -2 -2" />']
+
+    line_replacements = []
+    for c_file in calibration_files:
+        with open(c_file, "r") as file:
+            cal_dict = yaml.safe_load(file)
+            ###############################
+            # Not proud of this but this works
+            cal_dict = cal_dict["refframe2cam_transforms"]
+            key = list(cal_dict)[0]
+            cal_dict = cal_dict[key]
+            ###############################
+            q = (
+                cal_dict["rotation_x"],
+                cal_dict["rotation_y"],
+                cal_dict["rotation_z"],
+                cal_dict["rotation_w"],
+            )
+            rpy = euler_from_quaternion(q)
+            xyz = (
+                cal_dict["translation_x"],
+                cal_dict["translation_y"],
+                cal_dict["translation_z"],
+            )
+            line_replacements.append(
+                f'    <origin xyz="{xyz[0]} {xyz[1]} {xyz[2]}"'
+                f' rpy="{rpy[0]} {rpy[1]} {rpy[2]}" />'
+            )
+
+    # open file in read mode
+    file = open(input_urdf_path, "r")
+    replaced_content = ""
+    # looping through the file
+    breakpoint_index = -1
+    cur_breakpoint_index = 0
+    for line_no, line in enumerate(file):
+        if cur_breakpoint_index < len(line_breakpoint) and line.startswith(
+            line_breakpoint[cur_breakpoint_index]
+        ):
+            breakpoint_index = line_no + 3
+        if line_no == breakpoint_index:
+            new_line = line_replacements[cur_breakpoint_index] + "\n"
+            cur_breakpoint_index += 1
+        else:
+            new_line = line
+        # concatenate the new string and add an end-line break
+        replaced_content += new_line
+
+    # close the file
+    file.close()
+    # Open file in write mode
+    write_file = open(output_urdf_path, "w")
+    # overwriting the old file contents with the new/replaced content
+    write_file.write(replaced_content)
+    # close the file
+    write_file.close()

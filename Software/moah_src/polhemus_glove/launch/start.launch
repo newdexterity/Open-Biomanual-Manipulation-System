@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="polhemus_ros_driver" type="polhemus_tf_broadcaster" name="polhemus_tf_broadcaster" output="screen"/>
+
+  <!--Set output hemisphere parameters-->
+  <param name="x_hs" value="0" type="double"/>
+  <param name="y_hs" value="0" type="double"/>
+  <param name="z_hs" value="0" type="double"/>
+
+  <node pkg="polhemus_glove" type="tf2hand.py" name="tf2hand" output="screen"/>
+  <rosparam command="load" file="$(find polhemus_glove)/config/polhemus_sensor_layout.yaml"/>
+  
+</launch>

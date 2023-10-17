@@ -1,0 +1,41 @@
+roscore
+# check all ros_ip is set correctly
+# check all ros_master is correct
+
+# start captoglove docker
+# goto ~/CaptoGloveDocker
+./start melodic_11
+
+bluetoothctl
+
+# hold button on captoglove until white light
+
+scan on
+
+scan off
+
+connect C2:4F:2D:05:78:D9
+pair
+
+# exit bluetoothctl
+exit 
+
+#run the following to start publishing to /recorded_leftservo
+roslaunch captoglove_ros_wrapper captoglove_ros_wrapper.launch 
+
+# start usb connection to both hands
+roslaunch moa_odrv_ros serial_node_right.launch
+
+# start control interfaces for moah
+roslaunch moa_description view_arm.launch 
+roslaunch moa_bringup moa_bringup.launch 
+
+# start servoing nodes
+roslaunch moa_servoing moa_left_track_pose.launch 
+roslaunch moa_servoing moa_right_track_pose.launch 
+
+# start polhemus
+roslaunch polhemus_ros_driver start.launch
+
+# polhemus to hand servo
+roslaunch polhemus_glove playback_start.launch

@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+
+import rospy
+import cv2
+from cv_bridge import CvBridge
+from sensor_msgs.msg import Image
+from sensor_msgs.msg import CameraInfo
+import os
+import yaml
+
+
+class ImagePublisher(object):
+
+    def __init__(self):
+
+        # Parameters
+        self.camera_num = rospy.get_param("~camera_num", 0)
+        self.frame_width = rospy.get_param("~frame_width", 1280)
+        self.frame_height = rospy.get_param("~frame_height", 720)
+        self.fps = rospy.get_param("~fps", 30)
+        self.cal_file_path = rospy.get_param("~cal_file_path", None)
+        if self.cal_file_path:
+            self.cal_file_path = os.path.expanduser(self.cal_file_path)
+
+        # Define video capture
+        self.cap = cv2.VideoCapture(self.camera_num)
+        self.cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
+        self.cap.set(cv2.CAP_PROP_FOCUS, 0)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.frame_width)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.frame_height)
+        self.cap.set(cv2.CAP_PROP_FPS, self.fps)
+
+        # Load camera calibration if provided
+        self.camera_info_pub = None
+        if self.cal_file_path and os.path.exists(self.cal_file_path):
+            # Load parameters
+            with open(self.cal_file_path) as stream:
+                cal = yaml.safe_load(stream)
+            rospy.loginfo("Loaded camera calibration:")
+            rospy.loginfo("{}".format(cal))
+
+            # Define camera_info publisher
+            self.camera_info_pub = rospy.Publisher("webcam/camera_info", CameraInfo, queue_size=1)
+            self.msg = CameraInfo()
+            self.msg.K = cal['K']
+            self.msg.D = cal['D']
+            self.msg.width = self.frame_width
+            self.msg.height = self.frame_height
+        else:
+            rospy.logwarn("Camera calibration file not found at path '{}'".format(self.cal_file_path))
+
+        # Define detected image publisher
+        self.bridge = CvBridge()
+        self.image_pub = rospy.Publisher("webcam/image_raw", Image, queue_size=1)
+
+    def run(self):
+        while not rospy.is_shutdown():
+            # Read frame
+            ret, frame = self.cap.read()
+            # Publish frame
+            self.image_pub.publish(self.bridge.cv2_to_imgmsg(frame, "bgr8"))
+            # Publish camera info if available
+            if self.camera_info_pub:
+                self.camera_info_pub.publish(self.msg)
+
+
+def shutdown():
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    # Initialise node
+    rospy.init_node('webcam', anonymous=False)
+    # Start tracker
+    c = ImagePublisher()
+    rospy.on_shutdown(shutdown)
+    c.run()

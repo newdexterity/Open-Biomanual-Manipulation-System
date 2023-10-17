@@ -1,0 +1,93 @@
+syntax = "proto2"; 
+
+package captoglove_v1; 
+import "base.proto";
+
+option (version) = "0.9";
+option (file_comment) = "Protobuf for captoglove communication";
+option (device_name) = "Captoglove v1"; 
+option (maintainer_name) = "Filip Zoric"; 
+option (maintainer_email) = "filip.zoric@fer.hr";
+
+
+enum LogTypeEnum {
+    option (enum_comment) = "Log type enumerator";
+
+    LogType_Info                        = 0  [(enumval_comment) = "Indicates a info log."];
+    LogType_Warning                     = 1  [(enumval_comment) = "Indicates a warning log."];
+    LogType_Error                       = 2  [(enumval_comment) = "Indicates a error log."];
+    LogType_Fatal                       = 3  [(enumval_comment) = "Indicates a fatal log."];
+    LogType_Debug                       = 4  [(enumval_comment) = "Indicates a debug log."];
+}
+
+message LogMsg{
+    option (message_comment) = "Log message";
+    option (message_number) = "4";
+    option (message_type) = "Read";
+    option (ros_include_header) = true;
+    option (ros_type) = "Publisher";
+    option (ros_topic) = "robot/general/log";
+    //option (ros_msg_mapping) = "brain_msgs::LogStatus";
+
+    required LogTypeEnum    Type    = 1;
+    required string         Message = 2;
+}
+
+
+message BatteryLevelMsg {
+     option (message_comment) = "Battery state msg"; 
+     option (message_number) = "1"; 
+     option (message_type) = "Read"; 
+     option (ros_type) = "Publisher"; 
+     option (ros_topic) = "glove/battery/level";  
+     required int32 level = 1;
+}
+
+message DeviceInformationMsg {
+     option (message_comment) = "Device information msg"; 
+     option (message_number) = "2"; 
+     option (message_type) = "Read"; 
+     option (ros_type) = "Publisher"; 
+     option (ros_topic) = "glove/device_name"; 
+     required string device_name = 1;
+}
+
+message FingerFeedbackMsg {
+        option (message_comment) = "Finger feedback msg"; 
+        option (message_number) = "3"; 
+        option (message_type) = "Read"; 
+        option (ros_type) = "Publisher"; 
+        option (ros_topic) = "glove/fingers";
+        optional int32 thumb_finger = 1;
+        optional int32 index_finger = 2;
+        optional int32 middle_finger = 3;
+        optional int32 ring_finger = 4;
+        optional int32 little_finger = 5;
+}
+
+
+/*
+message ScanParamatersMsg {
+	optional int32 scan_interval = 1;
+}
+
+message PeripheralPrefferedConnectionParametersMsg {
+	optional int32 connection_supervision_timeout_multiplier = 1;
+        optional int32 slave_latency = 2;
+        optional int32 max_connection_interval = 3;
+        optional int32 min_connection_interval = 4;
+
+}
+
+message JoystickFeedbackMsg {
+	optional int32 rx = 1;
+        optional int32 ry = 2;
+        optional int32 rz = 3;
+        optional int32 place_holder = 4;
+}
+
+message SystemStateMsg {
+	required system_state = 1; 
+}
+
+*/

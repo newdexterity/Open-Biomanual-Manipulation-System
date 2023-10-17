@@ -1,0 +1,19 @@
+left_palm_base: polhemus_station_1
+left_elbow_base: polhemus_station_2
+left_wrist_base: polhemus_station_3
+
+right_elbow_base: polhemus_station_4
+right_wrist_base: polhemus_station_5
+right_palm_base: polhemus_station_6
+right_thumb: polhemus_station_7
+
+right_index_dist: polhemus_station_8
+right_middle_dist: polhemus_station_9
+right_ring_dist: polhemus_station_10
+right_pinky_dist: polhemus_station_11
+
+right_index_meta: polhemus_station_12
+right_middle_meta: polhemus_station_13
+right_ring_meta: polhemus_station_14
+right_pinky_meta: polhemus_station_15
+

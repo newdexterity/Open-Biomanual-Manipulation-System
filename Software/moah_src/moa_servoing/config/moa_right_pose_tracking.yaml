@@ -1,0 +1,34 @@
+#################################
+# PID parameters for pose seeking
+#################################
+
+# Maximum value of error integral for all PID controllers
+windup_limit: 0.05
+
+# PID gains
+# The values bellow worked well for just Z signal check!
+# x_proportional_gain: 5
+# y_proportional_gain: 5
+# z_proportional_gain: 5
+# x_integral_gain: 0.0
+# y_integral_gain: 0.0
+# z_integral_gain: 0.0
+# x_derivative_gain: 0.02
+# y_derivative_gain: 0.02
+# z_derivative_gain: 0.02
+
+x_proportional_gain: 50.0
+y_proportional_gain: 50.0
+z_proportional_gain: 50.0
+
+x_integral_gain: 0.0
+y_integral_gain: 0.0
+z_integral_gain: 0.0
+
+x_derivative_gain: 0.0
+y_derivative_gain: 0.0
+z_derivative_gain: 0.0
+
+angular_proportional_gain: 2.5
+angular_integral_gain: 0.0
+angular_derivative_gain: 0.0

@@ -1,0 +1,3 @@
+[submodule "protobuffers"]
+	path = protobuffers
+	url = https://github.com/fzoric8/protobuffers.git

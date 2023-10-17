@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="serial_node_2" pkg="rosserial_python" type="serial_node.py" output="screen">
+        <param name="port" value="/dev/ttyACM0"/>
+        <param name="baud" value="115200"/>
+    </node>
+</launch>

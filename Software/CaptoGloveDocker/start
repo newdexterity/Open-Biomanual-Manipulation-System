@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Container variables. Edit them on your system.
+# Name of the user that will execute commands inside the container.
+USER_NAME=$USER
+# Image that will be used to create the container
+IMG_NAME="ros_capto_img:"${1}
+# Workspace that will be mapped to container
+HOMEWS=${2:-$(pwd)"/"${1^}"_Projects/"}
+# UID AND GID of the user
+USER_UID=`id -u $USER_NAME`
+USER_GID=`id -g $USER_NAME`
+# X routing
+xhost +local:root
+
+echo "Using '$USER' as username, with UID=$USER_UID and GUID=$USER_GID"
+echo "Mouting host folder '$HOMEWS' to '/home/$USER_NAME/' in the container"
+
+# if nvidia-docker is available then run it
+if ! command -v nvidia-docker &> /dev/null
+then
+    echo "Using 'docker' to run container"
+    DOCKER_EXEC=docker
+else
+    echo "Using 'nvidia-docker' to run container"
+    DOCKER_EXEC=nvidia-docker
+fi
+
+service bluetooth stop
+
+# Running container
+$DOCKER_EXEC run -it \
+    --rm \
+    --net=host \
+    --privileged \
+    --group-add dialout \
+    --group-add bluetooth \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --volume="$HOMEWS:/home/developer/:rw" \
+    --workdir="/home/developer/" \
+    -v "/dev:/dev" \
+    --group-add audio \
+    --group-add video \
+    --ipc=host \
+    --env="DISPLAY=$DISPLAY" \
+    --env="QT_X11_NO_MITSHM=1" \
+    $IMG_NAME \
+    bash

@@ -1,0 +1,14 @@
+<library path="lib/libfunc_antro_controller">
+
+  <class name="ndx_controllers/FuncAntroController"
+         type="ndx_controllers::FuncAntroController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      The FuncAntroController is an adaptation of the technique proposed in the 
+      paper "Functional Anthropomorphism for Human to Robot Motion Mapping". The
+      idea is to solve IK for a given end-effector pose of a humanoid robot 
+      while presenving the "human-like" configuration for the arm.
+    </description>
+  </class>
+
+</library>

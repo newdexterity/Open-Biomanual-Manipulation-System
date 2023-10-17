@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import time
+import rospy
+import tf2_ros
+from ndx_util import tf_util
+
+
+class Node(object):
+
+    def __init__(self):
+
+        # Variables
+        self.var = None
+
+        # Parameters
+        self.rate_hz = int(rospy.get_param('~rate_hz'))
+        self.frame_id = rospy.get_param('~frame_id', 'default_frame')
+
+        # Initialise tf listener
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+
+        # Initialise tf broadcasters
+        self.tf_broadcaster = tf2_ros.TransformBroadcaster()
+        self.tf_static_broadcaster = tf2_ros.StaticTransformBroadcaster()
+
+        # Wait for tf buffers to fill
+        time.sleep(1)
+
+    def lookup_transform(self, target_frame, source_frame, retries=1, wait=None):
+        """
+        Looks up most recent transform from source (child) to target (parent) frame.
+        Args:
+            target_frame(str): Name of the target (parent) frame.
+            source_frame(str): Name of the source (child) frame.
+            retries(int): Attempts to look up the transform multiple times.
+            wait(None/float): If None, returns the latest published transform.
+                              Otherwise waits for a new transform for the specified (time in seconds).
+
+        Returns:
+            TransformStamped: Resulting transform T_target^source. If not found, returns None.
+        """
+        for i in range(retries):
+            try:
+                if wait is None:
+                    return self.tf_buffer.lookup_transform(target_frame, source_frame, rospy.Time(0))
+                else:
+                    return self.tf_buffer.lookup_transform(target_frame, source_frame,
+                                                           rospy.Time.now(), rospy.Duration(wait))
+            except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+                rospy.logwarn("Unable to lookup transform from target '{}' to source '{}'."
+                              .format(target_frame, source_frame))
+                if retries > 1:
+                    time.sleep(0.1)
+        return None
+
+    def run(self):
+        # Set Rate
+        rate = rospy.Rate(self.rate_hz)
+
+        # Loop
+        while not rospy.is_shutdown():
+            # Sleep
+            rate.sleep()
+
+            # Lookup transform
+            T_world_frame = tf_util.tmsg_to_array(self.lookup_transform("world", self.frame_id))
+
+    def shutdown(self):
+        self.var = "shutdown"
+        print("Shutting down node with state '{}'.".format(self.var))
+
+
+if __name__ == '__main__':
+    rospy.init_node('node_template', anonymous=True)
+    n = Node()
+    rospy.on_shutdown(n.shutdown)
+    n.run()

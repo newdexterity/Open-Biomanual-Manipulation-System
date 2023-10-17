@@ -1,0 +1,46 @@
+# Patriot -- Load FW
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ef11",ACTION=="add", \
+RUN+="/sbin/fxload -t fx -D %N -I /usr/local/share/PolhemusUsb/PatriotUSB.hex -s /usr/local/share/PolhemusUsb/a3load.hex"
+
+# Patriot -- Set Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ef12",ACTION=="add",MODE="0666"
+
+# Patriot HS -- Load FW
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ef21",ACTION=="add", \
+RUN+="/sbin/fxload -t fx2 -D %N -I /usr/local/share/PolhemusUsb/PatriotUSB2.hex -s /usr/local/share/PolhemusUsb/a3load.hex"
+
+# Patriot HS -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ef20",ACTION=="add",MODE="0666"
+
+
+# Liberty HS -- Load FW
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ff21",ACTION=="add", \
+RUN+="/sbin/fxload -t fx2 -D %N -I /usr/local/share/PolhemusUsb/LbtyUsbHS.hex -s /usr/local/share/PolhemusUsb/a3load.hex"
+
+# Liberty HS -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ff21",ACTION=="add",MODE="0666"
+
+# Liberty HS -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ff20",ACTION=="add",MODE="0666"
+
+# Liberty Legacy -- Load FW
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ff11",ACTION=="add", \
+RUN+="/sbin/fxload -t fx -D %N -I /usr/local/share/PolhemusUsb/LbtyUsb.hex -s /usr/local/share/PolhemusUsb/a3load.hex"
+
+# Liberty Legacy -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="ff12",ACTION=="add",MODE="0666"
+
+
+# Fastrak -- Load FW
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="0001",ACTION=="add", \
+RUN+="/sbin/fxload -t fx -D %N -I /usr/local/share/PolhemusUsb/FastrakUSB.hex -s /usr/local/share/PolhemusUsb/a3load.hex"
+
+# Fastrak -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="0002",ACTION=="add",MODE="0666"
+
+# Fastrak 3 -- Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="0003",ACTION=="add",MODE="0666"
+
+# G4 -- Set Permissions
+ATTR{idVendor}=="0f44", ATTR{idProduct}=="cf01",ACTION=="add",MODE="0666"
+

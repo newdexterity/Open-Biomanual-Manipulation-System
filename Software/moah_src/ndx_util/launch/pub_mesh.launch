@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <arg name="mesh_url" doc="Mesh URL. Format: package://package_name/../filename" />
+  <arg name="ref_frame" doc="Reference frame for the mesh file. Mesh will be published at its origin." />
+  <arg name="output_topic" default="/visualization_marker" doc="Output topic. Default '/visualization_marker'" />
+  <arg name="namespace" default="" doc="Marker namespace. Default ''" />
+  <arg name="scale" default="1.0" doc="Marker namespace. Default '1.0'" />
+  <arg name="r" default="0.5" doc="Red component. Default '0.5'" />
+  <arg name="g" default="0.5" doc="Green component. Default '0.5'" />
+  <arg name="b" default="0.5" doc="Blue component. Default '0.5'" />
+  <arg name="a" default="0.5" doc="Alpha component. Default '0.5'" />
+  <arg name="id" default="0" doc="Marker ID. Default '0'" />
+  
+
+  <node name="$(anon marker_mesh_node)" pkg="ndx_util" type="marker_mesh_node" output="screen">
+    <param name="mesh_url"       value="$(arg mesh_url)"/>
+    <param name="ref_frame"      value="$(arg ref_frame)" />
+    <param name="output_topic"        value="$(arg output_topic)"/>
+    <param name="namespace"      value="$(arg namespace)"/>
+    <param name="scale"      value="$(arg scale)"/>
+    <param name="r"      value="$(arg r)"/>
+    <param name="g"      value="$(arg g)"/>
+    <param name="b"      value="$(arg b)"/>
+    <param name="a"      value="$(arg a)"/>
+    <param name="id"      value="$(arg id)"/>
+  </node>
+
+</launch>

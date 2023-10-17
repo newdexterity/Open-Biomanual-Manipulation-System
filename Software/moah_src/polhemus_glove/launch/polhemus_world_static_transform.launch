@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="polhemus_world_tf_broadcaster"
+  args="0 0 0.5 0 0 3.141592653589793 polhemus_world polhemus_base" />
+</launch>

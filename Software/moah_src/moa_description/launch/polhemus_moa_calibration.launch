@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="square_board_ws" args="0 0 0 3.1415 0 -1.5708 faceplate_jig/tracker_base flange_calibration_jig" /> -->
+    <!-- <arg name="output_file" default="$(find camera_marker_experiments)/config/"/> -->
+    <arg name="output_file" default="$(find moa_description)/config/polhemus2moa.yaml"/>
+    <arg name="ref_parent" default="map"/>
+
+    <arg name="parenttfs" value="[
+                                    map,
+                                    polhemus_base,
+                                ]"/>
+    <arg name="tfs2match" value="[
+                                    target,
+                                    polhemus_station_5,
+                                ]"/>
+
+    <arg name="no_of_cal_positions" value="4"/>
+    <arg name="no_of_samples_per_position" value="50"/>
+    <arg name="max_time_diff" value="0.0"/>
+    <arg name="use_ransac" value="True"/>
+
+    <node name="extrinsics_calib" pkg="ndx_util" type="tf_calibration" output="screen">
+    <!-- <node name="multi_camera_extrinsics_calibration_node" pkg="multimarker_tracking" type="multi_camera_extrinsics_calibration_node" output="screen">         -->
+        <param name="output_file" value="$(arg output_file)" />
+        <param name="ref_parent" value="$(arg ref_parent)"/>
+        <rosparam param="parenttfs" subst_value="True"> $(arg parenttfs)</rosparam>
+        <rosparam param="tfs2match" subst_value="True"> $(arg tfs2match)</rosparam>
+        <param name="no_of_cal_positions" value="$(arg no_of_cal_positions)" />
+        <param name="no_of_samples_per_position" value="$(arg no_of_samples_per_position)"/>
+        <param name="max_time_diff" value="$(arg max_time_diff)"/>
+        <param name="use_ransac" value="$(arg use_ransac)"/>
+    </node>
+</launch>

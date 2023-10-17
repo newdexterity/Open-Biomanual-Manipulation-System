@@ -1,4 +1,12 @@
-# WIP (Do not download)
+# Software:
+All the software needed to run MOAH is organized in this folder.
+
+# WIP:
+
+- [ ] Organize the code
+- [ ] Replicate the code in a fresh system
+- [ ] Implement low-level CAN-Bus communication directly from the ROS Control driver
+
 <!---
 # RIS for RPi4
 Please follow the link to install ROS-noetic on RPi4. Steps for custom configurations such as boot-previlages, network settings, SPI settings, and setup of the RPI4 is currently a WIP.
@@ -147,8 +155,9 @@ rosrun
 ```
 
 For faster communications, remember to change the `txqlen` to 1 for the can interface
--->
+
 
 ```
 sudo ip .....
 ```
+-->

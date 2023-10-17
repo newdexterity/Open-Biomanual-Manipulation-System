@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: moa_description
+    relative_path: urdf/dual_arm.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/dual_arm.srdf
+  CONFIG:
+    author_name: Felipe Padula Sanches
+    author_email: fsan668@aucklanduni.ac.nz
+    generated_timestamp: 1684587299

@@ -1,0 +1,50 @@
+# Joint names for the hardware interface node
+moa_driver_node:
+   joints: &robot_joints
+     - right_shoulder_ref_frame_joint
+     - right_shoulder_1_flex_exte
+     - right_shoulder_2_abdu_addu
+     - right_shoulder_3_rotation
+     - right_elbow_4_flex_exte
+     - right_wrist_5_abdu_addu
+     - right_wrist_6_flex_exte
+     - right_7_prona_supin
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+joint_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints: *robot_joints
+
+pos_joint_traj_controller:
+   type: position_controllers/JointTrajectoryController
+   joints: *robot_joints
+   constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      right_shoulder_ref_frame_joint: {trajectory: 0.2, goal: 0.1}
+      right_shoulder_1_flex_exte: {trajectory: 0.2, goal: 0.1}
+      right_shoulder_2_abdu_addu: {trajectory: 0.2, goal: 0.1}
+      right_shoulder_3_rotation: {trajectory: 0.2, goal: 0.1}
+      right_elbow_4_flex_exte: {trajectory: 0.2, goal: 0.1}
+      right_wrist_5_abdu_addu: {trajectory: 0.2, goal: 0.1}
+      right_wrist_6_flex_exte: {trajectory: 0.2, goal: 0.1}
+      right_7_prona_supin: {trajectory: 0.2, goal: 0.1}
+   stop_trajectory_duration: 0.5
+   state_publish_rate: 100
+   action_monitor_rate: 20
+
+
+functional_antropomorphic_controller:
+  type: ndx_controllers/FuncAntroController
+  joints: *robot_joints
+  base_link: map
+  ee_link: human/right_arm_frame7
+  elbow_link: human/right_arm_frame3
+  target_pose_topic: /right_wrist_pose
+  target_elbow_pose_topic: /right_elbow_pose
+  palm_pose_topic: /right_palm_pose
+  elbow_pos_weight: 0.03
+  arm_type: right

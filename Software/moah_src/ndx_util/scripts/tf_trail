@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+import rospy
+import tf2_ros
+from ndx_util.tf_util import (
+    get_pose,
+)
+from visualization_msgs.msg import Marker
+from geometry_msgs.msg import Point
+import numpy as np
+from collections import deque
+
+
+def np2point(array: np.array):
+    return Point(x=array[0], y=array[1], z=array[2])
+
+
+def main():
+    rospy.init_node("tf_trail")
+
+    pool_rate = 1000
+    tf_name = rospy.get_param("~tf_name")
+    tf_parent = rospy.get_param("~tf_parent", "world")
+    trail_lifetime_duration = rospy.get_param("~trail_lifetime_duration", 1.0)
+    marker_init_id = rospy.get_param("~marker_init_id", 0)
+    line_width = rospy.get_param("~line_width", 0.001)
+    line_r = rospy.get_param("~line_r", 238)
+    line_g = rospy.get_param("~line_g", 238)
+    line_b = rospy.get_param("~line_b", 238)
+    line_a = rospy.get_param("~line_a", 255)
+    max_id = rospy.get_param("~max_id", 10000)
+
+    marker_pub = rospy.Publisher("/visualization_marker", Marker, queue_size=1)
+
+    rate = rospy.Rate(pool_rate)
+
+    tf_buffer = tf2_ros.Buffer()
+    tf_listener = tf2_ros.TransformListener(tf_buffer)
+
+    last_timestamp = None
+    marker = Marker()
+    curr_id = marker_init_id
+    marker.points = deque(maxlen=25)
+
+    marker.header.frame_id = tf_parent
+
+    marker.type = Marker.LINE_STRIP
+    marker.lifetime = rospy.Duration(
+        secs=0, nsecs=int(trail_lifetime_duration * 1e9)
+    )
+
+    marker.scale.x = line_width
+    marker.scale.y = 0
+    marker.scale.z = 0
+
+    marker.color.r = line_r / 255
+    marker.color.g = line_g / 255
+    marker.color.b = line_b / 255
+    marker.color.a = line_a / 255
+    marker.pose.position.x = 0
+    marker.pose.position.y = 0
+    marker.pose.position.z = 0
+
+    marker.pose.orientation.x = 0.0
+    marker.pose.orientation.y = 0.0
+    marker.pose.orientation.z = 0.0
+    marker.pose.orientation.w = 1.0
+
+    while not rospy.is_shutdown():
+        _, p, q, msg = get_pose(
+            tf_buffer,
+            tf_parent,
+            tf_name,
+            time=rospy.Time(0),
+            max_wait_time=5,
+            supress_error_msg=False,
+        )
+
+        if p is None:
+            rate.sleep()
+            continue
+        if last_timestamp is None or last_timestamp != msg.header.stamp:
+            last_timestamp = msg.header.stamp
+        else:
+            rate.sleep()
+            continue
+        if len(marker.points) < 2:
+            marker.points.append(np2point(p))
+            rate.sleep()
+            continue
+
+        marker.header.stamp = rospy.Time.now()
+        marker.id = curr_id
+        curr_id += 1
+        if curr_id >= marker_init_id + max_id:
+            curr_id = 0
+
+        marker.points.append(np2point(p))
+
+        marker_pub.publish(marker)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

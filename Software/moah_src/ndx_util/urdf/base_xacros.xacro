@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="cube" params="origin size ori=''">
+      <visual>
+        <material name="yellow">
+          <color rgba="1 0.84 0 2"/>
+        </material>
+
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="${ori['r']} ${ori['p']} ${ori['y']}"/>
+        </xacro:if>
+
+        <geometry>
+          <box size="${size['length']} ${size['width']} ${size['height']}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="${ori['r']} ${ori['p']} ${ori['y']}"/>
+        </xacro:if>
+
+        <geometry>
+          <box size="${size['length']} ${size['width']} ${size['height']}"/>
+        </geometry>
+      </collision>
+  </xacro:macro>
+
+  <xacro:macro name="pillar" params="origin dim ori=''">
+      <visual>
+        <material name="yellow">
+          <color rgba="1 0.84 0 2"/>
+        </material>
+
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="${ori['r']} ${ori['p']} ${ori['y']}"/>
+        </xacro:if>
+
+        <geometry>
+          <cylinder length="${dim['height']}" radius="${dim['radius']}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin['x']} ${origin['y']} ${origin['z']}" rpy="${ori['r']} ${ori['p']} ${ori['y']}"/>
+        </xacro:if>
+
+        <geometry>
+          <cylinder length="${dim['height']}" radius="${dim['radius']}"/>
+        </geometry>
+      </collision>
+  </xacro:macro>
+
+  <xacro:macro name="link_no_visual" params="name length radius">
+    <link name="${name}">
+      <inertial>
+        <mass value="1.0" />
+        <inertia ixx="1.0" iyy="1.0" izz="1.0" ixy="0.1" ixz="0.1" iyz="0.1" />
+      </inertial>
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+      </visual> -->
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="link_xacro" params="filename='' package_name='' name='' scale='1 1 1' rpy:='0 0 0' xyz:='0 0 0'">
+
+    <link name="${name}">
+      <inertial>
+        <mass value="1.0" />
+        <inertia ixx="1.0" iyy="1.0" izz="1.0" ixy="0.1" ixz="0.1" iyz="0.1" />
+      </inertial>
+      <visual>
+        <origin rpy="${rpy}" xyz="${xyz}" />
+        <geometry>
+          <mesh filename="package://${package_name}/meshes/visual/${filename}.dae" scale="${scale}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="${rpy}" xyz="${xyz}" />
+        <geometry>
+          <mesh filename="package://${package_name}/meshes/collision/${filename}.STL" scale="${scale}"/>
+        </geometry>
+      </collision>
+    </link>
+
+  </xacro:macro>
+
+  <xacro:macro name="joint_xacro" params="name='' parent='' child='' axis='0 0 0' type='' rpy:='0 0 0' xyz:='0 0 0' limit='' mimic='False' mimic_feature=''">
+
+    <joint name="${name}" type="${type}">
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <axis xyz="${axis}"/>
+      <dynamics damping="1.0" friction="0.0"/>
+      <xacro:if value="${type != 'fixed'}">
+        <limit effort="${limit['effort']}" lower="${limit['lower']}" upper="${limit['upper']}" velocity="${limit['velocity']}"/>
+        <xacro:if value="${mimic != 'False'}">
+          <mimic joint="${mimic}" multiplier="${mimic_feature['mult']}" offset="${mimic_feature['offset']}"/>
+        </xacro:if>
+      </xacro:if>
+    </joint>
+
+  </xacro:macro>
+
+
+  <xacro:macro name="cube_new" params="origin size ori=''">
+      <visual>
+        <material name="yellow">
+          <color rgba="1 0.84 0 2"/>
+        </material>
+
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin}" rpy="${ori}"/>
+        </xacro:if>
+
+        <geometry>
+          <box size="${size}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <xacro:if value="${ori == ''}">
+          <origin xyz="${origin}" rpy="0 0 0"/>
+        </xacro:if>
+        <xacro:if value="${ori != ''}">
+          <origin xyz="${origin}" rpy="${ori}"/>
+        </xacro:if>
+
+        <geometry>
+          <box size="${size}"/>
+        </geometry>
+      </collision>
+  </xacro:macro>
+
+
+</robot>
+

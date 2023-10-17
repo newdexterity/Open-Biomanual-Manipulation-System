@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+from __future__ import print_function
+
+import rospy
+from odrive_ros import odrive_node
+
+if __name__ == '__main__':
+    try:
+        odrive_node.start_odrive()
+    except rospy.ROSInterruptException:
+        pass

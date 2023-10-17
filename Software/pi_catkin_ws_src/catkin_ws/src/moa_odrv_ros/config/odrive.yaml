@@ -1,0 +1,17 @@
+# can interface name as shown in ifconfig -a
+can_device: "can0"
+# can bridge receive topic
+can_rx_topic: "/can/received_messages"
+# can bridge transmit topic
+can_tx_ropic: "/can/sent_messages"
+# axis state update in Hz
+update_rate: 1
+# engage axises on startup
+engage_on_startup: true
+# array of strings representing names of axises
+axis_names: ["right_torso_bend", "right_shoulder_flex", "right_shoulder_abd", "right_shoulder_rot", "right_elbow", "left_torso_bend", "left_shoulder_flex", "left_shoulder_abd", "left_shoulder_rot", "left_elbow"]
+#axis_names: ["r1a0", "r1a1", "r2a0", "r2a1", "r3a0", "l1a0", "l1a1", "l2a0", "l2a1", "l3a0"]
+# array of ints representing can ids of axises
+axis_can_ids: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+# array of axis directions
+axis_directions: ["forward", "forward", "forward", "forward", "forward", "forward", "forward", "forward", "forward", "forward"]

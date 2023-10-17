@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- Aruco tracker arguments -->
+  <arg name="camera_info" doc="Camera info topic" />
+  <arg name="image" doc="Image topic" />
+  <arg name="camera_frame" doc="Frame where the image is taken from" />
+  <arg name="marker_size" doc="Size of the ArUco marker used, in meters" />
+  <arg name="marker_prefix" default="aruco_" doc="Prefix of the published marker frames" />
+  <arg name="max_marker_id" default="100" doc="Marker IDs higher than this one will not be tracked" />
+
+  <!-- Start aruco tracker -->
+  <node name="aruco_tracker" pkg="ndx_util" type="aruco_tracker">
+    <remap from="camera_info" to="$(arg camera_info)" />
+    <remap from="image" to="$(arg image)" />
+    <param name="camera_frame"       value="$(arg camera_frame)"/>
+    <param name="marker_prefix"      value="$(arg marker_prefix)" />
+    <param name="marker_size"        value="$(arg marker_size)"/>
+    <param name="max_marker_id"      value="$(arg max_marker_id)"/>
+  </node>
+
+</launch>

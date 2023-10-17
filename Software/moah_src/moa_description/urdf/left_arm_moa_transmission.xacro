@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<robot name="human_left_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="left_arm" params="">
+
+    <!-- <link name="shoulder_bend2flex"> -->
+    <link name="human/left_arm_mount"/>
+
+    <link name="human/left_arm_ref_frame">  
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_bend.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
+      </visual>
+	  <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_bend.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
+    </collision>
+    </link>
+    <!-- <link name="shoulder_flex2abd"> -->
+    <link name="human/left_arm_frame0">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_flex.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_flex.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    </link>
+    <!-- <link name="shoulder_abd2rot"> -->
+    <link name="human/left_arm_frame1">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_rot.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_shoulder_rot.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
+    </collision>
+    </link>
+    <!-- <link name="shoulder_rot2elb"> -->
+    <link name="human/left_arm_frame2">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_elbow_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_elbow_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    </link>
+    <!-- <link name="elbow_flex2rot"> -->
+    <link name="human/left_arm_frame3">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_elbow_forearm.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_elbow_forearm.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+
+    </link>
+    <!-- <link name="wrist_rot2flex"> -->
+    <link name="human/left_arm_frame4">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_forearm_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_forearm_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+
+    </link>
+    <!-- <link name="wrist_flex2piv"> -->
+    <link name="human/left_arm_frame5">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_wrist_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_wrist_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+
+    </link>
+    <!-- <link name="wrist_piv2hand"> -->
+    <link name="human/left_arm_frame6">
+      <visual>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_hand_piv.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 ${pi}" xyz="0 0 0"/>
+      </visual>
+    <collision>
+        <geometry>
+          <mesh filename="package://moa_description/mesh/visual_left/moa_hand_piv.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0 0 ${pi}" xyz="0 0 0"/>
+    </collision>
+    </link>
+
+    
+    <!-- <link name="human/left_arm_frame1"/>
+    <link name="human/left_arm_frame2"/>
+
+    <link name="human/left_arm_frame3"> -->
+    <!-- <link name="human/left_hand_root"/> -->
+    <!-- <link name="human/left_arm_frame4"/>
+    <link name="human/left_arm_frame5"/>
+    <link name="human/left_arm_frame6"/> -->
+    <link name="human/left_arm_frame7"/>
+    <!-- <link name="human/left_index_finger_mcp"/>
+    <link name="human/left_pinky_mcp"/>
+    <link name="human/left_thumb">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.03 0.03 0.08"/>
+        </geometry>
+      </visual>
+    </link> -->
+    <!-- Joints -->
+    <joint name="left_shoulder_ref_frame_joint" type="revolute">
+      <origin rpy="0 ${-pi/2} 0" xyz="0.15 0 0"/>
+      <parent link="human/left_arm_mount"/>
+      <child link="human/left_arm_ref_frame"/>
+      <!-- <limit effort="1" lower="-1.57079632679" upper="1.57079632679" velocity="1"/> -->
+      <limit effort="1" lower="-0.5" upper="0.5" velocity="1"/>
+    </joint>
+    <!-- SHOULDER : spherical -->
+
+<!-- Let joint_X be the joint this transmission element is being added to: -->
+
+
+
+    <joint name="left_shoulder_1_flex_exte" type="revolute">
+      <origin rpy="0 ${pi/2} 0" xyz="0.046 0 -0.18"/>
+	<!--origin rpy="0 ${pi/2} 0" xyz="0.18 0 0.046"/-->
+      <axis xyz="-1 0 0"/>
+      <parent link="human/left_arm_ref_frame"/>
+      <child link="human/left_arm_frame0"/>
+      <limit effort="1" lower="-1.57079632679" upper="2.35619449019" velocity="1"/>
+    </joint>
+
+    <joint name="left_shoulder_2_abdu_addu" type="revolute">
+      <origin rpy="${-pi/2} 0 0" xyz="0.09 0 -0.05"/>
+      <axis xyz="0 0 -1"/>
+      <parent link="human/left_arm_frame0"/>
+      <child link="human/left_arm_frame1"/>
+      <limit effort="1" lower="-1.57079632679" upper="1.57079632679" velocity="1"/>
+    </joint>
+
+    <joint name="left_shoulder_3_rotation" type="revolute">
+      <origin rpy="${pi/2} 0 0" xyz="0 0.16 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="human/left_arm_frame1"/>
+      <child link="human/left_arm_frame2"/>
+      <limit effort="1" lower="-1.57079632679" upper="1.57079632679" velocity="1"/>
+    </joint>
+    
+    <!-- END SHOULDER -->
+    <joint name="left_elbow_4_flex_exte" type="revolute">
+      <origin rpy="0 0 0" xyz="0 -0.03 -0.228"/>
+      <axis xyz="-1 0 0"/>
+      <parent link="human/left_arm_frame2"/>
+      <child link="human/left_arm_frame3"/>
+      <limit effort="1" lower="0.0" upper="2.7925268" velocity="1"/>
+    </joint>
+
+    <joint name="left_wrist_5_abdu_addu" type="revolute">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <parent link="human/left_arm_frame5"/>
+      <child link="human/left_arm_frame6"/>
+      <limit effort="1" lower="-0.78539816339" upper="0.78539816339" velocity="1"/>
+    </joint>
+    
+    <joint name="left_wrist_6_flex_exte" type="revolute">
+      <origin rpy="0 0 0" xyz="0 -0.003 -0.26389"/>
+      <axis xyz="0 1 0"/>
+      <parent link="human/left_arm_frame4"/>
+      <child link="human/left_arm_frame5"/>
+      <limit effort="1" lower="-1.57079632679" upper="1.57079632679" velocity="1"/>
+    </joint>
+
+    <joint name="left_7_prona_supin" type="revolute">
+      <origin rpy="0 0 ${pi}" xyz="0 0.03 -0.11951"/>
+      <axis xyz="0 0 1"/>
+      <parent link="human/left_arm_frame3"/>
+      <child link="human/left_arm_frame4"/>
+      <!-- <limit effort="1" lower="-${pi/2}" upper="${pi/2}" velocity="1"/> -->
+      <limit effort="1" lower="-${pi}" upper="${pi}" velocity="1"/>
+    </joint>
+
+    <joint name="left_wrist_hand" type="fixed">
+      <origin rpy="${pi} 0 ${pi/2}" xyz="0 0 0"/>
+      <parent link="human/left_arm_frame6"/>
+      <child link="human/left_arm_frame7"/>
+    </joint>
+
+<transmission name="left_shoulder_ref_frame_joint_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_shoulder_ref_frame_joint">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_shoulder_ref_frame_joint_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_shoulder_1_flex_exte_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_shoulder_1_flex_exte">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_shoulder_1_flex_exte_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_shoulder_2_abdu_addu_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_shoulder_2_abdu_addu">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_shoulder_2_abdu_addu_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_shoulder_3_rotation_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_shoulder_3_rotation">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_shoulder_3_rotation_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_elbow_4_flex_exte_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_elbow_4_flex_exte">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_elbow_4_flex_exte_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_wrist_5_abdu_addu_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_wrist_5_abdu_addu">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_wrist_5_abdu_addu_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_wrist_6_flex_exte_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_wrist_6_flex_exte">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_wrist_6_flex_exte_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+<transmission name="left_7_prona_supin_trans">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="left_7_prona_supin">
+    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_7_prona_supin_motor">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+  </xacro:macro>
+
+</robot>

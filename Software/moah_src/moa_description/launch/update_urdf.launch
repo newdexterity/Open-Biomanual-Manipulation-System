@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="input_urdf_path" default="$(find moa_description)/urdf/dual_arm.xacro"/>
+    <arg name="output_urdf_path" default="$(find moa_description)/urdf/dual_arm.xacro"/>
+    <arg name="line_breakpoint" default="[
+        '  &lt;joint name=&quot;map_2_polhemus&quot; type=&quot;fixed&quot;&gt;',
+    ]"/>        
+        <!-- '  &lt;joint name=&quot;world_2_ur5e_B&quot; type=&quot;fixed&quot;&gt;', -->
+        <!-- $(find skill_t_description)/config/ur5e_A/track_board2robot.yaml, -->
+        <!-- $(find skill_t_description)/config/ur5e_B/track_board2robot.yaml, -->
+    <arg name="calibration_files" default="[
+        $(find moa_description)/config/polhemus2moa.yaml,
+    ]"/>
+        <!-- $(find rgmc_description)/config/track_board2robot_B.yaml -->
+    <node name="calibrate_urdf" pkg="moa_description" type="calibrate_urdf" output="screen">
+        <param name="input_urdf_path" value="$(arg input_urdf_path)" />
+        <param name="output_urdf_path" value="$(arg output_urdf_path)" />
+        <rosparam param="line_breakpoint" subst_value="True"> $(arg line_breakpoint)</rosparam>
+        <rosparam param="calibration_files" subst_value="True"> $(arg calibration_files)</rosparam>
+    </node>
+</launch>

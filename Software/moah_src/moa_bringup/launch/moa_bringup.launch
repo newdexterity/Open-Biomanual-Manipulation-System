@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch> 
+  <group ns="moa_left">
+    <arg name="controller_config_file" value="$(find moa_bringup)/config/moa_left_controllers.yaml"/>
+    <arg name="controllers" default="joint_state_controller functional_antropomorphic_controller"/>
+    <!-- <arg name="controllers" default="joint_state_controller joint_group_position_controller"/> -->
+
+    <!-- Load controller settings -->
+    <rosparam file="$(arg controller_config_file)" command="load"/>
+
+    <!-- Launch hardware interface -->
+    <node name="moa_driver_node" pkg="moa_driver" type="moa_driver_node" output="screen"/>
+
+    <!-- Spawn controller manager -->
+    <node name="ros_control_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="$(arg controllers)" />
+  </group>
+  <group ns="moa_right">
+    <arg name="controller_config_file" value="$(find moa_bringup)/config/moa_right_controllers.yaml"/>
+    <!-- <arg name="controllers" default="joint_state_controller pos_joint_traj_controller"/> -->
+    <!-- <arg name="controllers" default="joint_state_controller joint_group_position_controller"/> -->
+    <arg name="controllers" default="joint_state_controller functional_antropomorphic_controller"/>
+
+    <!-- Load controller settings -->
+    <rosparam file="$(arg controller_config_file)" command="load"/>
+
+    <!-- Launch hardware interface -->
+    <node name="moa_driver_node" pkg="moa_driver" type="moa_driver_node" output="screen"/>
+
+    <!-- Spawn controller manager -->
+    <node name="ros_control_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="$(arg controllers)" />
+  </group>
+
+  <node name="multi_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="false"/>
+    <param name="rate" value="10" /> 
+    <rosparam param="/source_list">[moa_right/joint_states, moa_left/joint_states]</rosparam>
+  </node>
+
+</launch>

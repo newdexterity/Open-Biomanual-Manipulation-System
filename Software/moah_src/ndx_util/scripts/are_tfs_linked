@@ -1,0 +1,220 @@
+#!/usr/bin/env python
+import rospy
+import tf2_ros
+import numpy as np
+from geometry_msgs.msg import TransformStamped, Twist, PoseStamped
+from ndx_util.tf_util import (
+    get_pose,
+    quaternion_from_matrix,
+    tarray_to_posemsg,
+)
+from collections import deque
+from skill_t_trajectories.srv import LoopTrajectory, RecordRequest
+import smach
+import smach_ros
+import threading
+
+
+class TfMonitor:
+    def __init__(self) -> None:
+        self.pub_rate = 150
+        self.avg_window_size = 30
+        self.ref_frame = rospy.get_param("~ref_frame", "world")
+        self.base_tf = rospy.get_param("~base_tf")
+        self.tfs_to_check = rospy.get_param("~tfs_to_check", "world")
+        # output_topic = rospy.get_param("~output_topic")
+
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+        self.linked = False
+        self.base_lin_spd = 0
+
+        t = threading.Thread(target=self.run)
+        t.start()
+
+    def run(self):
+        # t = PoseStamped()
+        rate = rospy.Rate(self.pub_rate)
+        distances_from_base = deque(maxlen=self.avg_window_size)
+        base_speeds = deque(maxlen=self.avg_window_size)
+        obj_speeds = deque(maxlen=self.avg_window_size)
+        last_base_pos = None
+        last_timestamp = stamp_to_secs(rospy.Time.now())
+
+        while not rospy.is_shutdown():
+            # Grabbing position from base
+            _, base_p, _, base_msg = get_pose(
+                self.tf_buffer,
+                self.ref_frame,
+                self.base_tf,
+                time=rospy.Time(0),
+                max_wait_time=0,
+                supress_error_msg=False,
+            )
+            # Grabbing position from object
+            _, obj_p, _, obj_msg = get_pose(
+                self.tf_buffer,
+                self.ref_frame,
+                self.tfs_to_check,
+                time=rospy.Time(0),
+                max_wait_time=0,
+                supress_error_msg=False,
+            )
+
+            if obj_p is None or base_p is None:
+                self.lost_base_tracking = base_p is None
+                self.lost_obj_tracking = obj_p is None
+                rate.sleep()
+                continue
+
+            if last_timestamp is None or last_timestamp != stamp_to_secs(
+                base_msg.header.stamp
+            ):
+                dt = stamp_to_secs(base_msg.header.stamp) - last_timestamp
+                last_timestamp = stamp_to_secs(base_msg.header.stamp)
+            else:
+                rate.sleep()
+                continue
+            if last_base_pos is not None and last_obj_pos is not None:
+                distances_from_base.append(np.linalg.norm(obj_p - base_p))
+                base_speeds.append(np.linalg.norm(base_p - last_base_pos) / dt)
+                obj_speeds.append(np.linalg.norm(obj_p - last_obj_pos) / dt)
+            last_base_pos = base_p
+            last_obj_pos = obj_p
+
+            if len(distances_from_base) < distances_from_base.maxlen:
+                rate.sleep()
+                continue
+
+            p_query_np_arr = np.array(distances_from_base)
+
+            obj_var = np.var(p_query_np_arr)
+            self.linked = obj_var < 1e-6
+            self.base_lin_spd = np.mean(base_speeds)
+            self.obj_lin_spd = np.mean(obj_speeds)
+            rate.sleep()
+
+
+# define state Foo
+class HoldingObject(smach.State):
+    def __init__(self, tf_mon: TfMonitor):
+        smach.State.__init__(
+            self, outcomes=["released_obj", "continue_grasping", "end"]
+        )
+        self.tf_mon = tf_mon
+
+    def execute(self, userdata):
+        if rospy.is_shutdown():
+            return "end"
+        rospy.loginfo(
+            f"Lin spd: {self.tf_mon.base_lin_spd}, linked:"
+            f" {self.tf_mon.linked}"
+        )
+        if not self.tf_mon.linked:
+            return "released_obj"
+        else:
+            return "continue_grasping"
+
+
+class HoldWaiting(smach.State):
+    def __init__(self, tf_mon: TfMonitor):
+        smach.State.__init__(
+            self, outcomes=["grasped_obj", "not_grasped_obj", "end"]
+        )
+        self.tf_mon = tf_mon
+        self.wait_ammount = 0.25
+
+    def execute(self, userdata):
+        if rospy.is_shutdown():
+            return "end"
+        rospy.sleep(self.wait_ammount)
+        # If, after waiting, the object's position is constant w.r.t the base, they are linked
+        if self.tf_mon.linked:
+            return "grasped_obj"
+        else:
+            return "not_grasped_obj"
+
+
+# define state Bar
+class NotHoldingObject(smach.State):
+    def __init__(self, tf_mon: TfMonitor):
+        smach.State.__init__(self, outcomes=["not_grasped_obj", "wait", "end"])
+        self.tf_mon = tf_mon
+
+    def execute(self, userdata):
+        if rospy.is_shutdown():
+            return "end"
+
+        # A transition will only happen if the objects are moving...
+        if (
+            self.tf_mon.base_lin_spd >= 0.01
+            and self.tf_mon.obj_lin_spd >= 0.01
+        ):
+            return "wait"
+        # If one of them are stationary, we stay on this state
+        else:
+            return "not_grasped_obj"
+
+
+def stamp_to_secs(stamp: rospy.rostime.Time):
+    return stamp.secs + stamp.nsecs * 1e-9
+
+
+def main():
+    rospy.init_node("are_tfs_linked")
+    tf_mon = TfMonitor()
+
+    # rate = rospy.Rate(10)
+    # while not rospy.is_shutdown():
+    #     # rospy.loginfo(tf_mon.linked)
+    #     rate.sleep()
+    # quit()
+    # Create a SMACH state machine
+    sm = smach.StateMachine(outcomes=["end_program"])
+
+    sis = smach_ros.IntrospectionServer("server_name", sm, "/SM_ROOT")
+    sis.start()
+
+    # Open the container
+    with sm:
+        # Add states to the container
+        smach.StateMachine.add(
+            "NotHoldingObject",
+            NotHoldingObject(tf_mon),
+            transitions={
+                "not_grasped_obj": "NotHoldingObject",
+                "wait": "HoldWaiting",
+                "end": "end_program",
+            },
+        )
+        smach.StateMachine.add(
+            "HoldWaiting",
+            HoldWaiting(tf_mon),
+            transitions={
+                "grasped_obj": "HoldingObject",
+                "not_grasped_obj": "NotHoldingObject",
+                "end": "end_program",
+            },
+        )
+        smach.StateMachine.add(
+            "HoldingObject",
+            HoldingObject(tf_mon),
+            transitions={
+                "released_obj": "NotHoldingObject",
+                "continue_grasping": "HoldingObject",
+                "end": "end_program",
+            },
+        )
+
+    # Execute SMACH plan
+    outcome = sm.execute()
+
+    rospy.spin()
+    sis.stop()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Launch Camera -->
+  <node pkg="ndx_util" type="webcam" name="webcam" >
+    <rosparam file="$(find ndx_util)/config/webcam_config.yaml" command="load" />
+  </node>
+
+</launch>
+

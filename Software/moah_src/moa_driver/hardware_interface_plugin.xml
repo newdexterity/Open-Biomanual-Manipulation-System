@@ -1,0 +1,4 @@
+<library path="lib/moa_driver_plugin">
+  <class name="moa_driver/MoaHWInterface" type="moa_driver::MoaHWInterface" base_class_type="hardware_interface::RobotHW">
+  </class>
+</library>

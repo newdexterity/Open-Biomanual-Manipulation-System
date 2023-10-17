@@ -1,0 +1,28 @@
+controller_list:
+  - name: fake_left_arm_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - left_shoulder_ref_frame_joint
+      - left_shoulder_1_flex_exte
+      - left_shoulder_2_abdu_addu
+      - left_shoulder_3_rotation
+      - left_elbow_4_flex_exte
+      - left_7_prona_supin
+      - left_wrist_6_flex_exte
+      - left_wrist_5_abdu_addu
+  - name: fake_right_arm_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - right_shoulder_ref_frame_joint
+      - right_shoulder_1_flex_exte
+      - right_shoulder_2_abdu_addu
+      - right_shoulder_3_rotation
+      - right_elbow_4_flex_exte
+      - right_7_prona_supin
+      - right_wrist_6_flex_exte
+      - right_wrist_5_abdu_addu
+initial:  # Define initial robot poses per group
+#  - group: left_arm
+#    pose: home
+
+  []

@@ -1,0 +1,40 @@
+rostopic pub /rightservo std_msgs/Float32MultiArray "layout:         
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
+
+rostopic pub /leftservo std_msgs/Float32MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]" 
+
+
+sudo nano /boot/config.txt
+rosrun socketcan_interface socketcan_dump can0
+ip -det link show can0
+ip -details -statistics link show can0
+sudo ip link set can0 down
+sudo ip link set can0 up type can bitrate 1000000
+sudo ip link set can0 txqueuelen 1000
+sudo ip link set can0 txqueuelen 1
+
+sudo systemctl enable systemd-networkd
+sudo systemctl start systemd-networkd
+sudo systemctl restart systemd-networkd
+
+rosrun moa_odrv_ros can_odrive_passover.py
+roslaunch moa_odrv_ros odrive_can_ros.launch 
+
+dmesg | grep -i spi
+dmesg | grep -i can
+
+canbusload can0@1000000
+python3 -m can.viewer -c "can0" -i "socketcan"
+
+candump can0 -xct z -n 10

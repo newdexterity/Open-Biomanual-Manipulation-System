@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Arguments -->
+  <arg name="camera_frame" default="webcam" doc="Frame where the image is taken from" />
+  <arg name="marker_size" doc="Size of the ArUco marker used, in meters" />
+  <arg name="marker_prefix" default="aruco_" doc="Prefix of the published marker frames" />
+  <arg name="max_marker_id" default="20" doc="Marker IDs higher than this one will not be tracked" />
+
+  <!-- Launch Camera -->
+  <node pkg="ndx_util" type="webcam" name="webcam" >
+    <rosparam file="$(find ndx_util)/config/webcam_config.yaml" command="load" />
+  </node>
+
+  <!-- Launch Aruco Tracker -->
+  <node pkg="ndx_util" type="aruco_tracker" name="aruco_tracker" >
+    <remap from="camera_info" to="webcam/camera_info" />
+    <remap from="image" to="webcam/image_raw" />
+    <param name="camera_frame"       value="$(arg camera_frame)"/>
+    <param name="marker_prefix"      value="$(arg marker_prefix)" />
+    <param name="marker_size"        value="$(arg marker_size)"/>
+    <param name="max_marker_id"      value="$(arg max_marker_id)"/>
+  </node>
+
+</launch>
+

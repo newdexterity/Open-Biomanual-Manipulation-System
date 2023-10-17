@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="left_hand">
+    <xacro:property name="thumb_diameter" value="0.02" />
+    <xacro:property name="palm_size" value="0.09" />
+    
+
+<!-- finger_name = human/index -->
+<!-- parent_link = human/left_palm -->
+<!-- finger_diameter = 0.02 -->
+<!-- meta_x = 0.03 -->
+<!-- meta_y = 0.09 -->
+<!-- prox_len = 0.04 -->
+<!-- middle_len = 0.025 -->
+<!-- distal_len = 0.02 -->
+
+    <xacro:macro name="human_finger" params="finger_name parent_link finger_diameter meta_x meta_z prox_len middle_len distal_len piv_amplitude flex_amplitude">
+        <link name="${finger_name}_meta"/>
+        <link name="${finger_name}_proximal_0"/>
+        <link name="${finger_name}_proximal_1">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 ${prox_len/2}"/>
+                <geometry>
+                    <box size="${finger_diameter} ${finger_diameter} ${prox_len}"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${finger_name}_middle">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 ${middle_len/2}"/>
+                <geometry>
+                    <box size="${finger_diameter} ${finger_diameter} ${middle_len}"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${finger_name}_distal">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 ${distal_len/2}"/>
+                <geometry>
+                    <box size="${finger_diameter} ${finger_diameter} ${distal_len}"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${finger_name}_tip"/>
+
+        <joint name="${finger_name}_palm_meta" type="fixed">
+            <origin rpy="0 0 0" xyz="${meta_x} 0 ${meta_z}"/>
+            <parent link="${parent_link}"/>
+            <child link="${finger_name}_meta"/>        
+        </joint>
+
+        <joint name="${finger_name}_meta_abdu" type="revolute">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <axis xyz="0 1 0"/>
+            <parent link="${finger_name}_meta"/>
+            <child link="${finger_name}_proximal_0"/>
+            <limit effort="1" lower="-${piv_amplitude}" upper="${piv_amplitude}" velocity="1"/>
+        </joint>
+
+        <joint name="${finger_name}_meta_flex" type="revolute">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <axis xyz="-1 0 0"/>
+            <parent link="${finger_name}_proximal_0"/>
+            <child link="${finger_name}_proximal_1"/>
+            <limit effort="1" lower="0" upper="${flex_amplitude}" velocity="1"/>
+        </joint>
+
+        <joint name="${finger_name}_proximal_flex" type="revolute">
+            <origin rpy="0 0 0" xyz="0 0 ${prox_len}"/>
+            <axis xyz="-1 0 0"/>
+            <parent link="${finger_name}_proximal_1"/>
+            <child link="${finger_name}_middle"/>
+            <limit effort="1" lower="0" upper="${flex_amplitude}" velocity="1"/>
+        </joint>
+
+        <joint name="${finger_name}_middle_flex" type="revolute">
+            <origin rpy="0 0 0" xyz="0 0 ${middle_len}"/>
+            <axis xyz="-1 0 0"/>
+            <parent link="${finger_name}_middle"/>
+            <child link="${finger_name}_distal"/>
+            <limit effort="1" lower="0" upper="${flex_amplitude}" velocity="1"/>
+        </joint>
+
+        <joint name="${finger_name}_tip_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0 ${distal_len}"/>
+            <parent link="${finger_name}_distal"/>
+            <child link="${finger_name}_tip"/>            
+        </joint>
+    </xacro:macro>
+
+
+    <link name="human/left_hand_mount"/>
+    <link name="human/left_palm">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 ${palm_size/2}"/>
+            <geometry>
+                <box size="${palm_size} ${thumb_diameter} ${palm_size}"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="human/left_hand_thumb_meta_0"/>
+    <link name="human/left_hand_thumb_meta_1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0.04 0 0"/>
+            <geometry>
+                <box size="0.08 ${thumb_diameter} ${thumb_diameter}"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="human/left_hand_thumb_prox">
+        <visual>
+            <origin rpy="0 0 0" xyz="${thumb_diameter} 0 0"/>
+            <geometry>
+                <box size="0.04 ${thumb_diameter} ${thumb_diameter}"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="human/left_hand_thumb_distal">
+        <visual>
+            <origin rpy="0 0 0" xyz="0.01 0 0"/>
+            <geometry>
+                <box size="0.02 ${thumb_diameter} ${thumb_diameter}"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="human/left_hand_thumb_tip"/>
+
+    <!-- Joints -->
+    <joint name="left_hand_mount2palm" type="fixed">
+        <origin rpy="0 0 ${pi}" xyz="0 0 0"/>
+        <parent link="human/left_hand_mount"/>
+        <child link="human/left_palm"/>
+    </joint>
+    <!-- Thumb -->
+
+    <joint name="left_hand/thumb_meta_abdu" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <axis xyz="0 -1 0"/>
+        <parent link="human/left_palm"/>
+        <child link="human/left_hand_thumb_meta_0"/>
+        <limit effort="1" lower="0" upper="${pi/2}" velocity="1"/>
+    </joint>
+
+    <joint name="left_hand/thumb_meta_flex" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.07"/>
+        <axis xyz="0 0 1"/>
+        <parent link="human/left_hand_thumb_meta_0"/>
+        <child link="human/left_hand_thumb_meta_1"/>
+        <limit effort="1" lower="0" upper="${pi/2}" velocity="1"/>
+    </joint>
+    
+    <joint name="left_hand/thumb_proximal_flex" type="revolute">
+        <origin rpy="0 0 0" xyz="0.08 0 0"/>
+        <axis xyz="0 -1 0"/>
+        <parent link="human/left_hand_thumb_meta_1"/>
+        <child link="human/left_hand_thumb_prox"/>
+        <limit effort="1" lower="0" upper="${pi/2}" velocity="1"/>
+    </joint>
+
+    <joint name="left_hand/thumb_distal_flex" type="revolute">
+        <origin rpy="0 0 0" xyz="0.04 0 0"/>
+        <axis xyz="0 -1 0"/>
+        <parent link="human/left_hand_thumb_prox"/>
+        <child link="human/left_hand_thumb_distal"/>
+        <limit effort="1" lower="0" upper="${pi/2}" velocity="1"/>
+    </joint>
+
+    <joint name="left_thumb_tip_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.02 0 0"/>        
+        <parent link="human/left_hand_thumb_distal"/>
+        <child link="human/left_hand_thumb_tip"/>        
+    </joint>
+
+
+<!-- finger_name = human/index -->
+<!-- parent_link = human/left_palm -->
+<!-- finger_diameter = 0.02 -->
+<!-- meta_x = 0.03 -->
+<!-- meta_y = 0.09 -->
+<!-- prox_len = 0.04 -->
+<!-- middle_len = 0.025 -->
+<!-- distal_len = 0.02 -->
+
+    <!-- <xacro:macro name="human_finger" params="finger_name parent_link finger_diameter meta_x meta_z prox_len middle_len distal_len"> -->
+
+    <xacro:human_finger finger_name="left_hand/index" parent_link="human/left_palm" finger_diameter="0.02" meta_x="0.03" meta_z="0.09" prox_len="0.04" middle_len="0.025" distal_len="0.02" piv_amplitude="${pi/4}" flex_amplitude="${pi/2}"/>
+    <xacro:human_finger finger_name="left_hand/middle" parent_link="human/left_palm" finger_diameter="0.02" meta_x="0.01" meta_z="0.09" prox_len="0.05" middle_len="0.03" distal_len="0.02" piv_amplitude="${pi/4}" flex_amplitude="${pi/2}"/>
+    <xacro:human_finger finger_name="left_hand/ring" parent_link="human/left_palm" finger_diameter="0.02" meta_x="-0.01" meta_z="0.09" prox_len="0.04" middle_len="0.025" distal_len="0.02" piv_amplitude="${pi/4}" flex_amplitude="${pi/2}"/>
+    <xacro:human_finger finger_name="left_hand/pinky" parent_link="human/left_palm" finger_diameter="0.02" meta_x="-0.03" meta_z="0.08" prox_len="0.04" middle_len="0.02" distal_len="0.02" piv_amplitude="${pi/4}" flex_amplitude="${pi/2}"/>
+</robot>
