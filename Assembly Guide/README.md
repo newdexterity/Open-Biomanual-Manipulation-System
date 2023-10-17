@@ -1,4 +1,4 @@
-# Assembly Guide
+# Getting Started
 
 ## Components
 The Bill_of_Materials.xlsx document contains the list of required components to assemble the bimanual robot.
