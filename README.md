@@ -21,7 +21,7 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 ## Repository Contents - WIP
 This repository contains the following material:
 
-* Assembly guide and bill of materials - Wiki
+* Assembly guide and bill of materials - [Wiki](../../wiki)
 * CAD files of the bimanual platform - WIP (Cleaning up Readme files)
 * ROS interface for joint control - WIP (Sorting through code)
 
