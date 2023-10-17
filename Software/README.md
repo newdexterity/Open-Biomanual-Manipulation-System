@@ -1,3 +1,5 @@
+# WIP (Do not download)
+<!---
 # RIS for RPi4
 Please follow the link to install ROS-noetic on RPi4. Steps for custom configurations such as boot-previlages, network settings, SPI settings, and setup of the RPI4 is currently a WIP.
 
@@ -145,6 +147,7 @@ rosrun
 ```
 
 For faster communications, remember to change the `txqlen` to 1 for the can interface
+-->
 
 ```
 sudo ip .....
