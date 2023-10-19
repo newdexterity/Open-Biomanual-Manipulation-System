@@ -70,6 +70,8 @@ WIP
 * Software requirements: ROS Melodic/Noetic
 * Multimachine communication: Ethernet via router
 * CAN bus communication: MCP2515 via RPi4 with ROS noetic for arm64
+* 
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
 
 ## Hardware - WIP
 * ??x M3x12 mm Hex screw
