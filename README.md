@@ -3,7 +3,7 @@ Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New 
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_arm_main.jpg" width="800">
 
-# About the Modular Open-Architecture Hybrid-drive (MOAH) Bimanual Arm Hand System
+# About the Modular Open-source Arm Hand (MOAH) Hybrid-drive Bimanual Arm Hand System
 ## The Mission
 
 The modular, dexterous, anthropomorphic bimanual manipulation system is a collaborative open-source robot manipulator project initiated by the New Dexterity group aimed to provide a low-cost research platform for studying bimanual manipulator systems and experimental actuating systems or kinematic configurations. It follows the footsteps of ARoA, a humanoid Autonomous Robotic Assistant, and is a manipulator module from the original ARoA manipulators.
