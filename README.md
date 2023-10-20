@@ -75,7 +75,11 @@ WIP
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
 
 ## Hardware - WIP
-* Raspberry pi 4 model B
+
+* Robot CAN controller node: Raspberry Pi 4 Model B
+* Main Computer: Intel NUCi7 or similar with Ubuntu 18.04 with ROS melodic - 20.04 noetic should work
+* Router: TP-link Archer VR300 (any router would do)
+* Power supplies: assorted 24V or 48V power supplies
 
 ## Software - WIP
 
