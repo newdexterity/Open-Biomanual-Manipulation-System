@@ -26,7 +26,7 @@ This repository contains the following material:
 * ROS interface for joint control - WIP (Sorting through code)
 
 ### Foldable Shoulder
-The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This also demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientation. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
+The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientations. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
 
 ### Joint Locking
 A specialized joint locking mechanism is used in both the shoulder and elbow flexion joints, mitigating motor stress during high-load manipulation tasks such as holding extended poses for long periods of time. The ratchet lock systems employed enable the joints to maintain their position with minimal energy expenditure, thereby reducing the overall torque exerted on the motors. 
@@ -87,14 +87,17 @@ Theoretical capabilities:
 The robot can accept a variety of input controls via the ROS framework. The base system demonstrates the integration of different telemanipulation controllers with the Captoglove and the Polhemus magnetic system.
 
 ## Power Distribution System - WIP
-The 56V ODrive controllers can operate motors with voltages up to 56V and peak currents of 120A per motor. However for continous operation, it is recommended to operate at a much lower current.
+The 56V ODrive controllers can operate motors with voltages up to 56V and peak currents of 120A per motor. However, for continuous operation, it is recommended to operate at a much lower current.
 
 Heatsink only in still air: 40A
 Heatsink with basic fan cooling: 75A
 Heatsink with overkill fan cooling: 90A
+
+Retrieved from :
 [Details](https://discourse.odriverobotics.com/t/odrive-mosfet-temperature-rise-measurements-using-the-onboard-thermistor/972)
 
 The base system limits current supply at 10A and voltage at 24V for safety in testing and operation. A higher current and voltage bypass is possible via the optional 48V battery pack. 
+Here's a link to a nice article on power source selection:
 [Details for custom powersources](https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html)
 
 <p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) </p>
