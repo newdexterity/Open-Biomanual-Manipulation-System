@@ -5,29 +5,32 @@
 # Parts Needed (left arm)
 ## 3D Printed
 
-* 4 X OBMP-TCU-1189 (ratchet core)
+* 1 X OBMP-BTP-1620 (base mount C)
+* 1 X OBMP-BTP-1621 (base mount B)
+* 1 X OBMP-BTP-1622 (base mount A)
+* 1 X OBMP-BTP-1630 (motor mount A)
+* 1 X OBMP-BTP-1631 (motor mount B)
+* 
 
 ## Carbon Fiber Sheets
 ### 5 mm thick
 
-* 1 X OBMP-TCU-P5-1171
+* 1 X OBMP-BTP-P5-1610
 
 ### 3 mm thick
 
-* 1 X OBMP-TCU-P3-1151
-* 1 X OBMP-TCU-P3-1184
-### 2 mm thick
-
-* 1 X OBMP-TCU-P3-1162
-
+* 2 X OBMP-BTP-P3-1623
+* 4 X OBMP-BTP-P3-1624
+* 4 X OBMP-BTP-P3-1650
+* 4 X OBMP-BTP-P3-1651
+  
 ## Mechanical parts
 
-* 2 X OBMP-TCU-1190 (Machined motor coupler)
-* 2 X XB3-B-60-100 Harmonic Drive
-* 2 X 6x6x20 mm Machine key
-* 2 X M5X51 mm Aluminium standoff
-* 1 X SKF 51110 thrust bearing
-* 3 X 6806ZZ bearing
+* 1 X OBMP-BTP-1632 (Modified machined motor coupler)
+* 1 X OBMP-BTP-1652
+
+* 1 X 6x6x20 mm Machine key
+* 7 X 16004ZZ bearing
 
 
 * 4 X M2X40 mm screw (or longer)
