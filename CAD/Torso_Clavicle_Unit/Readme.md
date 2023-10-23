@@ -73,21 +73,9 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 # Parts Needed (Right arm)
 ## 3D Printed
 
-* 1 X OBMP-TCU-1110
-* 2 X OBMP-TCU-1120
-* 1 X OBMP-TCU-1121 (mirrored)
-* 1 X OBMP-TCU-1130
-* 1 X OBMP-TCU-1140
-* 1 X OBMP-TCU-1141
-* 1 X OBMP-TCU-1143
-* 1 X OBMP-TCU-1150
-* 1 X OBMP-TCU-1160
-* 1 X OBMP-TCU-1161
-* 1 X OBMP-TCU-1170
-* 1 X OBMP-TCU-1180
-* 1 X OBMP-TCU-1183
-* 2 X OBMP-TCU-1185
-* 4 X OBMP-TCU-1189
+* 1 X OBMP-TCU-1121 (mirrored) (odrive stack base)
+
+## Rest of parts are same for both arms
 
 # Notes
 ## Motor Spacer (obmp-tcu-1143)
