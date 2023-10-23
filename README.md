@@ -71,7 +71,7 @@ Here is an overview of the structural parts required for assembling the torso an
 * Hardware cost: ~$11000 USD
 * Software requirements: ROS Melodic/Noetic
 * Multimachine communication: Ethernet via router
-* CAN bus communication: MCP2515 via RPi4 with ROS noetic for arm64
+* CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
 
 ### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
