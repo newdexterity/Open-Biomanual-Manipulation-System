@@ -5,42 +5,43 @@
 # Parts Needed (left arm)
 ## 3D Printed
 
-* 4 X OBMP-TCU-1189 (ratchet core)
+* 1 X OBMP-TCU-1130
+* 1 X OBMP-BTU-1520
+* 1 X OBMP-BTU-1530
+* 1 X OBMP-BTU-1534
 
 ## Carbon Fiber Sheets
 ### 5 mm thick
 
-* 1 X OBMP-TCU-P5-1171
+* 1 X OBMP-BTU-P5-1510
 
 ### 3 mm thick
 
-* 1 X OBMP-TCU-P3-1151
-* 1 X OBMP-TCU-P3-1184
+* 1 X OBMP-BTU-P3-1531
+* 1 X OBMP-BTU-P3-1532
+* 1 X OBMP-BTU-P3-1533
+* 1 X OBMP-BTU-P3-1535
+  
 ### 2 mm thick
 
 * 1 X OBMP-TCU-P3-1162
 
 ## Mechanical parts
 
-* 2 X OBMP-TCU-1190 (Machined motor coupler)
-* 2 X XB3-B-60-100 Harmonic Drive
-* 2 X 6x6x20 mm Machine key
-* 2 X M5X51 mm Aluminium standoff
-* 1 X SKF 51110 thrust bearing
-* 3 X 6806ZZ bearing
-
-
-* 4 X M2X40 mm screw (or longer)
-* 16 X M8 Nuts
-* 16 X M8 Washers
-* 20 X M6 Nuts (go on the inside of the plates)
-* 10 X M4 Bolts (support alignment bolts for holding the plates in place)
-* 10 X M4 Nuts
+* 1 X OBMP-motor-coupler (Machined motor coupler)
+* 1 X XB3-B-60-100 Harmonic Drive
+* 1 X ASL-140 aluminium bearing
+* 2 X Bowden cable adjuster set
+* 1 X 5 mm v-groove bearing
+* 1 X 6x6x20 mm Machine key
+* 1 X 608ZZ bearing
+* 1 X 6806ZZ bearing
+* 2 X RF2181 4mm ronstan thimble
+* assorted M6 screw and nut
+* assorted M5 screw and nut
+* assorted M4 screw and nut
 
 ## Motors and Sensors
 
-* 2 X D6374-150KV
-* 2 X CUI AMT232V (can swap for other compatible AMT sensors)
-
-
-# Parts Needed (Right arm)
+* 1 X D6374-150KV
+* 1 X CUI AMT232V (can swap for other compatible AMT sensors)
