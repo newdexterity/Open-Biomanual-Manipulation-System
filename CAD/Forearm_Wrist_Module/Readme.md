@@ -2,6 +2,8 @@
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-fwm-1600.jpg" width="800">
 
+A wrist module compatible with Type B and Type D forearm adaptors.
+
 # Parts Needed (left arm)
 ## 3D Printed
 
