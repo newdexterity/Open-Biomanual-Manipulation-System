@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-fam.jpg" width="800">
 
-
+Type A and Type B are motorized adaptor options. Type C and Type E are adaptors for 25 mm dia. carbon fibre tube connectors with machined or printed options. Type D is a reinforced printed connector alternative to the Type B connector for 2020 aluminium extrusions.
 # Parts Needed (TypeA)
 ## 3D Printed
 * 1 X OBMP-FAM-A-1410
@@ -28,8 +28,8 @@
 * 1 X RDS5160 Servo
 
 # Parts Needed (TypeC)
-## 3D Printed
-* 1 X OBMP-FAM-C-1400
+## Mechanical Part
+* 1 X OBMP-FAM-C-1400 (Machined)
 
 # Parts Needed (TypeD)
 ## 3D Printed
