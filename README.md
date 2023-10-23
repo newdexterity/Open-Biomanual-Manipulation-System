@@ -22,7 +22,7 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 This repository contains the following material:
 
 * Assembly guide and bill of materials - [Wiki](../../wiki)
-* CAD files of the bimanual platform - (Missing bolt count)
+* CAD files of the bimanual platform
 * ROS interface for joint control - WIP (Sorting through code)
 
 ### Foldable Shoulder
