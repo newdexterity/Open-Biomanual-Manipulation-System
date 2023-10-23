@@ -38,8 +38,12 @@
 * 1 X 6x6x20 mm Machine key
 * 7 X 16004ZZ bearing
 * 14 X 6804ZZ bearing
-* 10 X 5mm V groove bearing
+* 10 X 5 mm V groove bearing
 * 2 X Bowden cable adjuster set
+
+* 17 X 6 mm x 20 mm bolt and nuts
+* 10 X 5 mm x 20 mm bolt and nuts
+* assorted M4 bolts and nuts
 
 ## Motors and Sensors
 
