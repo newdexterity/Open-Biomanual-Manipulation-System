@@ -61,7 +61,7 @@ Here is an overview of the structural parts required for assembling the torso an
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_forearm_rot_modules.jpg" width="800">
 
 ### Wrist/Hand Modules
-WIP
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_hand_wrist_modules.jpg" width="800">
 
 ## Robot Manipulator specifications
 * Reachable arm length: 1000 mm
