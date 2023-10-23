@@ -43,12 +43,11 @@ The bowden cable, tendon driven, lockable elbow joint assembly
 * 2 X GS-9025MG servo (or other high torque 9g servo)
 
 # Parts Needed (Right arm)
-
-## Mirrored parts required
 ## 3D Printed
 
 * 1 X OBMP-ELB-1310 (mirrored)
 
+## Rest of the parts are the same for both arms
 
 # Notes
 
