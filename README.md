@@ -18,15 +18,17 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 * Box-style structure for easy access and maintenance
 * Open-source ODrive Controllers for BLDC motors
 
-## Repository Contents - WIP
+## Repository Contents
 This repository contains the following material:
 
 * Assembly guide and bill of materials - [Wiki](../../wiki)
-* CAD files of the bimanual platform - WIP (Cleaning up Readme files)
+* CAD files of the bimanual platform - (Missing bolt count)
 * ROS interface for joint control - WIP (Sorting through code)
 
 ### Foldable Shoulder
 The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientations. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
+
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_folding_image.jpg" width="800">
 
 ### Joint Locking
 A specialized joint locking mechanism is used in both the shoulder and elbow flexion joints, mitigating motor stress during high-load manipulation tasks such as holding extended poses for long periods of time. The ratchet lock systems employed enable the joints to maintain their position with minimal energy expenditure, thereby reducing the overall torque exerted on the motors. 
@@ -74,16 +76,20 @@ Here is an overview of the structural parts required for assembling the torso an
 Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
 
-## Hardware - WIP
+## Computer and Electronics
 
 * Robot CAN controller node: Raspberry Pi 4 Model B
 * Main Computer: Intel NUCi7 or similar with Ubuntu 18.04 with ROS melodic - 20.04 noetic should work
 * Router: TP-link Archer VR300 (any router would do)
-* Power supplies: assorted 24V or 48V power supplies
+* Power supplies: assorted 6V, 12V, 24V or 48V power supplies
+* Microcontrollers: ESP32 boards for ROS control for forearms and hands
+* MAX485 transceiver boards for RS485 communication with Dynamixel motors
+* Vero boards for custom interfacing
+* Tri-state buffer (74AHC1G125S) for AMT232 SPI communication with ODrive
+* Old Ethernet cables for signal wiring
+* Assorted cables for power wiring
 
-## Software - WIP
-
-## Teleoperation - WIP
+## Teleoperation
 The robot can accept a variety of input controls via the ROS framework. The base system demonstrates the integration of different telemanipulation controllers with the Captoglove and the Polhemus magnetic system.
 
 ## Power Distribution System - WIP
