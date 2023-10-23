@@ -2,50 +2,57 @@
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-elb-1300.jpg" width="800">
 
-Thergebsbrbetts.
+The bowden cable, tendon driven, lockable elbow joint assembly
 
 # Parts Needed (left arm)
 ## 3D Printed
 
 * 1 X OBMP-ELB-1310
+* 1 X OBMP-ELB-1320
+* 2 X OBMP-ELB-1322
 
 ## Carbon Fiber Sheets
 
 ### 3 mm thick
 
-* 1 X OBMP-TCU-P3-1151
+* 1 X OBMP-ELB-P3-1311
+* 1 X OBMP-ELB-P3-1312
+* 1 X OBMP-ELB-P3-1313
+* 1 X OBMP-ELB-P3-1314
+* 2 X OBMP-ELB-P3-1315
+* 2 X OBMP-ELB-P3-1321
 
 ### 2 mm thick
 
-* 1 X OBMP-TCU-P3-1162
+* 2 X OBMP-ELB-P2-1324
 
 ## Mechanical parts
 
-* 2 X OBMP-TCU-1190 (Machined motor coupler)
-* 2 X XB3-B-60-100 Harmonic Drive
-* 2 X 6x6x20 mm Machine key
-* 2 X M5X51 mm Aluminium standoff
-* 1 X SKF 51110 thrust bearing
-* 3 X 6806ZZ bearing
+* 1 X OBMP-Tube-Coupler-25mm
+* 2 X Bowden cable adjuster set
+* 2 X V522ZZ 5 mm V-groove bearing
+* 1 X OBMP-ELB-1316 (5 mm dia.)
+* 1 X OBMP-ELB-1317 (4 mm dia.)
+* 2 X OBMP-ELB-1323 (50 mm dia. aluminium ring)
+* 1 X OBMP-ELB-1330 (20 mm dia. stainless tube)
+* 2 X HK0508 needle bearing
+* 2 X RF2181 4 mm ronstan thimble
 
+## Motors
 
-* 4 X M2X40 mm screw (or longer)
-* 16 X M8 Nuts
-* 16 X M8 Washers
-* 20 X M6 Nuts (go on the inside of the plates)
-* 10 X M4 Bolts (support alignment bolts for holding the plates in place)
-* 10 X M4 Nuts
-
-## Motors and Sensors
-
-None.
+* 2 X GS-9025MG servo (or other high torque 9g servo)
 
 # Parts Needed (Right arm)
+
+## Mirrored parts required
+## 3D Printed
+
+* 1 X OBMP-ELB-1310 (mirrored)
+
 
 # Notes
 
 https://www.marine-deals.co.nz/anchoring-and-mooring/ronstan-sailmaker-stainless-anchor-rope-thimble-4mm
 
 ## ToDo
-
-Update obmp-tcu-1160 to have 3mm carbon plates
+N/A
