@@ -78,7 +78,7 @@ Here is an overview of the structural parts required for assembling the torso an
 
 ## Computer and Electronics
 
-* Robot CAN controller node: Raspberry Pi 4 Model B
+* Robot CAN controller node: Raspberry Pi 4 Model B with custom MCP2515 CAN controller and MCP2551 CAN transceiver hat
 * Main Computer: Intel NUCi7 or similar with Ubuntu 18.04 with ROS melodic - 20.04 noetic should work
 * Router: TP-link Archer VR300 (any router would do)
 * Power supplies: assorted 6V, 12V, 24V or 48V power supplies
