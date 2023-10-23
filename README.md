@@ -73,7 +73,7 @@ Here is an overview of the structural parts required for assembling the torso an
 * Multimachine communication: Ethernet via router
 * CAN bus communication: MCP2515 via RPi4 with ROS noetic for arm64
 
-Theoretical capabilities:
+### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
 
 ## Computer and Electronics
