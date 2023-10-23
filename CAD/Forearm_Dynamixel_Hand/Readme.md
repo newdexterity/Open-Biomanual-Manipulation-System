@@ -3,7 +3,7 @@
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-fdh-1700.jpg" width="800">
 
 
-# Parts Needed (left arm)
+# Parts Needed (right hand)
 ## 3D Printed
 
 * 1 X OBMP-FDH-1710
