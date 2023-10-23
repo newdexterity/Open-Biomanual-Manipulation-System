@@ -1,2 +1,2 @@
 # Misc parts
-This contains the model for the ESP32 adaptor boards that controls the hand and forearm units.
+These are the models for the ESP32 adaptor board that control the hand and forearm units and the tube mounting for the board.
