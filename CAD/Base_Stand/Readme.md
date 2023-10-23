@@ -5,6 +5,21 @@
 The base stand is a simple structure for mounting the bimanual system on a mobile frame. 
 The stand is mainly constructed from 40 X 40 mm Aluminium Extrusions, and a more sturdy version can be applied using 40 X 80 Aluminium Extrusions.
 
+## Parts needed
+
+* 1 X OBMP-BA-H-1010 (720 mm)
+* 3 X OBMP-BA-H-FAST-T
+* 2 X OBMP-BA-H-1020 (700 mm)
+* 2 X OBMP-BA-H-1030 (1000 mm)
+* 2 X OBMP-BA-H-FAST-L
+* 3 X OBMP-BA-H-1040 (320 mm)
+* 1 X OBMP-BA-H-1050 (2000 mm)
+* 2 X OBMP-BA-H-FAST-G1
+* 12 X OBMP-BA-H-FAST-G2
+* 2 X OBMP-BA-H-1060 (50 mm)
+* 2 X OBMP-BA-H-1070 (200 mm)
+* Assorted bolts and extrusion connector nuts
+
 ## Connectors
 
 The connectors in the file are sourced from McMaster Carr but can be custom-made using 4mm aluminium plates or manufactured from L-shaped brackets. Ideally, a fastening system for the 40 X 40 extrusion would be used.
