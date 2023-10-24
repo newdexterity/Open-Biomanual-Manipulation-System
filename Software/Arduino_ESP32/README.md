@@ -9,4 +9,4 @@
 
 ## Notes
 
-Software serial for dynamixel - for rs485, remember to change Hardwareserial to softwareserial
+Software serial for dynamixel - for rs485, remember to change Hardwareserial to softwareserial in the library
