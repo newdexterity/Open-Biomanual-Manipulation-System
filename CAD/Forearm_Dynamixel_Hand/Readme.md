@@ -9,12 +9,11 @@
 * 1 X OBMP-FDH-1710
 * 2 X OBMP-FDH-1720
 * 1 X OBMP-FDH-1730
-* 12 X OBMP-FDH-1730
 * 1 X OBMP-FDH-1751
 * 1 X OBMP-FDH-1752
 * 1 X OBMP-FDH-1754
 * 4 X OBMP-FDH-1758
-
+* 12 X OBMP-FDH-1760
 
 ## 3D Printed with Flexible filament (NinjaFlex)
 
