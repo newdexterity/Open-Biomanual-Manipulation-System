@@ -6,6 +6,7 @@ It also includes product numbers, prices and links to reseller webpages.
 Most of the structure is designed to be 3D printed with reinforcing parts cut from carbon fiber plates. 
 The original version were manufactured using the Prusa mk3 printers and standard filaments from esun. Carbon fiber plates were cut using the desktop WAZER water jet cutter.
 Some components are custom and requires machining capabilities, these can be obtained from rapid prototyping services or local machine shops.
+### WARNING: To make life easier and not having to deal with noise in the SPI line, it is recommended to use the AMT102 series incremental encoders instead of the AMT232V absolute encoders
 
 ## ODriver Connection
 The ODrive motor drivers can be connected directly to the BLDC motors and requires a parallel CAN bus connection to the CANbus interface with the Raspberry Pi GPIO hat.
