@@ -28,4 +28,4 @@ A wrist module compatible with Type B and Type D forearm adaptors. The end conne
   
 # Notes
 
-This is a stand-alone wrist module with 3 DoF. Compatible with the 2020 aluminium extrusion forearm adaptors.
+This is a stand-alone wrist module with 3 DoF. Compatible with the 22 mm X 22 mm aluminium extrusion forearm adaptors.
