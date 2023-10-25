@@ -23,11 +23,6 @@
 * 1 X OBMP-FAH-1853
 * 1 X OBMP-FAH-1854
 * 1 X OBMP-FAH-1855
-  
-## Mechanical parts
-
-* 12 X MF52ZZ flanged bearing
-* 24 X MR52ZZ bearing
 
 ## Motors
 
