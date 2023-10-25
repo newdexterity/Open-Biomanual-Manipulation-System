@@ -56,13 +56,9 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 4 X M2X40 mm screw (or longer)
 * 7 X M6X20 mm Hex screws
 * 14 X M5X16 mm Hex screws
-* ??
-* ?? X M6 Nuts
-* ?? X M5 Nuts
-* ?? X M4 Nuts
-
 * 10 X M4 Bolts (support alignment bolts for holding the plates in place)
-* 10 X M4 Nuts
+* Assorted M6, M5, and M4 Nuts
+
 
 ## Motors and Sensors
 
