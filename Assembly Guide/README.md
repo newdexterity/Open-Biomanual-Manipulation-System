@@ -4,7 +4,7 @@
 The Bill_of_Materials.xlsx document contains the list of required components to assemble the bimanual robot. It also includes product numbers, prices and links to reseller webpages.
 Most of the structure is designed to be 3D printed with reinforcing parts cut from carbon fibre plates. 
 The original version was manufactured using the Prusa mk3 printers and standard filaments from Esun. Carbon fibre plates were cut using the desktop WAZER water jet cutter.
-Some components are custom and require machining capabilities. These can be obtained from rapid prototyping services or from local machine shops, the BOM uses PCBWays for estimating the costs of the parts.
+Some components are custom and require machining capabilities. These can be obtained from rapid prototyping services or from local machine shops. The BOM uses PCBWays for estimating the costs of the parts hence the price is more expensive than if the parts were locally printed. Additionally, the prices recorded are retail prices.
 The BOM is organised with different pages for different modules :
 
 * Bimanual_Robot_Arm_TypeA : The cost of building both arms, including the elbow and forearm rotation module TypeA (Power system not included)
