@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/obmp-fwm-1600.jpg" width="800">
 
-A wrist module compatible with Type B and Type D forearm adaptors.
+A wrist module compatible with Type B and Type D forearm adaptors. The end connector is designed for dovetail adaptor plates for mounting various grippers.
 
 # Parts Needed (left arm)
 ## 3D Printed
