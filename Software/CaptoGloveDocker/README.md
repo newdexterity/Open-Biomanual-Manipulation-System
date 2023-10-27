@@ -9,6 +9,11 @@ docker build -t ros_capto_img:kinetic_11 .
 use this command to start docker
 ./start kinetic_11
 
+## Notes
+* The hci and bluetooth client channels for publishing the finger sensor data seems to be linked to the settings uploaded to the captoglove in the captoglove suite.
+* ToDo: upload a copy of glove settings for this code to work
+* currently the thumb pressure data and index finger data overlaps in the data extracted from the channels
+
 once in should see :
 non-network local connections being added to access control list
 Using 'aroa' as username, with UID=1000 and GUID=1000
