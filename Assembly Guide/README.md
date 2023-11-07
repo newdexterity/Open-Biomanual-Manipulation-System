@@ -16,9 +16,26 @@ The BOM is organised with different pages for different modules :
 * Power_supply : WIP
 
 ### WARNING: It is recommended to use the AMT102 series incremental encoders instead of the AMT232V absolute encoders
-This is to make life easier without having to deal with noise in the SPI line.
+This is to make life easier without having to deal with noise in the SPI line. Otherwise a custom tristate buffer is required for correct operation of the encoder. (74AHC1G125S)
 
 # Getting Started
+## Things you will need
+* Main computer (intel NUC7)
+* DCHP router
+* Raspberry pi 4
+* Ethernet cables
+  
+## Multi-machine ROS setup
+* Please follow the wiki for software setup
+Connect the ethernet as depicted in the following diagram:
+WIP
+<p align="center">
+  <img src = ../docs/connection_schematic.png>
+</p>
+
+goto your router dchp configuration page and reserve the IP for each machine using their MAC addresses
+Setup ROS_IP and ROS_MASTER accordingly
+link to ros multimachine tutorial page:
 
 ## ODriver Connection
 The ODrive motor drivers can be connected directly to the BLDC motors and require a parallel CAN bus connection to the CANbus interface with the Raspberry Pi GPIO hat.
