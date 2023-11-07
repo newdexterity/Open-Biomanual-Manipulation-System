@@ -50,3 +50,9 @@ WIP
 ## Forearm Module Electronics
 
 WIP
+
+## Teleoperation controls
+
+### Polhemus
+
+### Captoglove
