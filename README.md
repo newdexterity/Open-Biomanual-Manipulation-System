@@ -18,7 +18,7 @@ This repository contains the following material:
     │   ├── Arduino_ESP32                        # Arduino code for operating the forearm and human-like hands for the ESP32
     │   ├── CaptoGloveDocker                     # Captoglove Docker scripts for installing and interfacing with ROS (Bluetooth)
     │   ├── Odrive_Settings                      # ODrive sample settings for setting up the ODrives (WIP)
-    │   ├── moah_src                             # Main package for visualizing, control, and operation (telemanipulation and playback) of the robot
+    │   ├── moah_src                             # Main package for simulation, visualization, and operation of the robot
     │   ├── pi_catkin_ws_src                     # Code for the RPi4 CAN passover module and setup of the RPi4 for multimachine ROS
     │   ├── README.md 
     │   ├── Screenshot 2023-10-12 15_46_23.png
