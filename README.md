@@ -28,7 +28,7 @@ This repository contains the following material:
     │   ├── Odrive_Settings                      # ODrive sample settings for setting up the ODrives (WIP)
     │   ├── moah_src                             # Main package for simulation, visualization, and operation of the robot
     │   ├── pi_catkin_ws_src                     # Code for the RPi4 CAN passover module and setup of the RPi4 for multimachine ROS
-    │   ├── README.md 
+    │   ├── README.md                            # **_Use this for install instructions_**
     │   ├── Screenshot 2023-10-12 15_46_23.png
     │   ├── config.txt                           # RPi4 config for SPI bridge to CANBUS controller
     │   ├── syscfg.txt                           # RPi4 config for SPI bridge to CANBUS controller
@@ -133,6 +133,8 @@ Retrieved from :
 The base system limits current supply at 10A and voltage at 24V for safety in testing and operation. A higher current and voltage bypass is possible via the optional 48V battery pack. 
 Here's a link to a nice article on power source selection:
 [Details for custom powersources](https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html)
+
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
 <p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) </p>
 
