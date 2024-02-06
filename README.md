@@ -6,9 +6,10 @@ Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New 
 ## Repository Contents
 This repository contains the following material:
 
-> Assembly guide folder - [Wiki](../../wiki)
-> CAD folder - Design files of the bimanual platform for manufacturing
-> Software folder - Interface for joint control - WIP (Sorting through code)
+* Assembly guide folder - [Wiki](../../wiki)
+* CAD folder - Design files of the bimanual platform for manufacturing
+* Software folder - Interface for joint control - WIP (Sorting through code)
+
     .
     ├── build                   # Compiled files (alternatively `dist`)
     ├── docs                    # Documentation files (alternatively `doc`)
