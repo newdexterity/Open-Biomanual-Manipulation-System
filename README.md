@@ -3,6 +3,13 @@ Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New 
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_arm_main.jpg" width="800">
 
+## Repository Contents
+This repository contains the following material:
+
+* Assembly guide folder - [Wiki](../../wiki)
+* CAD folder - Design files of the bimanual platform for manufacturing
+* Software folder - Interface for joint control - WIP (Sorting through code)
+
 # About the Modular Open-source Arm Hand (MOAH) Hybrid-drive Bimanual Arm Hand System
 ## The Mission
 
@@ -17,13 +24,8 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 * Bowden drive joints
 * Box-style structure for easy access and maintenance
 * Open-source ODrive Controllers for BLDC motors
-
-## Repository Contents
-This repository contains the following material:
-
-* Assembly guide and bill of materials - [Wiki](../../wiki)
-* CAD files of the bimanual platform
-* ROS interface for joint control - WIP (Sorting through code)
+* 
+## Robot Hardware Overview
 
 ### Foldable Shoulder
 The foldable shoulder enables re-orientation of the manipulator bases, allowing for a larger intersecting bimanual workspace. This demonstrates how the modular platform can be modified for different kinematic designs through different actuator orientations. With detachable modules and 3D-printed sandwiched plate structures, the layout of the system can be quickly reconfigured. For example, a raised shoulder abduction module can be used to fit different types of robotic configurations and designs. 
