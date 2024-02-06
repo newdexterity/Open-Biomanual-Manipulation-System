@@ -10,14 +10,21 @@ This repository contains the following material:
 * CAD folder - Design files of the bimanual platform for manufacturing
 * Software folder - Interface for joint control - WIP (Sorting through code)
 
-### A typical top-level directory layout
+### Software Folder Directory
 
     .
-    ├── build                   # Compiled files (alternatively `dist`)
-    ├── docs                    # Documentation files (alternatively `doc`)
-    ├── src                     # Source files (alternatively `lib` or `app`)
-    ├── test                    # Automated tests (alternatively `spec` or `tests`)
-    ├── tools                   # Tools and utilities
+    ├── ..
+    ├── Software                     # Test files (alternatively `spec` or `tests`)
+    │   ├── Arduino_ESP32            # Load and stress tests
+    │   ├── CaptoGloveDocker         # End-to-end, integration tests (alternatively `e2e`)
+    │   ├── Odrive_Settings          # End-to-end, integration tests (alternatively `e2e`)
+    │   ├── moah_src                 # End-to-end, integration tests (alternatively `e2e`)
+    │   ├── pi_catkin_ws_src         # End-to-end, integration tests (alternatively `e2e`)
+    │   ├── README.md 
+    │   ├── Screenshot 2023-10-12 15_46_23.png
+    │   ├── config.txt
+    │   ├── syscfg.txt         
+    │   └── usercfg.txt              
     ├── LICENSE
     └── README.md
 
