@@ -17,7 +17,9 @@ This repository contains the following material:
     │   ├── Bill_of_Materials.xlsx               # Bill of Materials (WIP)        
     │   └── README.md
     ├── CAD                                      # Software folder for various subsystems
-    │   ├── ...                                  # Various submodules of the OpenBMP system
+    │   ├── ...                                  
+    │   ├──                                      # Various submodules of the OpenBMP system
+    │   ├── ...   
     │   ├── README.md
     │   └── open_bmp_asm.7z                      # Assembled robot CAD
     ├── Software                                 # Software folder for various subsystems
