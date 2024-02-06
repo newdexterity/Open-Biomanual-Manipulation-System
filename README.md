@@ -9,7 +9,14 @@ This repository contains the following material:
 * Assembly guide folder - [Wiki](../../wiki)
 * CAD folder - Design files of the bimanual platform for manufacturing
 * Software folder - Interface for joint control - WIP (Sorting through code)
-
+    .
+    ├── build                   # Compiled files (alternatively `dist`)
+    ├── docs                    # Documentation files (alternatively `doc`)
+    ├── src                     # Source files (alternatively `lib` or `app`)
+    ├── test                    # Automated tests (alternatively `spec` or `tests`)
+    ├── tools                   # Tools and utilities
+    ├── LICENSE
+    └── README.md
 # About the Modular Open-source Arm Hand (MOAH) Hybrid-drive Bimanual Arm Hand System
 ## The Mission
 
