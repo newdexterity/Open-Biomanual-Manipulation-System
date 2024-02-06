@@ -10,6 +10,8 @@ This repository contains the following material:
 * CAD folder - Design files of the bimanual platform for manufacturing
 * Software folder - Interface for joint control - WIP (Sorting through code)
 
+### A typical top-level directory layout
+
     .
     ├── build                   # Compiled files (alternatively `dist`)
     ├── docs                    # Documentation files (alternatively `doc`)
@@ -18,6 +20,7 @@ This repository contains the following material:
     ├── tools                   # Tools and utilities
     ├── LICENSE
     └── README.md
+
 # About the Modular Open-source Arm Hand (MOAH) Hybrid-drive Bimanual Arm Hand System
 ## The Mission
 
