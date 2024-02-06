@@ -10,10 +10,16 @@ This repository contains the following material:
 * CAD folder - Design files of the bimanual platform for manufacturing
 * Software folder - Interface for joint control - WIP (Sorting through code)
 
-### Software Folder Directory
-
+### Folder Directory
     .
     ├── ..
+    ├── Assembly guide
+    │   ├── Bill_of_Materials.xlsx               # Bill of Materials (WIP)        
+    │   └── README.md
+    ├── CAD                                      # Software folder for various subsystems
+    │   ├── ...                                  # Various submodules of the OpenBMP system
+    │   ├── README.md
+    │   └── open_bmp_asm.7z                      # Assembled robot CAD
     ├── Software                                 # Software folder for various subsystems
     │   ├── Arduino_ESP32                        # Arduino code for operating the forearm and human-like hands for the ESP32
     │   ├── CaptoGloveDocker                     # Captoglove Docker scripts for installing and interfacing with ROS (Bluetooth)
