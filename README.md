@@ -28,7 +28,7 @@ This repository contains the following material:
     │   ├── Odrive_Settings                      # ODrive sample settings for setting up the ODrives (WIP)
     │   ├── moah_src                             # Main package for simulation, visualization, and operation of the robot
     │   ├── pi_catkin_ws_src                     # Code for the RPi4 CAN passover module and setup of the RPi4 for multimachine ROS
-    │   ├── README.md                            # **_Use this for install instructions_**
+    │   ├── README.md                            # *** Use this for install instructions ***
     │   ├── Screenshot 2023-10-12 15_46_23.png
     │   ├── config.txt                           # RPi4 config for SPI bridge to CANBUS controller
     │   ├── syscfg.txt                           # RPi4 config for SPI bridge to CANBUS controller
