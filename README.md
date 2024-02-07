@@ -97,9 +97,14 @@ Here is an overview of the structural parts required for assembling the torso an
 * Reachable arm length: 1000 mm
 * Single arm weight: 12.4 kg
 * Hardware costs:
->     Bimanual robot arm platform: ~$12000 USD (without forearm module)
->    1    
->    2
+>    ### Bimanual robot arm platform:
+>         ~ $12000 USD (without forearm module)
+>    ### Single ASL hand (servo Ver.)
+>         ~ $450 USD
+>    ### Single Dynamixel hand
+>         ~ $1900 USD
+>    ### Single unit of robotic wrist module
+>         ~ $1200 USD
 * Software requirements: ROS Melodic/Noetic
 * Multimachine communication: Ethernet via router
 * CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
