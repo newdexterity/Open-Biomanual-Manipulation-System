@@ -100,15 +100,15 @@ Here is an overview of the structural parts required for assembling the torso an
 * Multimachine communication: Ethernet via router
 * CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
   
-### Hardware costs (approximate):
->    ### Bimanual robot arm platform:
->         $12000 USD (without forearm module)
+### Hardware costs (approximate) (USD):
+>    ### Bimanual robot arm platform (without forearm module):
+>         $12000
 >    ### Single ASL hand (servo Ver.)
->         $450 USD
+>         $450
 >    ### Single Dynamixel hand
->         $1900 USD
+>         $1900
 >    ### Single unit of robotic wrist module
->         $1200 USD
+>         $1200
 
 ### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
