@@ -50,7 +50,7 @@ The bimanual platform is equipped with a pair of modular, 5 DoF upper, mixed-dri
 * Bowden drive joints
 * Box-style structure for easy access and maintenance
 * Open-source ODrive Controllers for BLDC motors
-* 
+
 ## Robot Hardware Overview
 
 ### Foldable Shoulder
@@ -95,8 +95,12 @@ Here is an overview of the structural parts required for assembling the torso an
 
 ## Robot Manipulator specifications
 * Reachable arm length: 1000 mm
-* Single arm weight: 12.4 kg
-* Hardware costs:
+* Single arm weight: 12.4 kg 
+* Software requirements: ROS Melodic/Noetic
+* Multimachine communication: Ethernet via router
+* CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
+  
+### Hardware costs:
 >    ### Bimanual robot arm platform:
 >         ~ $12000 USD (without forearm module)
 >    ### Single ASL hand (servo Ver.)
@@ -105,9 +109,6 @@ Here is an overview of the structural parts required for assembling the torso an
 >         ~ $1900 USD
 >    ### Single unit of robotic wrist module
 >         ~ $1200 USD
-* Software requirements: ROS Melodic/Noetic
-* Multimachine communication: Ethernet via router
-* CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
 
 ### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
