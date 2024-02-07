@@ -96,7 +96,10 @@ Here is an overview of the structural parts required for assembling the torso an
 ## Robot Manipulator specifications
 * Reachable arm length: 1000 mm
 * Single arm weight: 12.4 kg
-* Hardware cost: ~$11000 USD
+* Hardware costs:
+>     Bimanual robot arm platform: ~$12000 USD (without forearm module)
+>    1    
+>    2
 * Software requirements: ROS Melodic/Noetic
 * Multimachine communication: Ethernet via router
 * CAN bus communication: CANbus hat via SPI with RPi4 using ROS noetic for arm64
