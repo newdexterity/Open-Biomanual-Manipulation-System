@@ -102,13 +102,13 @@ Here is an overview of the structural parts required for assembling the torso an
   
 ### Hardware costs (approximate) (USD):
 >    ### Bimanual robot arm platform (without forearm module):
->         $12000
+>         $11600
 >    ### Single ASL hand (servo Ver.)
 >         $450
 >    ### Single Dynamixel hand
->         $1900
+>         $1920
 >    ### Single unit of robotic wrist module
->         $1200
+>         $1230
 
 ### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
