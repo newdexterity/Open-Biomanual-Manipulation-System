@@ -145,6 +145,8 @@ Here's a link to a nice article on power source selection:
 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
+https://github.com/orgs/community/discussions/16925
+
 <p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) </p>
 
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
