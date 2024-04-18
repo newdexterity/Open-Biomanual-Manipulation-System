@@ -1,9 +1,0 @@
-<launch>
-    
-    <node pkg="socketcan_bridge" type="socketcan_bridge_node" name="socketcan_bridge" output="screen" ns="can">
-        <rosparam file="$(find moa_odrv_ros)/config/odrive.yaml" />
-    </node>
-    <node name="odrive_can_ros_node" pkg="moa_odrv_ros" type="odrive_node" output="screen">
-        <rosparam file="$(find moa_odrv_ros)/config/odrive.yaml" />
-    </node>
-</launch>
