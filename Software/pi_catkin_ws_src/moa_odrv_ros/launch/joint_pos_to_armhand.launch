@@ -1,0 +1,10 @@
+<launch>
+
+  <node name="joint_pos_reader" pkg="moa_odrv_ros" type="bag2armhand.py" output="screen">
+    <param name="publish_aroa_joint_states" value="False" />
+    <param name="delay" value="0.05" />
+    <param name="hand_smooth" value="0.5" />
+    <param name="arm_smooth" value="0.2" />
+  </node>
+
+</launch>
