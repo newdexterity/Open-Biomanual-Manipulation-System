@@ -5,7 +5,7 @@
 
 ## Usage
 
-download and extract 'moa_odrv_ros' folder to 'catkin_ws/src/' on your RPi4
+download and extract `moa_odrv_ros` folder to `catkin_ws/src/` on your RPi4
 
 ## Acknowledgements
 
