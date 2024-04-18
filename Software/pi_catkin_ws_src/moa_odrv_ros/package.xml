@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>moa_odrv_ros</name>
-  <version>0.8.1</version>
+  <version>0.0.1</version>
   <description>ODrive motor controller driver for ROS</description>
   <license>Modified BSD</license>
 
@@ -24,12 +24,10 @@
   <exec_depend>diagnostic_updater</exec_depend>
   
   <depend>can_msgs</depend>
-  <depend>socketcan_bridge</depend>
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <exec_depend>roscpp</exec_depend>
-  <exec_depend>ODrive</exec_depend>
 
   <export>
     <!-- Other tools can request additional information be placed here -->
