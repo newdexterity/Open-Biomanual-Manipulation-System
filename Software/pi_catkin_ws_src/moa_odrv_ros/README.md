@@ -5,6 +5,10 @@ Please make sure the CAN hat is configured correctly before proceeding.
 This is a basic pass at a ROS driver to operate the ODrive. It's Python-based, so not super-fast.
 A faster C++ version is being examined but it won't be optimised anytime soon - dev branch. 
 
+
+> [!Note]
+> Remember to run chmod +x for the python scripts such as can_odrive_passover.py and bag2armhand.py
+
 ### Folder Directory
     moa_odrv_ros
     ├── ..
