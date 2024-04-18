@@ -16,23 +16,23 @@ A faster C++ version is being examined but it won't be optimised anytime soon - 
     │   ├── joint_pos_to_armhand.launch          # Launch file for playback rosbag files
     │   ├── serial_node_left.launch              # Launch file for left hand serial connection (needs rosserial installed)
     │   └── serial_nodes.launch                  # Launch file for both serial connection to hands (needs rosserial installed)
-    ├── src/moa_odrv_ros
+    ├── scripts
     │   ├── bag2armhand.py                       # Rosbag playback for arm and hand
-    │   ├── can_dbc_example.py                     # Captoglove Docker scripts for installing and interfacing with ROS (Bluetooth)
-    │   ├── can_example.py                     # ODrive sample settings for setting up the ODrives (WIP)
-    │   ├── can_odrive_passover.py                           # Main package for simulation, visualization, and operation of the robot
-    │   ├── create_can_dbc.py                     # Code for the RPi4 CAN passover module and setup of the RPi4 for multimachine ROS
-    │   ├── direct_motor_test.py                          # *** Use this for install instructions ***
-    │   ├── odrive-cansimple.dbc
-    │   ├── readCSV.py                         # RPi4 config for SPI bridge to CANBUS controller
-    │   ├── readcsv2motor.py                          # RPi4 config for SPI bridge to CANBUS controller
-    │   ├── test.csv
-    │   └── writeCSV.py                          # RPi4 config for SPI bridge to CANBUS controller and hdmi output settings
+    │   ├── can_dbc_example.py                   # Example can dbc from odrive
+    │   ├── can_example.py                       # Example can code
+    │   ├── can_odrive_passover.py               # Main code for passing ros topic to odrive canbus
+    │   ├── create_can_dbc.py                    # Create custom can dbc
+    │   ├── direct_motor_test.py                 # Publish test commands to rostopic - use this to test motors
+    │   ├── odrive-cansimple.dbc                 # Odrive cansimple protocol dbc file
+    │   ├── readCSV.py                           # Motion playback from CSV
+    │   ├── readcsv2motor.py                     # Read saved csv and playback to ros topics
+    │   ├── test.csv                             # Empty sample csv
+    │   └── writeCSV.py                          # Records rostopics to csv
     ├── CHANGELOG
     ├── CMakeLists.txt
     ├── LICENSE
     ├── README.md
-    ├── canbus_debug
+    ├── canbus_debug                            # snippets for canbus debugging
     ├── package.xml
     └── setup.py
 
