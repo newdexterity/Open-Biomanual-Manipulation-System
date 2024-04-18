@@ -1,9 +1,0 @@
-motor id 1
-1<<5 = 20
-ID 0x021 ->HEARTBEAT_MESSAGE = 0x001
-ID 0x029 ->GET_ENCODER_ESTIMATE = 0x009
-
-
-
-python3 -m can.viewer -c "can0" -i "socketcan"
-
