@@ -35,8 +35,13 @@ A faster C++ version is being examined but it won't be optimised anytime soon - 
     ├── canbus_debug                            # snippets for canbus debugging
     ├── package.xml
     └── setup.py
+# Usage
 
-
+- Make sure the python files are executable `chmod +x` for can_odrive_passover.py
+- Compile the package using `catkin_make` then use `rosrun moa_odrv_ros can_odrive_passover.py` to begin transfer data from rostopics to CANbus
+- Use `direct_motor_test.py` to test `can_odrive_passover.py` without connecting to the main computer over ethernet
+- Change the target motor positions in `direct_motor_test.py` to test different joints
+- Use readCSV.py and writeCSV.py to playback and record motion data from the relevant rostopics
 
 # odrive_ros testing
 It's a good idea to install the official odrive_ros code for testing:
