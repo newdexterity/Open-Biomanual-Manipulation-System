@@ -1,7 +1,11 @@
-# Code for the RPi4 CAN passover module
+# Code for the RPi4 CAN passover
 
 - [ ] Implement C++ version of CAN bus communication with ROS
 - [ ] Improve control loop time
+
+## Usage
+
+download and extract 'moa_odrv_ros' folder to 'catkin_ws/src/' on your RPi4
 
 ## Acknowledgements
 
