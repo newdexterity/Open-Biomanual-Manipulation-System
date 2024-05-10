@@ -112,6 +112,8 @@ Here is an overview of the structural parts required for assembling the torso an
 >    ### Single unit of robotic wrist module
 >         $1230
 
+<img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_dynamixel_arm_dimension_landscape.jpg" width="800">
+
 ### Theoretical capabilities:
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/Openbmp_Specs.jpg" width="800">
 
