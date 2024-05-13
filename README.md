@@ -3,6 +3,11 @@ Open Source Anthropomorphic Bimanual Manipulator Robot project initiated by New 
 
 <img src="https://raw.githubusercontent.com/newdexterity/Open-Biomanual-Manipulation-System/master/images/readme/moah_arm_main.jpg" width="800">
 
+# Related Publications
+
+[ICRA 2024 - Overview and tele-manipulation](https://www.researchgate.net/publication/380467006_The_New_Dexterity_Modular_Dexterous_Anthropomorphic_Open-Source_Bimanual_Manipulation_Platform_Combining_Adaptive_and_Hybrid_Actuation_Systems_with_Lockable_Joints)
+[tASL paper]()
+
 ## Repository Contents
 This repository contains the following material:
 
