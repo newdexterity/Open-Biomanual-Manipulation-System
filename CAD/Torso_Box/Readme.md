@@ -20,10 +20,9 @@ Using two layers of 5 mm thich carbon fiber boards, the box structure is connect
 
 ## Mechanical parts
 
-* 8 X OBMP-TB-1011 (M8 threaded rod, 200 mm lengths)
-* 16 X M8 Nuts
-* 16 X M8 Washers
-* 20 X M6 Nuts (go on the inside of the plates)
+* 8 X OBMP-TB-1011 (M6 threaded rod, 200 mm lengths)
+* 16 X M6 Washers
+* 36 X M6 Nuts (go on the inside of the plates)
 * 10 X M4 Bolts (support alignment bolts for holding the plates in place)
 * 10 X M4 Nuts
 
