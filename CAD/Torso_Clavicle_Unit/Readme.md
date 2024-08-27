@@ -18,8 +18,10 @@ The unit also comes with a detachable shoulder flexion mounting unit. The flexio
 * 1 X OBMP-TCU-1150
 * 1 X OBMP-TCU-1155 (Alternative sensor stand)
 * 1 X OBMP-TCU-1160
+* OBMP-TCU-1160-S (Solid version without servo mounting)
 * 1 X OBMP-TCU-1161
 * 1 X OBMP-TCU-1170
+* OBMP-TCU-1170-S (Solid version without servo mounting)
 * 1 X OBMP-TCU-1180
 * 1 X OBMP-TCU-1183
 * 2 X OBMP-TCU-1185 (locking ring)
