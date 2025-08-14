@@ -152,6 +152,12 @@ The base system limits current supply at 10A and voltage at 24V for safety in te
 Here's a link to a nice article on power source selection:
 [Details for custom powersources](https://things-in-motion.blogspot.com/2018/12/how-to-select-right-power-source-for.html)
 
+## Endpoint Traverse Speed - WIP
+The motors were limited to 60rpm on the ODrive controller, which is roughly 6 rpm after the harmonic reducers. Using the DH parameter and Jacobian, the end traverse speed is about 0.27m/s.
+This was both a structural safety precaution as well as the power system limit. However, from experiments, the system did reach speeds of 0.36m/s during motion replication tasks.
+If we use the theoretical max speed per joint, of 57.6 rpm, this computes to about 2.59m/s. The system has not been stress-tested at this kind of speed!
+
+
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
 https://github.com/orgs/community/discussions/16925
@@ -159,3 +165,4 @@ https://github.com/orgs/community/discussions/16925
 <p align="justify"> The project is distributed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) </p>
 
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+
